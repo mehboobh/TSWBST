@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/reveal'
 
@@ -13,19 +13,19 @@ const steps = [
 export function RiskCta() {
   return (
     <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="overflow-hidden rounded-3xl border border-border bg-navy text-navy-foreground">
+      <div className="container-site section-padding-lg">
+        <div className="overflow-hidden rounded-2xl border border-border bg-navy text-navy-foreground">
           <div className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center lg:p-16">
             <div
               className="grid-lines absolute inset-0 opacity-30"
               aria-hidden="true"
             />
             <Reveal className="relative">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              <span className="inline-flex items-center gap-2 text-eyebrow text-accent">
                 <span className="h-px w-6 bg-accent" aria-hidden="true" />
                 Risk Screening
               </span>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="mt-4 text-balance text-section-title text-navy-foreground">
                 Understand Your Compliance Position Before Small Issues Become
                 Bigger Problems.
               </h2>
@@ -39,16 +39,18 @@ export function RiskCta() {
               <p className="mt-4 font-medium text-navy-foreground">
                 No obligation. Just a real answer to where you stand.
               </p>
-              <Button asChild size="lg" className="mt-8">
-                <Link href="/risk-screening">
-                  Request Your Risk Screening
-                  <ArrowRight className="size-4" />
-                </Link>
+              <Button
+                asChild
+                variant="cta"
+                size="lg"
+                className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90"
+              >
+                <Link href="/risk-screening">Request Your Risk Screening →</Link>
               </Button>
             </Reveal>
 
             <Reveal delay={120} className="relative">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 ring-1 ring-inset ring-white/10 sm:p-8">
+              <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
                 <p className="text-xs font-semibold uppercase tracking-wider text-navy-muted">
                   How a screening works
                 </p>
