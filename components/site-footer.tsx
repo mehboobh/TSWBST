@@ -1,5 +1,3 @@
-// components/site-footer.tsx
-
 import Link from 'next/link'
 import { MapPin, Mail, Clock } from 'lucide-react'
 import { Logo } from '@/components/logo'
@@ -33,17 +31,17 @@ function FacebookIcon({ className }: { className?: string }) {
 const socialLinks = [
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/company/truckease', // Replace with your profile URL or "#"
+    href: 'https://linkedin.com/company/truckease',
     icon: LinkedInIcon,
   },
   {
     name: 'X / Twitter',
-    href: 'https://x.com/truckease', // Replace with your profile URL or "#"
+    href: 'https://x.com/truckease',
     icon: TwitterIcon,
   },
   {
     name: 'Facebook',
-    href: 'https://facebook.com/truckease', // Replace with your profile URL or "#"
+    href: 'https://facebook.com/truckease',
     icon: FacebookIcon,
   },
 ]
@@ -52,8 +50,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-navy text-navy-foreground">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="bg-navy text-navy-foreground border-t border-navy-border">
+      <div className="container-site py-16">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div className="max-w-md">
             <Logo variant="light" />
@@ -71,7 +69,7 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-8">
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-navy-muted">
+              <h2 className="text-eyebrow text-navy-muted">
                 Navigate
               </h2>
               <ul className="mt-4 space-y-3">
@@ -89,7 +87,7 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-navy-muted">
+              <h2 className="text-eyebrow text-navy-muted">
                 Legal & Support
               </h2>
               <ul className="mt-4 space-y-3">
