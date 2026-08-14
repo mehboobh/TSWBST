@@ -24,7 +24,7 @@ export function PlatformPreview() {
           className="pointer-events-none absolute right-0 top-0 size-[30rem] rounded-full bg-accent/10 blur-[120px]"
           aria-hidden="true"
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="relative container-site section-padding-lg">
           <Reveal>
             <SectionHeading
               tone="light"
@@ -35,7 +35,7 @@ export function PlatformPreview() {
           </Reveal>
 
           <Reveal delay={120} className="mt-12">
-            <div className="mx-auto max-w-4xl">
+            <div className="mx-auto max-w-5xl">
               <ComplianceDashboard />
               <p className="mt-4 text-center text-xs text-navy-muted">
                 Interface concept. Illustrative data shown for demonstration and
@@ -85,7 +85,7 @@ const benefits = [
 export function WhyTruckEase() {
   return (
     <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <div className="container-site section-padding-lg">
         <Reveal>
           <SectionHeading
             eyebrow="Why TruckEase"
@@ -156,7 +156,7 @@ const steps = [
 export function Process() {
   return (
     <section className="bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <div className="container-site section-padding-lg">
         <Reveal>
           <SectionHeading
             align="center"
@@ -165,9 +165,9 @@ export function Process() {
           />
         </Reveal>
 
-        <ol className="relative mt-14 grid gap-8 md:grid-cols-5">
+        <ol className="relative mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           <div
-            className="absolute left-0 right-0 top-6 hidden h-px bg-border md:block"
+            className="absolute left-0 right-0 top-6 hidden h-px bg-border lg:block"
             aria-hidden="true"
           />
           {steps.map((step, i) => (
