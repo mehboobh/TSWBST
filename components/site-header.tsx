@@ -1,10 +1,10 @@
-// components/site-header.tsx
 'use client'
 
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const navItems = [
   { label: 'Platform', href: '/platform' },
@@ -20,7 +20,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container-site flex h-16 items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-90">
           <Image
@@ -37,7 +37,7 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -51,12 +51,9 @@ export function SiteHeader() {
 
         {/* Action Button */}
         <div className="hidden md:flex items-center">
-          <Link
-            href="/risk-screening"
-            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
-          >
-            Request a Risk Screening
-          </Link>
+          <Button asChild variant="cta" size="sm">
+            <Link href="/risk-screening">Request a Risk Screening →</Link>
+          </Button>
         </div>
 
         {/* Mobile Toggle */}
@@ -83,13 +80,11 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/risk-screening"
-              onClick={() => setIsOpen(false)}
-              className="mt-2 w-full rounded-lg bg-slate-900 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-slate-800"
-            >
-              Request a Risk Screening
-            </Link>
+            <Button asChild variant="cta" className="mt-2 w-full">
+              <Link href="/risk-screening" onClick={() => setIsOpen(false)}>
+                Request a Risk Screening →
+              </Link>
+            </Button>
           </nav>
         </div>
       )}
