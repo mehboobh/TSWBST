@@ -5,13 +5,14 @@ import { Reveal } from '@/components/reveal'
 
 export function CtaBand() {
   return (
-    <section className="border-t border-border bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+    <section className="border-t border-border bg-muted/40 section-padding-md">
+      <div className="container-site">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+          <span className="inline-flex items-center gap-2 text-eyebrow text-accent">
+            <span className="h-px w-6 bg-accent" aria-hidden="true" />
             Get started
           </span>
-          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="mt-4 text-balance text-section-title">
             Build Compliance With Confidence.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
@@ -21,11 +22,8 @@ export function CtaBand() {
             a stronger compliance foundation for your business.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/risk-screening">
-                Request a Risk Screening
-                <ArrowRight className="size-4" />
-              </Link>
+            <Button asChild variant="cta" size="lg">
+              <Link href="/risk-screening">Request a Risk Screening →</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/contact">Contact Our Team</Link>
