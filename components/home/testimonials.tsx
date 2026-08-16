@@ -11,7 +11,7 @@ import {
 const testimonials = [
   {
     quote:
-      "What's actually changed for us isn't just staying compliant — it's seeing things we'd never have caught on our own. Weekly safety score, HOS reviews, patterns across pre- and post-trip inspections. We know which drivers need a conversation before it's a real problem, and which trucks keep showing up in inspections for the same reason.",
+    "What's actually changed for us isn't just staying compliant — it's seeing things we'd never have caught on our own. Weekly safety score, HOS reviews, patterns across pre- and post-trip inspections. We know which drivers need a conversation before it's a real problem, and which trucks keep showing up in inspections for the same reason.",
     author: 'Tejinder K.',
     role: 'Fleet Owner',
     location: 'Alberta, Canada',
@@ -112,7 +112,7 @@ function TestimonialCard({
       </div>
 
       {/* quote */}
-      <div className="mt-7">
+      <div className="mt-6">
         <div
           aria-hidden="true"
           className="
@@ -124,11 +124,11 @@ function TestimonialCard({
         </div>
 
         <p
-          className="
-            text-[13px] leading-[1.75]
-            text-[#506079]
-            sm:text-[13.5px]
-          "
+        className="
+        text-[13px] leading-[1.7]
+        text-[#506079]
+        sm:text-[13px]
+        "
         >
           {testimonial.quote}
         </p>
