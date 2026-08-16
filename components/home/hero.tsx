@@ -46,19 +46,21 @@ export function Hero() {
       {/* HERO ATMOSPHERE                                                    */}
       {/* ------------------------------------------------------------------ */}
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
-        {/* Cool dusk atmosphere */}
-        <div className="absolute right-[-14rem] top-[-12rem] h-[48rem] w-[48rem] rounded-full bg-[#dce5fb]/55 blur-[120px]" />
+{/* Dusk-derived background atmosphere */}
+<div
+  aria-hidden="true"
+  className="pointer-events-none absolute inset-x-0 top-0 h-[720px] overflow-hidden"
+>
+  <div
+    className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[center_42%] opacity-[0.055]"
+  />
 
-        {/* Sunset warmth — intentionally restrained */}
-        <div className="absolute right-[18%] top-[12rem] h-[24rem] w-[24rem] rounded-full bg-[#f4c7a6]/20 blur-[110px]" />
+  <div className="absolute inset-0 bg-gradient-to-b from-[#172342]/[0.10] via-[#f7f8fb]/[0.82] to-[#f7f8fb]" />
 
-        {/* Keep the left side clean for readability */}
-        <div className="absolute left-[-20rem] bottom-[-20rem] h-[38rem] w-[38rem] rounded-full bg-[#eef3fb]/60 blur-[120px]" />
-      </div>
+  <div className="absolute -right-40 -top-40 h-[40rem] w-[40rem] rounded-full bg-[#26365f]/[0.10] blur-[120px]" />
+
+  <div className="absolute -left-40 top-[25rem] h-[32rem] w-[32rem] rounded-full bg-[#f05a0a]/[0.07] blur-[120px]" />
+</div>
 
       <div className="relative mx-auto max-w-[1380px] px-6 pb-0 pt-7 lg:px-10">
 
