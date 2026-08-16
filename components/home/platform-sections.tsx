@@ -1,197 +1,90 @@
-import {
-  CheckCircle2,
-  ClipboardCheck,
-  Layers,
-  Radar,
-  ShieldCheck,
-  Search,
-  Settings2,
-  Headset,
-} from 'lucide-react'
-import { ComplianceDashboard } from '@/components/compliance-dashboard'
-import { SectionHeading } from '@/components/section-heading'
-import { Reveal } from '@/components/reveal'
-
 export function PlatformPreview() {
   return (
-    <section id="platform" className="scroll-mt-20 bg-navy text-navy-foreground">
-      <div className="relative overflow-hidden">
-        <div
-          className="grid-lines absolute inset-0 opacity-40"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute right-0 top-0 size-[30rem] rounded-full bg-accent/10 blur-[120px]"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <Reveal>
+    <section
+      id="platform"
+      className="relative scroll-mt-20 overflow-hidden bg-white"
+    >
+      {/* subtle section atmosphere */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-12rem] top-[-10rem] h-[36rem] w-[36rem] rounded-full bg-blue-50/60 blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-14rem] bottom-[-12rem] h-[32rem] w-[32rem] rounded-full bg-orange-50/50 blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-28 sm:px-8 lg:px-10 lg:pb-32 lg:pt-36">
+
+        <Reveal>
+          <div className="grid items-end gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+
+            {/* Heading */}
             <SectionHeading
-              tone="light"
               eyebrow="Platform preview"
               title="From Compliance Data to Operational Clarity."
               description="A single view that connects requirements, deadlines, documents, and monitoring activity, then points to the next action worth taking."
             />
-          </Reveal>
 
-          <Reveal delay={120} className="mt-12">
-            <div className="mx-auto max-w-4xl">
+            {/* small visual marker */}
+            <div className="hidden justify-end lg:flex">
+              <div className="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#17345f] shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-orange-600" />
+                One operational view
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* PRODUCT PRESENTATION */}
+        <Reveal delay={100} className="mt-12 lg:mt-14">
+
+          <div className="relative">
+
+            {/* dashboard backing surface */}
+            <div className="absolute inset-x-5 bottom-[-20px] top-5 rounded-[2rem] bg-[#10213d]/5 blur-2xl" />
+
+            <div className="relative rounded-[2rem] border border-slate-200 bg-[#f8fafc] p-3 shadow-[0_30px_90px_rgba(16,33,61,0.13)] sm:p-5 lg:p-6">
+
+              {/* fake browser/application chrome */}
+              <div className="mb-4 flex items-center justify-between border-b border-slate-200 px-2 pb-4">
+
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                </div>
+
+                <div className="hidden rounded-lg border border-slate-200 bg-white px-4 py-1.5 text-[10px] font-medium text-slate-400 sm:block">
+                  TruckEase Compliance Platform
+                </div>
+
+                <div className="text-[10px] font-medium text-slate-400">
+                  Live view
+                </div>
+              </div>
+
               <ComplianceDashboard />
-              <p className="mt-4 text-center text-xs text-navy-muted">
-                Interface concept. Illustrative data shown for demonstration and
-                does not represent real customer data.
+
+              <p className="mt-4 text-center text-xs text-slate-400">
+                Interface concept. Illustrative data shown for demonstration and does not represent real customer data.
               </p>
             </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const benefits = [
-  {
-    icon: Radar,
-    title: 'Proactive, continuously tracked compliance',
-    body: 'Requirements monitored on an ongoing basis so gaps surface early.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Cross-border regulatory knowledge',
-    body: 'Experience spanning requirements across the United States and Canada.',
-  },
-  {
-    icon: Layers,
-    title: 'Technology-first compliance platform',
-    body: 'Built for ongoing operational visibility, not periodic paperwork.',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Organized, accessible documents',
-    body: 'Records retained with appropriate access controls and activity tracking.',
-  },
-  {
-    icon: Headset,
-    title: 'Practical ongoing support',
-    body: 'A person to help when a system alone isn\u2019t enough.',
-  },
-  {
-    icon: Settings2,
-    title: 'Long-term compliance confidence',
-    body: 'Support that adapts as regulations evolve and your business grows.',
-  },
-]
-
-export function WhyTruckEase() {
-  return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Why TruckEase"
-            title="More than filing paperwork."
-            description="Businesses choose TruckEase because compliance requires more than filing paperwork. It requires consistency, attention to detail, and technology built to catch what manual tracking misses."
-          />
+          </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit, i) => (
-            <Reveal
-              key={benefit.title}
-              delay={(i % 3) * 80}
-              className="flex gap-4 border-t border-border pt-6"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-accent/12 text-accent-foreground">
-                <benefit.icon className="size-5" />
-              </span>
-              <div>
-                <h3 className="text-base font-semibold text-foreground">
-                  {benefit.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {benefit.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const steps = [
-  {
-    n: '01',
-    icon: Search,
-    title: 'Discover',
-    body: 'We begin by understanding your operation and current compliance requirements.',
-  },
-  {
-    n: '02',
-    icon: ClipboardCheck,
-    title: 'Assess',
-    body: 'We review your current compliance records, documentation, and regulatory requirements to understand where your operation stands and identify areas that may require attention.',
-  },
-  {
-    n: '03',
-    icon: Settings2,
-    title: 'Implement',
-    body: 'We handle the registrations, renewals, and documentation required to keep your operation compliant, set up as part of your Compliance Platform from day one.',
-  },
-  {
-    n: '04',
-    icon: Radar,
-    title: 'Monitor',
-    body: 'The platform continues tracking your compliance activity, flagging what needs attention as it comes up, not after the fact.',
-  },
-  {
-    n: '05',
-    icon: Headset,
-    title: 'Support',
-    body: 'As regulations evolve and your business grows, we remain available to help you navigate what\u2019s next.',
-  },
-]
-
-export function Process() {
-  return (
-    <section className="bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal>
-          <SectionHeading
-            align="center"
-            eyebrow="Our process"
-            title="A Clearer Path to Compliance Confidence."
-          />
+        {/* supporting statement */}
+        <Reveal delay={160}>
+          <div className="mx-auto mt-10 max-w-3xl text-center">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-orange-600">
+              <span className="h-px w-5 bg-orange-600" />
+              Operational visibility
+              <span className="h-px w-5 bg-orange-600" />
+            </div>
+          </div>
         </Reveal>
 
-        <ol className="relative mt-14 grid gap-8 md:grid-cols-5">
-          <div
-            className="absolute left-0 right-0 top-6 hidden h-px bg-border md:block"
-            aria-hidden="true"
-          />
-          {steps.map((step, i) => (
-            <Reveal
-              as="li"
-              key={step.n}
-              delay={i * 90}
-              className="relative flex flex-col items-start"
-            >
-              <span className="relative z-10 grid size-12 place-items-center rounded-xl border border-border bg-background text-navy shadow-sm">
-                <step.icon className="size-5 text-accent" />
-              </span>
-              <span className="mt-4 font-mono text-xs font-medium text-muted-foreground">
-                {step.n}
-              </span>
-              <h3 className="mt-1 text-base font-semibold text-foreground">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {step.body}
-              </p>
-            </Reveal>
-          ))}
-        </ol>
       </div>
     </section>
   )
