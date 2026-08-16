@@ -42,29 +42,56 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
 
-      {/* Background atmosphere */}
+      {/* =====================================================
+          DUSK ATMOSPHERE
+          The photograph influences the page without becoming
+          a literal full-page background.
+      ===================================================== */}
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[-12rem] top-[-12rem] h-[38rem] w-[38rem] rounded-full bg-orange-50 blur-3xl"
+        className="pointer-events-none absolute right-[-20rem] top-[-18rem] h-[850px] w-[850px] rounded-full bg-[#172653]/[0.055] blur-3xl"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[-18rem] top-[24rem] h-[34rem] w-[34rem] rounded-full bg-blue-50/60 blur-3xl"
+        className="pointer-events-none absolute right-[8%] top-[12rem] h-[480px] w-[480px] rounded-full bg-[#46598c]/[0.045] blur-3xl"
       />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[20%] bottom-[-18rem] h-[650px] w-[650px] rounded-full bg-orange-500/[0.045] blur-3xl"
+      />
+
+      {/* Very subtle photographic texture behind the hero image */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-5%] top-[8rem] hidden h-[620px] w-[62%] overflow-hidden opacity-[0.055] lg:block"
+      >
+        <Image
+          src="/hero-truck-neutral.jpg"
+          alt=""
+          fill
+          sizes="60vw"
+          className="object-cover object-center blur-[1px]"
+        />
+
+        <div className="absolute inset-0 bg-white/70" />
+      </div>
 
       <div className="relative mx-auto max-w-[1380px] px-6 pb-0 pt-7 lg:px-10">
 
-        {/* ─────────────────────────────
+        {/* =====================================================
             HERO
-        ───────────────────────────── */}
+        ===================================================== */}
 
         <div className="grid min-h-[650px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
 
           {/* LEFT */}
+
           <div className="relative z-10 pb-10 pt-8 lg:pb-20">
 
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#17345f] shadow-[0_5px_18px_rgba(15,35,65,0.06)]">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-4 py-2 text-xs font-semibold text-[#17345f] shadow-[0_5px_18px_rgba(15,35,65,0.06)] backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-orange-600" />
               Operational intelligence platform for the United States and Canada
             </div>
@@ -89,6 +116,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
+
               <Button
                 asChild
                 size="lg"
@@ -104,36 +132,47 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-13 rounded-xl border-slate-300 bg-white px-7 text-sm font-bold text-[#10213d] shadow-sm hover:bg-slate-50"
+                className="h-13 rounded-xl border-slate-300 bg-white/95 px-7 text-sm font-bold text-[#10213d] shadow-sm backdrop-blur-sm hover:bg-slate-50"
               >
                 <Link href="/platform">
                   Explore the Platform
                 </Link>
               </Button>
+
             </div>
 
-            {/* Small trust statement */}
             <div className="mt-8 flex items-center gap-3 text-xs text-slate-500">
               <span className="h-px w-8 bg-slate-300" />
               Built for trucking operations across the United States and Canada
             </div>
+
           </div>
 
-          {/* RIGHT — IMAGE COMPOSITION */}
-          <div className="relative lg:-mr-16">
+          {/* =====================================================
+              RIGHT — PRIMARY PHOTOGRAPH
+          ===================================================== */}
 
-            {/* warm glow */}
+          <div className="relative z-10 lg:-mr-16">
+
+            {/* Dusk glow behind photograph */}
+
             <div
               aria-hidden="true"
-              className="absolute -inset-10 rounded-[4rem] bg-orange-100/50 blur-3xl"
+              className="absolute -inset-12 rounded-[5rem] bg-gradient-to-br from-[#172653]/20 via-[#46598c]/10 to-orange-400/15 blur-3xl"
             />
 
-            {/* image frame */}
             <div className="relative">
 
-              <div className="absolute -bottom-5 -left-5 -right-5 h-20 rounded-[2rem] bg-[#10213d]/5 blur-xl" />
+              {/* Secondary halo */}
 
-              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#142342] shadow-[0_30px_80px_rgba(16,33,61,0.18)]">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-4 rounded-[3rem] border border-[#172653]/[0.06]"
+              />
+
+              {/* Image */}
+
+              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#142342] shadow-[0_35px_100px_rgba(16,33,61,0.20)]">
 
                 <Image
                   src="/hero-truck-neutral.jpg"
@@ -144,45 +183,69 @@ export function Hero() {
                   className="aspect-[1.38/1] w-full object-cover"
                 />
 
+                {/* Dusk colour grading */}
+
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-[#10213d]/25 via-transparent to-transparent"
+                  className="absolute inset-0 bg-gradient-to-tr from-[#07152f]/25 via-transparent to-[#6c78a8]/10"
                 />
 
-                {/* confidence badge */}
+                {/* Bottom atmospheric fade */}
+
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#08152e]/30 to-transparent"
+                />
+
+                {/* Confidence badge */}
+
                 <div className="absolute right-6 top-6 rounded-2xl border border-white/70 bg-white/92 px-5 py-3.5 shadow-[0_12px_30px_rgba(0,0,0,0.12)] backdrop-blur-md">
+
                   <p className="text-xs font-medium text-slate-500">
                     Operate with
                   </p>
+
                   <p className="text-sm font-bold text-[#142342]">
                     Confidence.
                   </p>
+
                 </div>
 
-                {/* bottom image label */}
+                {/* Image label */}
+
                 <div className="absolute bottom-6 left-6 rounded-xl border border-white/20 bg-[#10213d]/75 px-4 py-3 text-white backdrop-blur-md">
+
                   <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/60">
                     TruckEase Solutions
                   </p>
+
                   <p className="mt-1 text-sm font-semibold">
                     Compliance built around operations.
                   </p>
+
                 </div>
+
               </div>
 
-              {/* floating accent */}
+              {/* Floating compliance accent */}
+
               <div className="absolute -bottom-7 -left-7 hidden h-20 w-20 rounded-2xl border border-slate-200 bg-white shadow-xl lg:block">
+
                 <div className="flex h-full items-center justify-center">
                   <ShieldCheck className="h-7 w-7 text-orange-600" />
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
 
-        {/* ─────────────────────────────
+        {/* =====================================================
             FEATURE STRIP
-        ───────────────────────────── */}
+        ===================================================== */}
 
         <div className="relative z-20 -mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(16,33,61,0.10)]">
 
@@ -201,11 +264,16 @@ export function Hero() {
                       : '',
                   ].join(' ')}
                 >
+
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
-                    <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+                    <Icon
+                      className="h-[18px] w-[18px]"
+                      strokeWidth={2}
+                    />
                   </div>
 
                   <div>
+
                     <p className="text-xs font-bold text-[#142342]">
                       {feature.title}
                     </p>
@@ -213,13 +281,19 @@ export function Hero() {
                     <p className="mt-1 text-[11px] leading-4 text-slate-500">
                       {feature.description}
                     </p>
+
                   </div>
+
                 </div>
               )
             })}
+
           </div>
+
         </div>
+
       </div>
+
     </section>
   )
 }
