@@ -135,8 +135,8 @@ export function Hero() {
 
             </div>
 
-            <div className="mt-8 flex items-center gap-3 text-xs font-medium text-white/75 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">
-              <span className="h-px w-8 bg-white/40" />
+            <div className="mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm">
+              <span className="h-px w-8 bg-white/50" />
               Built for trucking operations across the United States and Canada
             </div>
           </div>
