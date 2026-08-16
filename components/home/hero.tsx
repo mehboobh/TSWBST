@@ -1,6 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, FileCheck2, Headphones, ShieldCheck, Eye } from 'lucide-react'
+import {
+  ArrowRight,
+  Eye,
+  FileCheck2,
+  Headphones,
+  ShieldCheck,
+} from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
@@ -35,45 +41,45 @@ const features = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
-      {/* subtle warm atmosphere */}
+
+      {/* Background atmosphere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-48 -top-48 h-[600px] w-[600px] rounded-full bg-orange-50/70 blur-3xl"
+        className="pointer-events-none absolute right-[-12rem] top-[-12rem] h-[38rem] w-[38rem] rounded-full bg-orange-50 blur-3xl"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-48 top-[300px] h-[500px] w-[500px] rounded-full bg-blue-50/50 blur-3xl"
+        className="pointer-events-none absolute left-[-18rem] top-[24rem] h-[34rem] w-[34rem] rounded-full bg-blue-50/60 blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-8 lg:px-8 lg:pb-10 lg:pt-9">
+      <div className="relative mx-auto max-w-[1380px] px-6 pb-0 pt-7 lg:px-10">
 
-        {/* HERO */}
-        <div className="grid items-center gap-10 lg:grid-cols-[1.03fr_0.97fr] lg:gap-8">
+        {/* ─────────────────────────────
+            HERO
+        ───────────────────────────── */}
 
-          {/* CONTENT */}
-          <div className="relative z-10">
+        <div className="grid min-h-[650px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
 
-            {/* Eyebrow */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-[#17345f] shadow-sm">
+          {/* LEFT */}
+          <div className="relative z-10 pb-10 pt-8 lg:pb-20">
+
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#17345f] shadow-[0_5px_18px_rgba(15,35,65,0.06)]">
               <span className="h-2 w-2 rounded-full bg-orange-600" />
               Operational intelligence platform for the United States and Canada
             </div>
 
-            {/* Heading */}
-            <h1 className="max-w-[700px] text-[3.8rem] font-extrabold leading-[0.98] tracking-[-0.055em] text-[#142342] sm:text-[4.3rem] lg:text-[4.65rem]">
+            <h1 className="max-w-[720px] text-[4rem] font-extrabold leading-[0.94] tracking-[-0.065em] text-[#142342] sm:text-[4.8rem] lg:text-[5.25rem]">
               Compliance Built for{' '}
               <span className="text-orange-600">
                 Operational Confidence.
               </span>
             </h1>
 
-            {/* Subheading */}
-            <p className="mt-7 text-[17px] font-semibold leading-7 text-[#10213d]">
+            <p className="mt-8 text-[17px] font-bold leading-7 text-[#10213d]">
               Compliance isn't the goal. Operational confidence is.
             </p>
 
-            {/* Description */}
             <p className="mt-3 max-w-[650px] text-[16px] leading-7 text-[#385071]">
               A compliance platform that combines regulatory expertise with
               AI-powered technology to help trucking companies across the
@@ -82,12 +88,11 @@ export function Hero() {
               confidence.
             </p>
 
-            {/* Buttons */}
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 asChild
                 size="lg"
-                className="h-12 rounded-xl bg-orange-600 px-6 font-bold text-white shadow-[0_10px_24px_rgba(234,88,12,0.18)] hover:bg-orange-700"
+                className="h-13 rounded-xl bg-orange-600 px-7 text-sm font-bold text-white shadow-[0_12px_30px_rgba(234,88,12,0.20)] transition-all hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-[0_16px_35px_rgba(234,88,12,0.26)]"
               >
                 <Link href="/risk-screening">
                   Request a Risk Screening
@@ -99,58 +104,89 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 rounded-xl border-slate-300 bg-white px-6 font-semibold text-[#10213d] hover:bg-slate-50"
+                className="h-13 rounded-xl border-slate-300 bg-white px-7 text-sm font-bold text-[#10213d] shadow-sm hover:bg-slate-50"
               >
                 <Link href="/platform">
                   Explore the Platform
                 </Link>
               </Button>
             </div>
+
+            {/* Small trust statement */}
+            <div className="mt-8 flex items-center gap-3 text-xs text-slate-500">
+              <span className="h-px w-8 bg-slate-300" />
+              Built for trucking operations across the United States and Canada
+            </div>
           </div>
 
-          {/* IMAGE */}
-          <div className="relative">
+          {/* RIGHT — IMAGE COMPOSITION */}
+          <div className="relative lg:-mr-16">
 
+            {/* warm glow */}
             <div
               aria-hidden="true"
-              className="absolute -inset-8 rounded-[3rem] bg-orange-100/40 blur-3xl"
+              className="absolute -inset-10 rounded-[4rem] bg-orange-100/50 blur-3xl"
             />
 
-            <div className="relative overflow-hidden rounded-[2rem] bg-[#142342] shadow-[0_25px_60px_rgba(16,33,61,0.14)]">
+            {/* image frame */}
+            <div className="relative">
 
-              <Image
-                src="/hero-truck-neutral.jpg"
-                alt="Commercial tractor-trailer traveling on a highway"
-                width={1400}
-                height={900}
-                priority
-                className="aspect-[1.48/1] h-full w-full object-cover"
-              />
+              <div className="absolute -bottom-5 -left-5 -right-5 h-20 rounded-[2rem] bg-[#10213d]/5 blur-xl" />
 
-              {/* subtle navy integration */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#10213d]/10 via-transparent to-[#10213d]/15"
-              />
+              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#142342] shadow-[0_30px_80px_rgba(16,33,61,0.18)]">
 
-              {/* Confidence badge */}
-              <div className="absolute right-5 top-5 rounded-[20px] border border-white/70 bg-white/90 px-4 py-3 shadow-lg backdrop-blur-md">
-                <p className="text-xs font-medium text-[#385071]">
-                  Operate with
-                </p>
+                <Image
+                  src="/hero-truck-neutral.jpg"
+                  alt="Commercial tractor-trailer traveling on a highway"
+                  width={1600}
+                  height={1050}
+                  priority
+                  className="aspect-[1.38/1] w-full object-cover"
+                />
 
-                <p className="text-sm font-bold text-[#142342]">
-                  Confidence.
-                </p>
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-[#10213d]/25 via-transparent to-transparent"
+                />
+
+                {/* confidence badge */}
+                <div className="absolute right-6 top-6 rounded-2xl border border-white/70 bg-white/92 px-5 py-3.5 shadow-[0_12px_30px_rgba(0,0,0,0.12)] backdrop-blur-md">
+                  <p className="text-xs font-medium text-slate-500">
+                    Operate with
+                  </p>
+                  <p className="text-sm font-bold text-[#142342]">
+                    Confidence.
+                  </p>
+                </div>
+
+                {/* bottom image label */}
+                <div className="absolute bottom-6 left-6 rounded-xl border border-white/20 bg-[#10213d]/75 px-4 py-3 text-white backdrop-blur-md">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                    TruckEase Solutions
+                  </p>
+                  <p className="mt-1 text-sm font-semibold">
+                    Compliance built around operations.
+                  </p>
+                </div>
+              </div>
+
+              {/* floating accent */}
+              <div className="absolute -bottom-7 -left-7 hidden h-20 w-20 rounded-2xl border border-slate-200 bg-white shadow-xl lg:block">
+                <div className="flex h-full items-center justify-center">
+                  <ShieldCheck className="h-7 w-7 text-orange-600" />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FEATURE STRIP */}
-        <div className="relative z-20 mt-8 overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_15px_45px_rgba(16,33,61,0.08)]">
+        {/* ─────────────────────────────
+            FEATURE STRIP
+        ───────────────────────────── */}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="relative z-20 -mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(16,33,61,0.10)]">
+
+          <div className="grid lg:grid-cols-5">
 
             {features.map((feature, index) => {
               const Icon = feature.icon
@@ -159,22 +195,22 @@ export function Hero() {
                 <div
                   key={feature.title}
                   className={[
-                    'flex min-h-[68px] items-center gap-3 px-5 py-3.5',
+                    'flex min-h-[76px] items-center gap-3 px-5 py-4',
                     index !== 0
                       ? 'border-t border-slate-100 lg:border-l lg:border-t-0'
                       : '',
                   ].join(' ')}
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
-                    <Icon className="h-[17px] w-[17px]" strokeWidth={2} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
                   </div>
 
-                  <div className="min-w-0">
-                    <p className="truncate text-xs font-bold leading-4 text-[#142342]">
+                  <div>
+                    <p className="text-xs font-bold text-[#142342]">
                       {feature.title}
                     </p>
 
-                    <p className="mt-0.5 truncate text-[11px] leading-4 text-slate-500">
+                    <p className="mt-1 text-[11px] leading-4 text-slate-500">
                       {feature.description}
                     </p>
                   </div>
