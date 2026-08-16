@@ -1,308 +1,645 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { 
-  ShieldCheck, 
-  Globe2, 
-  Cpu, 
-  FolderCheck, 
-  UserCheck, 
-  TrendingUp,
-  Search,
-  ClipboardList,
-  CheckCircle2,
+import {
   Activity,
-  Headphones,
-  ArrowRight
+  AlertCircle,
+  ArrowRight,
+  CalendarDays,
+  CheckCircle2,
+  CircleAlert,
+  Clock3,
+  FileCheck2,
+  Gauge,
+  Info,
+  Radar,
+  Settings2,
+  ShieldCheck,
+  Wrench,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Reveal } from '@/components/reveal'
-import { CtaBand } from '@/components/cta-band'
 
-export const metadata: Metadata = {
-  title: 'Compliance Platform | TruckEase Solutions',
-  description:
-    'Explore the TruckEase compliance platform designed for United States and Canadian commercial fleets.',
+/* ============================================================================
+   PLATFORM PAGE
+   ----------------------------------------------------------------------------
+   This page is intentionally self-contained.
+
+   It does NOT import:
+   - components/home/platform-sections
+   - Home page sections
+   - Home page CTA components
+
+   That keeps the Platform route isolated from Home.
+   ========================================================================== */
+
+const colors = {
+  ink: '#0c1a36',
+  inkSoft: '#16274a',
+  paper: '#f7f4ee',
+  ivory: '#fdfcf9',
+  ember: '#e8720c',
+  slate: '#5b6472',
+  mistCool: '#e2e7ec',
 }
 
-const whyPoints = [
+/* ============================================================================
+   DATA
+   ========================================================================== */
+
+const benefits = [
   {
-    icon: ShieldCheck,
+    icon: Radar,
     title: 'Proactive, continuously tracked compliance',
     body: 'Requirements monitored on an ongoing basis so gaps surface early.',
   },
   {
-    icon: Globe2,
+    icon: ShieldCheck,
     title: 'Cross-border regulatory knowledge',
     body: 'Experience spanning requirements across the United States and Canada.',
   },
   {
-    icon: Cpu,
+    icon: Activity,
     title: 'Technology-first compliance platform',
     body: 'Built for ongoing operational visibility, not periodic paperwork.',
   },
   {
-    icon: FolderCheck,
+    icon: CheckCircle2,
     title: 'Organized, accessible documents',
     body: 'Records retained with appropriate access controls and activity tracking.',
   },
   {
-    icon: UserCheck,
+    icon: FileCheck2,
     title: 'Practical ongoing support',
     body: 'A person to help when a system alone isn’t enough.',
   },
   {
-    icon: TrendingUp,
+    icon: Settings2,
     title: 'Long-term compliance confidence',
     body: 'Support that adapts as regulations evolve and your business grows.',
   },
 ]
 
-const processSteps = [
+const complianceItems = [
   {
-    num: '01',
-    title: 'Discover',
-    icon: Search,
-    body: 'We begin by understanding your operation and current compliance requirements.',
+    icon: CircleAlert,
+    title: 'Hours of Service',
+    status: 'Needs Attention',
+    value: '77%',
+    tone: 'danger',
   },
   {
-    num: '02',
-    title: 'Assess',
-    icon: ClipboardList,
-    body: 'We review your current compliance records, documentation, and regulatory standing.',
+    icon: Wrench,
+    title: 'Vehicle Maintenance Record',
+    status: 'Needs Attention',
+    value: '81%',
+    tone: 'warning',
   },
   {
-    num: '03',
-    title: 'Implement',
+    icon: Info,
+    title: 'IRP Fleet Renewal',
+    status: 'On Track',
+    value: 'Application Submitted',
+    tone: 'info',
+  },
+  {
     icon: CheckCircle2,
-    body: 'We handle the registrations, renewals, and documentation required to keep your operation compliant.',
+    title: 'SCAC Renewal',
+    status: 'Completed',
+    value: '100%',
+    tone: 'success',
   },
   {
-    num: '04',
-    title: 'Monitor',
-    icon: Activity,
-    body: 'The platform continues tracking your compliance activity, flagging what needs attention as it comes due.',
-  },
-  {
-    num: '05',
-    title: 'Support',
-    icon: Headphones,
-    body: 'As regulations evolve and your business grows, we remain available to help you navigate changes.',
+    icon: CheckCircle2,
+    title: 'MCS-150 Biannual Update',
+    status: 'Completed',
+    value: '100%',
+    tone: 'success',
   },
 ]
 
-export default function PlatformPage() {
+const upcomingTasks = [
+  {
+    label: 'Annual Inspection – Unit T104',
+    value: '21 Days',
+    tone: 'danger',
+  },
+  {
+    label: 'Schedule Maintenance – T134',
+    value: '36 Days',
+    tone: 'warning',
+  },
+  {
+    label: 'IFTA Filing',
+    value: '41 Days',
+    tone: 'warning',
+  },
+]
+
+const recentActivity = [
+  {
+    label: 'MCS-150 Biannual Update',
+    date: 'June 19',
+  },
+  {
+    label: 'SCAC Renewal',
+    date: 'June 10',
+  },
+  {
+    label: 'US Bonded Carrier App.',
+    date: 'June 02',
+  },
+]
+
+const atRiskItems = [
+  {
+    label: '1 Trailer Inspection Expiring in 4 days',
+    detail: 'Reminder sent 8',
+  },
+  {
+    label: '2 Driver Files Expiring in 12 days',
+    detail: 'Reminders sent 5',
+  },
+]
+
+const processSteps = [
+  {
+    number: '01',
+    icon: Radar,
+    title: 'Discover',
+    body: 'We begin by understanding your operation and current compliance requirements.',
+  },
+  {
+    number: '02',
+    icon: Settings2,
+    title: 'Assess',
+    body: 'We review your current compliance records, documentation, and regulatory standing.',
+  },
+  {
+    number: '03',
+    icon: FileCheck2,
+    title: 'Implement',
+    body: 'We handle the registrations, renewals, and documentation required to keep your operation compliant.',
+  },
+  {
+    number: '04',
+    icon: Activity,
+    title: 'Monitor',
+    body: 'The platform continues tracking your compliance activity, flagging what needs attention as it comes up, not after the fact.',
+  },
+  {
+    number: '05',
+    icon: ShieldCheck,
+    title: 'Support',
+    body: 'As regulations evolve and your business grows, we remain available to help you navigate what’s next.',
+  },
+]
+
+/* ============================================================================
+   HELPERS
+   ========================================================================== */
+
+function statusColor(tone: string) {
+  switch (tone) {
+    case 'danger':
+      return 'text-[#ff5470]'
+    case 'warning':
+      return 'text-[#ffb21a]'
+    case 'success':
+      return 'text-[#00d79b]'
+    default:
+      return 'text-[#38bdf8]'
+  }
+}
+
+function statusDot(tone: string) {
+  switch (tone) {
+    case 'danger':
+      return 'bg-[#ff5470]'
+    case 'warning':
+      return 'bg-[#ffb21a]'
+    case 'success':
+      return 'bg-[#00d79b]'
+    default:
+      return 'bg-[#38bdf8]'
+  }
+}
+
+/* ============================================================================
+   SMALL UI COMPONENTS
+   ========================================================================== */
+
+function Eyebrow({
+  children,
+  dark = false,
+}: {
+  children: React.ReactNode
+  dark?: boolean
+}) {
   return (
-    <div className="bg-white text-slate-900 min-h-screen">
-      {/* 1. Centered Hero Section */}
-      <section className="bg-slate-50/50 py-16 lg:py-20 text-center">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-1 text-xs font-semibold text-slate-600 shadow-sm mb-6">
-            <span className="h-2 w-2 rounded-full bg-cyan-600" />
-            THE TRUCKEASE PLATFORM
-          </div>
-
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl leading-[1.15]">
-            Complete Operational Visibility & Compliance Tracking
-          </h1>
-          
-          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Monitor regulatory standing, manage filings, and maintain continuously updated oversight across your entire fleet from a single unified portal.
-          </p>
-
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <Button asChild size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold">
-              <Link href="/risk-screening">
-                Request a Risk Screening <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50">
-              <Link href="/services">
-                View Services
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Platform Preview / Dashboard Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">
-                PLATFORM PREVIEW
-              </span>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl mt-2">
-                From Compliance Data to Operational Clarity
-              </h2>
-              <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-                A single view that connects requirements, deadlines, documents, and monitoring activity, then points to the next action worth taking.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Interface Preview Container */}
-          <Reveal delay={100}>
-            <div className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-10 shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-8">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-rose-500" />
-                  <span className="h-3 w-3 rounded-full bg-amber-500" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-500" />
-                  <span className="ml-2 text-xs text-slate-400 font-mono">TruckEase Compliance Dashboard</span>
-                </div>
-                <span className="rounded bg-slate-800 px-3 py-1 text-xs text-cyan-400 font-semibold">
-                  Live View Concept
-                </span>
-              </div>
-
-              {/* Dashboard Grid */}
-              <div className="grid gap-6 md:grid-cols-12">
-                <div className="md:col-span-6 rounded-xl border border-slate-800 bg-slate-950/80 p-6">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overall Status</span>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="h-3.5 w-3.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-2xl font-bold text-white">On Track</span>
-                  </div>
-                  <p className="mt-1 text-xs text-slate-400">2 Items Flagged for Upcoming Renewal</p>
-                </div>
-
-                <div className="md:col-span-3 rounded-xl border border-slate-800 bg-slate-950/80 p-6">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Upcoming Renewals</span>
-                  <p className="mt-2 text-3xl font-bold text-cyan-400">6</p>
-                </div>
-
-                <div className="md:col-span-3 rounded-xl border border-slate-800 bg-slate-950/80 p-6">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Open Items</span>
-                  <p className="mt-2 text-3xl font-bold text-amber-400">3</p>
-                </div>
-
-                <div className="md:col-span-6 rounded-xl border border-slate-800 bg-slate-950/80 p-6">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Upcoming Deadlines</span>
-                  <div className="mt-4 space-y-3 text-xs">
-                    <div className="flex justify-between border-b border-slate-800/60 pb-2 text-slate-300">
-                      <span>• IRP Registration Renewal</span>
-                      <span className="text-slate-400">Due in 14 days</span>
-                    </div>
-                    <div className="flex justify-between border-b border-slate-800/60 pb-2 text-slate-300">
-                      <span>• IFTA Quarterly Tax Filing</span>
-                      <span className="text-slate-400">Due in 28 days</span>
-                    </div>
-                    <div className="flex justify-between text-slate-300">
-                      <span>• UCR Annual Filing</span>
-                      <span className="text-slate-400">Due in 41 days</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="md:col-span-6 rounded-xl border border-slate-800 bg-slate-950/80 p-6">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Document Readiness</span>
-                  <div className="mt-4 space-y-4 text-xs">
-                    <div>
-                      <div className="flex justify-between text-slate-300 mb-1.5">
-                        <span>Registrations & Permits</span>
-                        <span className="text-cyan-400 font-semibold">92%</span>
-                      </div>
-                      <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-500 w-[92%]" />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-slate-300 mb-1.5">
-                        <span>Driver & Carrier Licensing</span>
-                        <span className="text-cyan-400 font-semibold">78%</span>
-                      </div>
-                      <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-500 w-[78%]" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <p className="mt-8 text-center text-[11px] text-slate-500 font-sans">
-                Interface concept. Illustrative data shown for demonstration purposes.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 3. Why TruckEase Section */}
-      <section className="bg-slate-50/50 py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">
-                WHY TRUCKEASE
-              </span>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl mt-2">
-                More Than Filing Paperwork
-              </h2>
-              <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-                Businesses choose TruckEase because compliance requires consistency, attention to detail, and technology built to catch what manual tracking misses.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {whyPoints.map((pt, i) => (
-              <Reveal key={pt.title} delay={(i % 3) * 80}>
-                <Card className="h-full border border-slate-200/80 bg-white p-6 rounded-xl shadow-sm hover:border-cyan-300 hover:shadow-md transition-all">
-                  <div className="rounded-lg bg-cyan-50 p-2.5 text-cyan-600 w-fit mb-4">
-                    <pt.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-semibold text-slate-900 text-base">
-                    {pt.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                    {pt.body}
-                  </p>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Process Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">
-                OUR PROCESS
-              </span>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl mt-2">
-                A Clearer Path to Compliance Confidence
-              </h2>
-            </div>
-          </Reveal>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {processSteps.map((step, i) => (
-              <Reveal key={step.title} delay={i * 70}>
-                <div className="flex flex-col h-full rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm hover:border-slate-300 transition-colors">
-                  <div className="flex items-center justify-between text-slate-400">
-                    <step.icon className="h-4 w-4 text-cyan-600" />
-                    <span className="font-mono text-xs font-bold">{step.num}</span>
-                  </div>
-                  <h3 className="mt-4 font-semibold text-slate-900 text-sm sm:text-base">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    {step.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CTA Section */}
-      <CtaBand />
+    <div
+      className={`mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] ${
+        dark ? 'text-[#f2a15d]' : 'text-[#e8720c]'
+      }`}
+    >
+      <span
+        className={`h-px w-8 ${
+          dark ? 'bg-[#e8720c]' : 'bg-[#e8720c]'
+        }`}
+      />
+      <span>{children}</span>
     </div>
   )
 }
+
+function CheckpointLine() {
+  return (
+    <div
+      aria-hidden="true"
+      className="mx-auto flex max-w-7xl items-center gap-3 px-6"
+    >
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#cfd7e5] to-[#cfd7e5]" />
+
+      <div className="flex items-center gap-2">
+        <span className="h-1 w-1 rounded-full bg-[#cfd7e5]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#e8720c]" />
+        <span className="h-1 w-1 rounded-full bg-[#cfd7e5]" />
+      </div>
+
+      <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#cfd7e5] to-[#cfd7e5]" />
+    </div>
+  )
+}
+
+/* ============================================================================
+   DASHBOARD
+   ----------------------------------------------------------------------------
+   IMPORTANT:
+   SVG starts at 3 o'clock by default.
+   rotate(-90 60 60) moves the starting point to 12 o'clock.
+   Stroke progression remains clockwise.
+   ========================================================================== */
+
+function PlatformDashboard() {
+  return (
+    <div className="relative overflow-hidden rounded-[24px] border border-[#26334d] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.22)] sm:p-6">
+      {/* subtle dusk atmosphere */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#5b6cae]/10 blur-3xl"
+      />
+
+      <div className="relative">
+        {/* Dashboard header */}
+        <div className="flex items-center justify-between border-b border-[#202c42] pb-4">
+          <div>
+            <h3 className="text-sm font-bold tracking-tight text-white sm:text-base">
+              Compliance Overview
+            </h3>
+          </div>
+
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#00d79b]/25 bg-[#00d79b]/10 px-3 py-1 text-[9px] font-semibold text-[#00d79b] sm:text-[10px]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00d79b]" />
+            Active Monitoring
+          </div>
+        </div>
+
+        {/* Main dashboard */}
+        <div className="mt-4 grid gap-3 lg:grid-cols-[245px_1fr]">
+          {/* Compliance score */}
+          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-5 sm:p-6">
+            <div className="flex h-full flex-col items-center justify-center">
+              <div className="relative h-36 w-36">
+                <svg
+                  viewBox="0 0 120 120"
+                  className="h-full w-full"
+                  role="img"
+                  aria-label="76 percent overall compliance position"
+                >
+                  {/* background track */}
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="47"
+                    fill="none"
+                    stroke="#22304a"
+                    strokeWidth="9"
+                  />
+
+                  {/* 
+                    76% progress
+
+                    Circle default start = 3 o'clock.
+                    -90 degrees = 12 o'clock.
+                    SVG stroke proceeds clockwise.
+
+                    Circumference:
+                    2 × π × 47 = 295.31
+
+                    Remaining 24%:
+                    295.31 × 0.24 = 70.87
+                  */}
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="47"
+                    fill="none"
+                    stroke="#00d79b"
+                    strokeWidth="9"
+                    strokeLinecap="round"
+                    strokeDasharray="295.31"
+                    strokeDashoffset="70.87"
+                    transform="rotate(-90 60 60)"
+                  />
+                </svg>
+
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-2xl font-bold tracking-tight text-white">
+                    76%
+                  </span>
+
+                  <span className="mt-0.5 text-[9px] leading-3 text-[#a9b5c9]">
+                    Overall
+                    <br />
+                    Compliance
+                    <br />
+                    Position
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-2 text-[9px] font-medium text-[#00d79b]">
+                ↑ 6% vs last 30 days
+              </div>
+            </div>
+          </div>
+
+          {/* Compliance items */}
+          <div className="space-y-2">
+            {complianceItems.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <div
+                  key={item.title}
+                  className="group flex min-h-[43px] items-center gap-3 rounded-xl border border-[#26334d] bg-[#0e1627] px-3 transition-colors hover:border-[#34445f]"
+                >
+                  <Icon
+                    className={`h-3.5 w-3.5 shrink-0 ${statusColor(
+                      item.tone,
+                    )}`}
+                    strokeWidth={2}
+                  />
+
+                  <span className="min-w-0 flex-1 truncate text-[10px] font-semibold text-[#edf2fa] sm:text-[11px]">
+                    {item.title}
+                  </span>
+
+                  <span
+                    className={`hidden text-[9px] font-semibold sm:block ${statusColor(
+                      item.tone,
+                    )}`}
+                  >
+                    {item.status}
+                  </span>
+
+                  <span className="text-[10px] font-bold text-white">
+                    {item.value}
+                  </span>
+
+                  <ArrowRight className="h-3 w-3 text-[#52627c]" />
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Lower cards */}
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {/* Upcoming */}
+          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CalendarDays className="h-3.5 w-3.5 text-[#a9b5c9]" />
+
+                <span className="text-[10px] font-semibold text-white">
+                  Upcoming Tasks
+                </span>
+              </div>
+
+              <span className="text-[8px] font-semibold text-[#38bdf8]">
+                View all
+              </span>
+            </div>
+
+            <div className="mt-3 space-y-2.5">
+              {upcomingTasks.map((task) => (
+                <div
+                  key={task.label}
+                  className="flex items-center gap-2 text-[8px]"
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${statusDot(
+                      task.tone,
+                    )}`}
+                  />
+
+                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
+                    {task.label}
+                  </span>
+
+                  <span
+                    className={`font-semibold ${statusColor(task.tone)}`}
+                  >
+                    {task.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent activity */}
+          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock3 className="h-3.5 w-3.5 text-[#a9b5c9]" />
+
+                <span className="text-[10px] font-semibold text-white">
+                  Recent Activity
+                </span>
+              </div>
+
+              <span className="text-[8px] font-semibold text-[#38bdf8]">
+                View all
+              </span>
+            </div>
+
+            <div className="mt-3 space-y-2.5">
+              {recentActivity.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 text-[8px]"
+                >
+                  <CheckCircle2 className="h-3 w-3 text-[#00d79b]" />
+
+                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
+                    {item.label}
+                  </span>
+
+                  <span className="font-semibold text-[#00d79b]">
+                    Completed
+                  </span>
+
+                  <span className="text-[#66758d]">{item.date}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* At risk */}
+          <div className="rounded-xl border border-[#8f2443]/70 bg-[#1a101a] p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="h-3.5 w-3.5 text-[#ff5470]" />
+
+                <span className="text-[10px] font-semibold text-[#ff5470]">
+                  At Risk
+                </span>
+              </div>
+
+              <span className="text-[8px] font-semibold text-[#ff5470]">
+                View all
+              </span>
+            </div>
+
+            <div className="mt-3 space-y-3">
+              {atRiskItems.map((item) => (
+                <div key={item.label}>
+                  <div className="flex items-start gap-2">
+                    <CircleAlert className="mt-0.5 h-2.5 w-2.5 shrink-0 text-[#ff5470]" />
+
+                    <div>
+                      <p className="text-[8px] font-semibold text-[#ff7388]">
+                        {item.label}
+                      </p>
+
+                      <p className="mt-0.5 text-[7px] text-[#b75a70]">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <p className="mt-5 text-center text-[8px] leading-4 text-[#53627a]">
+          Interface concept. Illustrative data shown for demonstration and
+          does not represent real customer data.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+/* ============================================================================
+   PLATFORM HERO
+   ========================================================================== */
+
+function PlatformHero() {
+  return (
+    <section className="relative overflow-hidden bg-[#0c1a36] text-white">
+      {/* subtle atmosphere */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#42578e]/20 blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-56 left-1/3 h-[420px] w-[420px] rounded-full bg-[#e8720c]/[0.06] blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-6 lg:px-8 lg:pb-20 lg:pt-28">
+        <div className="max-w-4xl">
+          <Eyebrow dark>The TruckEase Platform</Eyebrow>
+
+          <h1 className="max-w-4xl text-balance text-[2.8rem] font-semibold leading-[0.98] tracking-[-0.045em] sm:text-5xl lg:text-[4.7rem]">
+            Complete Operational Visibility
+            <span className="block text-[#f3f5fa]">
+              &amp; Compliance Tracking
+            </span>
+          </h1>
+
+          <p className="mt-7 max-w-2xl text-base leading-7 text-[#c0cadb] sm:text-lg">
+            Monitor regulatory standing, manage filings, and maintain
+            continuously-updated oversight across your entire operation from a
+            single unified portal.
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/risk-screening"
+              className="inline-flex h-12 items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-bold text-white shadow-[0_12px_30px_rgba(232,114,12,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              Request a Risk Screening
+              <ArrowRight className="h-4 w-4" />
+            </a>
+
+            <a
+              href="#platform-overview"
+              className="inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-transparent px-6 text-sm font-semibold text-white transition-colors hover:border-white/40"
+            >
+              Explore the Platform
+            </a>
+          </div>
+        </div>
+
+        {/* checkpoint motif */}
+        <div className="mt-16">
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-white/10" />
+
+            <div className="flex items-center gap-2">
+              <span className="h-1 w-1 rounded-full bg-white/20" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#e8720c]" />
+              <span className="h-1 w-1 rounded-full bg-white/20" />
+            </div>
+
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================================
+   DASHBOARD SECTION
+   ========================================================================== */
+
+function PlatformOverview() {
+  return (
+    <section
+      id="platform-overview"
+      className="relative overflow-hidden bg-[#f7f9fc]"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(circle_at_55%_0%,rgba(61,76,130,0.13),transparent_62%)]"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+          <div>
+            <Eyebrow>Platform Overview</Eyebrow>
+
+            <h2 className="max-w-xl text-balance text-3xl font-semibold leading-[1.04] tracking-[-0.04em] text-[#0c1a36] sm:text-4xl lg:text-[3.4rem]">
+              From Compliance Data
+              <span className="block text-[#e8720c]">
+                to Operational Clarity.
+              </span>
+            </h2>
+
+            <p className="mt-6 max-w-lg text-[15px] leading-7 text-[#5b6b84]">
+              A single view that connects requirements, deadlines, documents,
+              and monitoring activity, then points to the next action worth
+              taking.
+            <
