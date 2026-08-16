@@ -147,8 +147,7 @@ export function Hero() {
               />
 
               {/* Image frame */}
-              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/70 bg-[#142342] shadow-[0_35px_90px_rgba(16,33,61,0.20)]">
-
+              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#142342] shadow-[0_35px_90px_rgba(16,33,61,0.24)] ring-1 ring-[#172342]/10">
                 <Image
                   src="/hero-truck-neutral.jpg"
                   alt="Commercial tractor-trailer traveling on a highway"
@@ -161,7 +160,7 @@ export function Hero() {
                 {/* Dusk color integration */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-br from-[#142342]/18 via-transparent to-[#0d1730]/20"
+                  className="absolute inset-0 bg-gradient-to-t from-[#0c1630]/45 via-transparent to-[#172342]/5"
                 />
 
                 {/* Confidence badge */}
