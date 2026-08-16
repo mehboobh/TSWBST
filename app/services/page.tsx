@@ -1,179 +1,477 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   ArrowRight,
-  BrainCircuit,
-  ClipboardCheck,
-  FileStack,
-  Radar,
+  CheckCircle2,
+  FileCheck2,
+  Gauge,
+  Headphones,
   Route,
   Search,
-  CheckCircle2,
-  HelpCircle,
+  ShieldCheck,
+  Sparkles,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Reveal } from '@/components/reveal'
-import { CtaBand } from '@/components/cta-band'
 
-export const metadata: Metadata = {
-  title: 'Trucking Compliance Services | TruckEase Solutions',
-  description:
-    'The TruckEase Compliance Platform combines continuous monitoring, intelligent automation, and practical compliance expertise, with direct filing support when you need it.',
-}
+/* -------------------------------------------------------------------------- */
+/* Data                                                                       */
+/* -------------------------------------------------------------------------- */
 
 const platformServices = [
   {
-    icon: Radar,
+    icon: ShieldCheck,
     title: 'Continuous Compliance Monitoring',
-    body: 'Registrations, renewals, licensing requirements, and required filings, actively managed and tracked from one central system designed to keep your operation compliant and informed. This is the foundation, built exclusively for monthly clients.',
+    tag: 'PAID MONTHLY',
+    tagTone: 'orange',
+    description:
+      'Registrations, renewals, licensing requirements, and required filings are actively managed and tracked from one central system, including ongoing IRP and IFTA renewal cycles.',
+    note: 'The foundation of the ongoing platform.',
   },
   {
     icon: Route,
     title: 'Trip Compliance Support',
-    body: 'Before dispatch, understand whether additional permits or regulatory requirements apply to a planned trip, helping reduce avoidable compliance issues.',
+    tag: 'INCLUDED FREE',
+    tagTone: 'green',
+    description:
+      'Before dispatch, understand whether additional permits or regulatory requirements may apply to a planned trip, helping reduce avoidable compliance issues.',
+    note: 'Included with Continuous Compliance Monitoring.',
   },
   {
-    icon: BrainCircuit,
+    icon: Gauge,
     title: 'Operational Insights',
-    body: 'Identify trends, recurring issues, and opportunities for improvement through intelligent monitoring that brings greater visibility to your compliance activities.',
+    tag: 'PLATFORM EXCLUSIVE',
+    tagTone: 'blue',
+    description:
+      'Recurring issues across drivers and vehicles are surfaced through intelligent monitoring, bringing greater visibility to compliance activities that are easy to miss one record at a time.',
+    note: 'Built from continuously tracked compliance data.',
   },
   {
-    icon: ClipboardCheck,
+    icon: Sparkles,
     title: 'Decision Support',
-    body: 'Your compliance data is evaluated against a growing framework of regulatory checks and operational rules, built on real compliance expertise, to provide practical guidance for what to do next. Not just another report to review.',
+    tag: 'PLATFORM EXCLUSIVE',
+    tagTone: 'blue',
+    description:
+      'Your compliance data is evaluated against a growing framework of regulatory checks and operational rules to provide practical guidance for what to do next.',
+    note: 'Not just another report to review.',
   },
 ]
 
-const filingSteps = [
-  'Submit request',
-  'Scope reviewed',
-  'Timeline confirmed',
-  'Filing or update completed',
-  'Documentation organized',
+const workflowSteps = [
+  {
+    number: '01',
+    title: 'Submit request',
+  },
+  {
+    number: '02',
+    title: 'Scope reviewed',
+  },
+  {
+    number: '03',
+    title: 'Timeline confirmed',
+  },
+  {
+    number: '04',
+    title: 'Filing or update completed',
+  },
+  {
+    number: '05',
+    title: 'Documentation organized',
+  },
 ]
+
+function tagClasses(tone: string) {
+  switch (tone) {
+    case 'orange':
+      return 'border-[#f7c8ad] bg-[#fff6f1] text-[#e85d04]'
+    case 'green':
+      return 'border-[#b9e7d7] bg-[#f1fbf7] text-[#07845c]'
+    default:
+      return 'border-[#cdd6f7] bg-[#f4f6ff] text-[#4353a4]'
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Page                                                                       */
+/* -------------------------------------------------------------------------- */
 
 export default function ServicesPage() {
   return (
-    <div className="bg-white text-slate-900 min-h-screen">
-      {/* 1. Hero Section */}
-      <section className="bg-slate-50/50 py-16 lg:py-20 text-center border-b border-slate-100">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-1 text-xs font-semibold text-slate-600 shadow-sm mb-6">
-            <span className="h-2 w-2 rounded-full bg-cyan-600" />
-            COMPLIANCE SERVICES
+    <main className="overflow-hidden bg-[#f7f8fb] text-[#142342]">
+      {/* ==================================================================== */}
+      {/* HERO                                                                 */}
+      {/* ==================================================================== */}
+
+      <section className="relative border-b border-[#dfe5ef] bg-white">
+        {/* Soft background atmosphere */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#e85d04]/[0.045] blur-3xl"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#4353a4]/[0.035] blur-3xl"
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
+          <div className="grid items-end gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+            <div>
+              <div className="mb-7 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#e85d04]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+                  Compliance Services
+                </span>
+              </div>
+
+              <h1 className="max-w-4xl text-[48px] font-black leading-[0.98] tracking-[-0.045em] text-[#142342] sm:text-[58px] lg:text-[72px]">
+                Compliance Solutions
+                <br />
+                Built Around
+                <br />
+                <span className="text-[#e85d04]">Your Business.</span>
+              </h1>
+
+              <p className="mt-8 max-w-2xl text-[17px] leading-8 text-[#5f708c] sm:text-[18px]">
+                Managing regulatory requirements shouldn&apos;t distract you
+                from running your business. TruckEase provides a unified
+                compliance platform backed by direct, hands-on support.
+              </p>
+
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/risk-screening"
+                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#e85d04] px-6 text-sm font-bold text-white shadow-[0_12px_28px_rgba(232,93,4,0.18)] transition hover:-translate-y-0.5 hover:bg-[#d95200]"
+                >
+                  Request a Risk Screening
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl border border-[#cfd8e7] bg-transparent px-6 text-sm font-bold text-[#142342] transition hover:border-[#aebbd0] hover:bg-[#f8faff]"
+                >
+                  Talk to Our Team
+                </Link>
+              </div>
+            </div>
+
+            {/* Hero side statement */}
+            <div className="lg:pb-2">
+              <div className="relative overflow-hidden rounded-[24px] border border-[#dbe2ee] bg-[#142342] p-7 shadow-[0_24px_60px_rgba(20,35,66,0.12)] sm:p-9">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-40"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px)',
+                    backgroundSize: '32px 32px',
+                  }}
+                />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/65">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#e85d04]" />
+                      One platform
+                    </span>
+
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/35">
+                      Working continuously
+                    </span>
+                  </div>
+
+                  <div className="mt-12">
+                    <p className="max-w-xl text-[29px] font-bold leading-[1.14] tracking-[-0.025em] text-white sm:text-[34px]">
+                      Continuous monitoring,
+                      <br />
+                      intelligent automation,
+                      <br />
+                      <span className="text-[#ff7a22]">
+                        practical expertise.
+                      </span>
+                    </p>
+
+                    <div className="mt-10 h-px bg-white/10" />
+
+                    <div className="mt-6 flex items-start gap-3">
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.07]">
+                        <CheckCircle2 className="h-4 w-4 text-[#00d79b]" />
+                      </div>
+
+                      <p className="text-sm leading-6 text-white/60">
+                        Built to help you stay ahead of regulatory deadlines
+                        instead of reacting after the fact.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl leading-[1.15]">
-            Compliance Solutions Built Around Your Business
-          </h1>
-
-          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Managing regulatory requirements shouldn't distract you from running your fleet. TruckEase provides a unified compliance platform backed by direct hands-on support.
-          </p>
-
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <Button asChild size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold">
-              <Link href="/risk-screening">
-                Request a Risk Screening <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50">
-              <Link href="/platform">
-                Explore the Platform
-              </Link>
-            </Button>
+          {/* Bottom checkpoint */}
+          <div className="mt-14 flex items-center gap-3 text-xs text-[#71809a]">
+            <span className="h-px w-9 bg-[#cbd5e3]" />
+            <span>
+              Compliance support designed around the way trucking businesses
+              actually operate.
+            </span>
           </div>
         </div>
       </section>
 
-      {/* 2. Main Services Grid */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">
-                THE COMPLIANCE PLATFORM
-              </span>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl mt-2">
-                One platform, working continuously.
-              </h2>
-              <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-                Combining continuous monitoring, intelligent automation, and practical compliance expertise to help you stay ahead of regulatory deadlines.
-              </p>
-            </div>
-          </Reveal>
+      {/* ==================================================================== */}
+      {/* THE COMPLIANCE PLATFORM                                              */}
+      {/* ==================================================================== */}
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            {platformServices.map((service, i) => (
-              <Reveal key={service.title} delay={(i % 2) * 100}>
-                <Card className="flex h-full flex-col border border-slate-200/80 bg-white p-7 rounded-xl shadow-sm hover:border-cyan-300 hover:shadow-md transition-all">
-                  <div className="rounded-lg bg-cyan-50 p-3 text-cyan-600 w-fit mb-4">
-                    <service.icon className="h-6 w-6" />
+      <section className="bg-[#f7f8fb]">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+          <div className="max-w-3xl">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-[#e85d04]" />
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+                The Compliance Platform
+              </span>
+            </div>
+
+            <h2 className="text-4xl font-black tracking-[-0.04em] text-[#142342] sm:text-5xl">
+              One platform,
+              <br />
+              working continuously.
+            </h2>
+
+            <p className="mt-6 max-w-2xl text-[16px] leading-7 text-[#64748b]">
+              Combining continuous monitoring, intelligent automation, and
+              practical compliance expertise to help you stay ahead of
+              regulatory deadlines.
+            </p>
+          </div>
+
+          {/* Important platform relationship note */}
+          <div className="mt-10 rounded-2xl border border-[#dbe2ed] bg-white p-5 shadow-[0_10px_30px_rgba(20,35,66,0.04)] sm:p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#eef2ff]">
+                <Search className="h-4.5 w-4.5 text-[#4353a4]" />
+              </div>
+
+              <div>
+                <p className="text-sm font-bold text-[#142342]">
+                  Why some capabilities live inside the ongoing platform
+                </p>
+
+                <p className="mt-1.5 max-w-4xl text-sm leading-6 text-[#687891]">
+                  Operational Insights and Decision Support depend on
+                  continuously tracked data that builds up over time. They are
+                  therefore platform capabilities, not separate per-service
+                  offerings.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Service cards */}
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {platformServices.map((service) => {
+              const Icon = service.icon
+
+              return (
+                <article
+                  key={service.title}
+                  className="group relative overflow-hidden rounded-2xl border border-[#d9e1ec] bg-white p-7 shadow-[0_10px_28px_rgba(20,35,66,0.035)] transition duration-300 hover:-translate-y-0.5 hover:border-[#c9d4e4] hover:shadow-[0_18px_38px_rgba(20,35,66,0.07)] sm:p-8"
+                >
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f0f3ff]">
+                      <Icon className="h-5 w-5 text-[#4353a4]" />
+                    </div>
+
+                    <span
+                      className={`shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.13em] ${tagClasses(
+                        service.tagTone,
+                      )}`}
+                    >
+                      {service.tag}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-900">
+
+                  <h3 className="mt-7 text-xl font-bold tracking-[-0.02em] text-[#142342]">
                     {service.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    {service.body}
+
+                  <p className="mt-3 text-sm leading-6 text-[#64748b]">
+                    {service.description}
                   </p>
-                </Card>
-              </Reveal>
-            ))}
+
+                  <div className="mt-6 flex items-center gap-2 border-t border-[#e7ebf1] pt-5 text-xs font-semibold text-[#7a879b]">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#4353a4]" />
+                    {service.note}
+                  </div>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* 3. Direct Filing Support Section */}
-      <section className="bg-slate-50/50 py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <Reveal>
-              <div className="rounded-lg bg-cyan-50 p-3 text-cyan-600 w-fit mb-4">
-                <FileStack className="h-6 w-6" />
+      {/* ==================================================================== */}
+      {/* PLATFORM LOGIC                                                       */}
+      {/* ==================================================================== */}
+
+      <section className="border-y border-[#dce3ed] bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+          <div className="grid items-start gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
+            <div>
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#e85d04]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+                  Built as a System
+                </span>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">
-                DIRECT FILING SUPPORT
-              </span>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl mt-2">
-                Specific filings, handled case by case.
+
+              <h2 className="text-3xl font-black leading-tight tracking-[-0.035em] text-[#142342] sm:text-4xl">
+                The value grows
+                <br />
+                as the data grows.
               </h2>
-              <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
-                For clients already on the Compliance Platform, we also handle specific filings and registration updates directly: IRP, IFTA, entity changes, government portal updates, and similar work on a case-by-case basis.
-              </p>
-              <p className="mt-3 text-sm text-slate-500 leading-relaxed">
-                Turnaround times vary depending on the scope and urgency of the work. If you have a deadline, expected timelines are confirmed before engagement begins.
-              </p>
-            </Reveal>
 
-            <Reveal delay={120}>
-              <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">
-                  Filing Workflow Step-by-Step
-                </h3>
-                <ol className="space-y-3">
-                  {filingSteps.map((step, i) => (
-                    <li
-                      key={step}
-                      className="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50/60 p-4"
-                    >
-                      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-cyan-100 font-mono text-xs font-bold text-cyan-700">
-                        0{i + 1}
-                      </span>
-                      <span className="text-sm font-medium text-slate-800">
-                        {step}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+              <p className="mt-6 max-w-lg text-sm leading-7 text-[#687891]">
+                The ongoing platform is designed around continuously tracked
+                compliance activity. That creates the foundation for
+                operational visibility and practical decision support over
+                time.
+              </p>
+
+              <Link
+                href="/platform"
+                className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#142342] transition hover:text-[#e85d04]"
+              >
+                Explore the platform
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-[#dce3ed] bg-[#f8f9fc] p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+                  <ShieldCheck className="h-4.5 w-4.5 text-[#4353a4]" />
+                </div>
+
+                <p className="mt-5 text-sm font-bold text-[#142342]">
+                  Track
+                </p>
+
+                <p className="mt-2 text-xs leading-5 text-[#71809a]">
+                  Requirements, renewals, filings, and compliance activity stay
+                  organized in one place.
+                </p>
               </div>
-            </Reveal>
+
+              <div className="rounded-2xl border border-[#dce3ed] bg-[#f8f9fc] p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+                  <Gauge className="h-4.5 w-4.5 text-[#4353a4]" />
+                </div>
+
+                <p className="mt-5 text-sm font-bold text-[#142342]">
+                  Understand
+                </p>
+
+                <p className="mt-2 text-xs leading-5 text-[#71809a]">
+                  Patterns and recurring issues become easier to see across
+                  drivers and vehicles.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-[#dce3ed] bg-[#f8f9fc] p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+                  <Sparkles className="h-4.5 w-4.5 text-[#4353a4]" />
+                </div>
+
+                <p className="mt-5 text-sm font-bold text-[#142342]">
+                  Act
+                </p>
+
+                <p className="mt-2 text-xs leading-5 text-[#71809a]">
+                  Compliance information becomes practical guidance for what to
+                  look at and what to do next.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. CTA Section */}
-      <CtaBand />
-    </div>
-  )
-}
+      {/* ==================================================================== */}
+      {/* DIRECT FILING SUPPORT                                                */}
+      {/* ==================================================================== */}
+
+      <section className="bg-[#f7f8fb]">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+            <div>
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#e85d04]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+                  Direct Filing Support
+                </span>
+              </div>
+
+              <h2 className="text-3xl font-black tracking-[-0.035em] text-[#142342] sm:text-4xl">
+                Specific filings,
+                <br />
+                handled case by case.
+              </h2>
+
+              <p className="mt-6 max-w-xl text-sm leading-7 text-[#687891]">
+                For clients already on the Compliance Platform, TruckEase also
+                handles filings and registration work that falls outside the
+                regular renewal cycle: entity changes, government portal
+                updates, one-off amendments, and similar work.
+              </p>
+
+              <div className="mt-6 rounded-xl border border-[#e4e8ef] bg-white p-5">
+                <div className="flex items-start gap-3">
+                  <FileCheck2 className="mt-0.5 h-5 w-5 shrink-0 text-[#e85d04]" />
+
+                  <p className="text-xs leading-5 text-[#71809a]">
+                    Turnaround times vary depending on the scope and urgency of
+                    the work. If you have a deadline, we&apos;ll confirm
+                    expected timelines before the engagement begins.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Filing workflow */}
+            <div className="rounded-[24px] border border-[#d9e1ec] bg-white p-6 shadow-[0_16px_40px_rgba(20,35,66,0.05)] sm:p-8">
+              <div className="flex items-center justify-between gap-4 border-b border-[#e5e9ef] pb-5">
+                <div>
+                  <p className="text-sm font-bold text-[#142342]">
+                    Filing Workflow
+                  </p>
+
+                  <p className="mt-1 text-xs text-[#7a879b]">
+                    A clear process from request to organized records.
+                  </p>
+                </div>
+
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff4ed]">
+                  <FileCheck2 className="h-4.5 w-4.5 text-[#e85d04]" />
+                </div>
+              </div>
+
+              <div className="mt-7">
+                {workflowSteps.map((step, index) => (
+                  <div key={step.number} className="relative flex gap-5">
+                    {index < workflowSteps.length - 1 && (
+                      <div
+                        aria-hidden="true"
+                        className="absolute left-[19px] top-10 h-[calc(100%-4px)] w-px bg-[#dbe2ed]"
+                      />
+                    )}
+
+                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#f3c4a7] bg-[#fff7f2] text-[9px] font-bold tracking-[0.08em] text-[#e85d04]">
+                      {step.number}
+                    </div>
+
+                    <div className="p
