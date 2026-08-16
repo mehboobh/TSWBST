@@ -11,7 +11,7 @@ import {
 const testimonials = [
   {
     quote:
-    "What's actually changed for us isn't just staying compliant. it's seeing things we'd never have caught on our own. Weekly safety score, HOS reviews, patterns across pre- and post-trip inspections. We know which drivers need a conversation before it's a real problem, and which trucks keep showing up in inspections for the same reason.",
+    "What's changed for us isn't staying compliant. It's seeing things we'd never have caught on our own. Weekly safety score, HOS reviews, patterns across pre- and post-trip inspections. We know which drivers need a conversation before it's a problem, and which trucks keep showing up in inspections for the same reason.",
     author: 'Tejinder K.',
     role: 'Fleet Owner',
     location: 'Alberta, Canada',
