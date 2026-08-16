@@ -258,3 +258,294 @@
 .animate-marquee-loop:hover {
   animation-play-state: paused;
 }
+
+/* =========================================================
+   RISK SCREENING CTA
+   ========================================================= */
+
+.risk-cta {
+  position: relative;
+  width: 100%;
+  padding: 64px 24px;
+  overflow: hidden;
+}
+
+.risk-cta__inner {
+  position: relative;
+  max-width: 1216px;
+  margin: 0 auto;
+  padding: 68px 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
+  gap: 64px;
+  align-items: center;
+
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    #131f35;
+
+  background-size: 44px 44px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+
+  box-shadow:
+    0 24px 70px rgba(15, 27, 50, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.risk-cta__content {
+  min-width: 0;
+}
+
+.risk-cta__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  color: #ff6400;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.risk-cta__eyebrow-line {
+  width: 24px;
+  height: 1px;
+  flex: 0 0 24px;
+  background: #ff6400;
+}
+
+.risk-cta__title {
+  max-width: 650px;
+  margin: 0;
+
+  color: #f7f9fc;
+  font-size: clamp(34px, 4vw, 50px);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+}
+
+.risk-cta__description {
+  max-width: 620px;
+  margin: 22px 0 0;
+
+  color: #aab5c7;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.risk-cta__statement {
+  margin: 18px 0 0;
+
+  color: #f2f5f9;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.risk-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 30px;
+  padding: 12px 14px 12px 16px;
+
+  color: #f7f9fc;
+  background: rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 11px;
+
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.risk-cta__button:hover {
+  background: #ff6400;
+  border-color: #ff6400;
+  transform: translateY(-1px);
+}
+
+.risk-cta__button:focus-visible {
+  outline: 2px solid #ff6400;
+  outline-offset: 3px;
+}
+
+.risk-cta__button svg {
+  transition: transform 180ms ease;
+}
+
+.risk-cta__button:hover svg {
+  transform: translateX(2px);
+}
+
+
+/* Right panel */
+
+.risk-cta__panel {
+  min-width: 0;
+  padding: 32px;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.risk-cta__panel-title {
+  margin-bottom: 22px;
+
+  color: #9faabd;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.risk-cta__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.risk-cta__step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  min-height: 32px;
+}
+
+.risk-cta__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+
+  color: #152033;
+  background: #ff7900;
+
+  border-radius: 50%;
+}
+
+.risk-cta__step-text {
+  color: #e7ebf2;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+.risk-cta__divider {
+  width: 100%;
+  height: 1px;
+  margin: 24px 0 18px;
+
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.risk-cta__disclaimer {
+  margin: 0;
+
+  color: #8e9aae;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .risk-cta__inner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding: 52px 48px;
+  }
+
+  .risk-cta__title {
+    max-width: 720px;
+  }
+
+  .risk-cta__description {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 640px) {
+  .risk-cta {
+    padding: 40px 16px;
+  }
+
+  .risk-cta__inner {
+    padding: 38px 24px;
+    gap: 34px;
+    border-radius: 22px;
+    background-size: 34px 34px;
+  }
+
+  .risk-cta__eyebrow {
+    margin-bottom: 16px;
+    font-size: 10px;
+  }
+
+  .risk-cta__title {
+    font-size: 34px;
+    line-height: 1.08;
+  }
+
+  .risk-cta__description {
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .risk-cta__statement {
+    font-size: 14px;
+  }
+
+  .risk-cta__button {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .risk-cta__panel {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .risk-cta__steps {
+    gap: 14px;
+  }
+
+  .risk-cta__step-text {
+    font-size: 13px;
+  }
+}
