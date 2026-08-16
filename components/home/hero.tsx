@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowRight,
@@ -53,15 +52,16 @@ export function Hero() {
 >
   {/* The photo itself, pushed further into frame so its dusk palette reads */}
   <div
-    className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[center_38%] opacity-[0.5]"
+    className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[center_38%] opacity-[0.42]"
   />
 
-  {/* Color wash sampled from the sky: navy -> indigo -> plum -> horizon amber -> page white */}
+  {/* Color wash sampled from the sky: navy -> indigo -> plum -> horizon amber -> page white.
+      Kept dark/opaque well past where the copy sits so text never lands on a bright patch of sky. */}
   <div
     className="absolute inset-0"
     style={{
       background:
-        'linear-gradient(180deg, rgba(7,11,24,0.94) 0%, rgba(19,20,46,0.90) 16%, rgba(43,29,64,0.82) 34%, rgba(104,50,58,0.60) 50%, rgba(214,104,52,0.36) 64%, rgba(251,252,254,0.55) 82%, rgba(251,252,254,1) 100%)',
+        'linear-gradient(180deg, rgba(4,6,15,0.96) 0%, rgba(12,13,32,0.95) 14%, rgba(28,20,48,0.93) 30%, rgba(62,32,42,0.88) 46%, rgba(134,62,38,0.80) 60%, rgba(251,252,254,0.78) 84%, rgba(251,252,254,1) 100%)',
     }}
   />
 
@@ -78,30 +78,30 @@ export function Hero() {
         {/* HERO                                                             */}
         {/* ---------------------------------------------------------------- */}
 
-        <div className="grid min-h-[650px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8">
+        <div className="flex min-h-[650px] items-center">
 
-          {/* LEFT */}
+          {/* CONTENT */}
           <div className="relative z-10 pb-10 pt-8 lg:pb-20">
 
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-4 py-2 text-xs font-semibold text-white shadow-[0_5px_18px_rgba(0,0,0,0.15)] backdrop-blur">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/30 px-4 py-2 text-xs font-semibold text-white shadow-[0_5px_18px_rgba(0,0,0,0.25)] backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-[#f15a00]" />
               Operational intelligence platform for the United States and Canada
             </div>
 
             <h1 className="max-w-[720px] font-extrabold leading-[0.96] tracking-[-0.055em]">
-              <span className="block text-[2.5rem] text-white sm:text-[2.9rem] lg:text-[3.1rem]">
+              <span className="block text-[2.5rem] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] sm:text-[2.9rem] lg:text-[3.1rem]">
                 Compliance Built for
               </span>
-              <span className="block text-[4.5rem] tracking-[-0.065em] text-[#f97a2e] sm:text-[5.4rem] lg:text-[5.9rem]">
+              <span className="block text-[4.5rem] tracking-[-0.065em] text-[#ff8a3d] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)] sm:text-[5.4rem] lg:text-[5.9rem]">
                 Operational Confidence.
               </span>
             </h1>
 
-            <p className="mt-8 text-[17px] font-bold leading-7 text-white/90">
+            <p className="mt-8 text-[17px] font-bold leading-7 text-white drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)]">
               Compliance isn't the goal. Operational confidence is.
             </p>
 
-            <p className="mt-3 max-w-[650px] text-[16px] leading-7 text-[#c3cee6]">
+            <p className="mt-3 max-w-[650px] text-[16px] leading-7 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]">
               A compliance platform that combines regulatory expertise with
               AI-powered technology to help trucking companies across the
               United States and Canada understand their compliance position,
@@ -126,7 +126,7 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-13 rounded-xl border-white/25 bg-white/[0.08] px-7 text-sm font-bold text-white shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/[0.16]"
+                className="h-13 rounded-xl border-white/30 bg-black/30 px-7 text-sm font-bold text-white shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-black/45"
               >
                 <Link href="/platform">
                   Explore the Platform
@@ -135,83 +135,9 @@ export function Hero() {
 
             </div>
 
-            <div className="mt-8 flex items-center gap-3 text-xs text-white/55">
-              <span className="h-px w-8 bg-white/25" />
+            <div className="mt-8 flex items-center gap-3 text-xs font-medium text-white/75 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">
+              <span className="h-px w-8 bg-white/40" />
               Built for trucking operations across the United States and Canada
-            </div>
-          </div>
-
-          {/* RIGHT — IMAGE COMPOSITION */}
-          <div className="relative lg:-mr-16">
-
-            {/* Image atmosphere */}
-            <div
-              aria-hidden="true"
-              className="absolute -inset-10 rounded-[4rem] bg-gradient-to-br from-[#3a2d63]/50 via-[#7a3f45]/35 to-[#f0703a]/30 blur-[70px]"
-            />
-
-            <div className="relative">
-
-              {/* Ground shadow */}
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-8 left-4 right-4 h-24 rounded-[3rem] bg-[#142342]/12 blur-2xl"
-              />
-
-              {/* Image frame */}
-              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#142342] shadow-[0_35px_90px_rgba(16,33,61,0.24)] ring-1 ring-[#172342]/10">
-                <Image
-                  src="/hero-truck-neutral.jpg"
-                  alt="Commercial tractor-trailer traveling on a highway"
-                  width={1600}
-                  height={1050}
-                  priority
-                  className="aspect-[1.38/1] w-full object-cover"
-                />
-
-                {/* Dusk color integration */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-[#0c1630]/45 via-transparent to-[#172342]/5"
-                />
-
-                {/* Confidence badge */}
-                <div className="absolute right-6 top-6 rounded-2xl border border-white/70 bg-white/90 px-5 py-3.5 shadow-[0_12px_30px_rgba(0,0,0,0.12)] backdrop-blur-md">
-
-                  <p className="text-xs font-medium text-[#68758b]">
-                    Operate with
-                  </p>
-
-                  <p className="text-sm font-bold text-[#142342]">
-                    Confidence.
-                  </p>
-
-                </div>
-
-                {/* Image label */}
-                <div className="absolute bottom-6 left-6 rounded-xl border border-white/20 bg-[#10213d]/78 px-4 py-3 text-white shadow-lg backdrop-blur-md">
-
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/60">
-                    TruckEase Solutions
-                  </p>
-
-                  <p className="mt-1 text-sm font-semibold">
-                    Compliance built around operations.
-                  </p>
-
-                </div>
-
-              </div>
-
-              {/* Floating shield */}
-              <div className="absolute -bottom-7 -left-7 hidden h-20 w-20 rounded-2xl border border-[#dce4ef] bg-white shadow-[0_18px_40px_rgba(20,35,60,0.15)] lg:block">
-
-                <div className="flex h-full items-center justify-center">
-                  <ShieldCheck className="h-7 w-7 text-[#f15a00]" />
-                </div>
-
-              </div>
-
             </div>
           </div>
         </div>
