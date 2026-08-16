@@ -10,7 +10,6 @@ import {
   Gauge,
   Info,
   Radar,
-  RefreshCw,
   Settings2,
   ShieldCheck,
   Wrench,
@@ -20,7 +19,7 @@ import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 
 /* -------------------------------------------------------------------------- */
-/* Dashboard                                                                  */
+/* Dashboard data                                                             */
 /* -------------------------------------------------------------------------- */
 
 const complianceItems = [
@@ -105,6 +104,10 @@ const atRiskItems = [
   },
 ]
 
+/* -------------------------------------------------------------------------- */
+/* Dashboard helpers                                                          */
+/* -------------------------------------------------------------------------- */
+
 function statusColor(tone: string) {
   switch (tone) {
     case 'danger':
@@ -131,17 +134,100 @@ function statusDot(tone: string) {
   }
 }
 
+/* -------------------------------------------------------------------------- */
+/* Compliance status ring                                                     */
+/* -------------------------------------------------------------------------- */
+
+function StatusRing({
+  percentage = 76,
+}: {
+  percentage?: number
+}) {
+  const radius = 47
+  const circumference = 2 * Math.PI * radius
+  const progress = Math.max(0, Math.min(100, percentage))
+  const dashOffset = circumference * (1 - progress / 100)
+
+  return (
+    <div className="relative h-36 w-36">
+      <svg
+        viewBox="0 0 120 120"
+        className="h-full w-full"
+        role="img"
+        aria-label={`${progress}% overall compliance position`}
+      >
+        {/* Background track */}
+        <circle
+          cx="60"
+          cy="60"
+          r={radius}
+          fill="none"
+          stroke="#26344f"
+          strokeWidth="9"
+        />
+
+        {/* Progress
+            -90 degrees moves the start point from 3 o'clock to 12 o'clock.
+            SVG stroke direction then proceeds clockwise. */}
+        <circle
+          cx="60"
+          cy="60"
+          r={radius}
+          fill="none"
+          stroke="#00d79b"
+          strokeWidth="9"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={dashOffset}
+          transform="rotate(-90 60 60)"
+        />
+
+        {/* Small orange accent marker at the start point */}
+        <circle
+          cx="60"
+          cy="13"
+          r="2.1"
+          fill="#f45b08"
+        />
+      </svg>
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-[25px] font-bold leading-none tracking-[-0.04em] text-white">
+          {progress}%
+        </span>
+
+        <span className="mt-1 text-center text-[9px] leading-[1.25] text-[#a9b5c9]">
+          Overall
+          <br />
+          Compliance
+          <br />
+          Position
+        </span>
+      </div>
+    </div>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/* Dashboard                                                                  */
+/* -------------------------------------------------------------------------- */
+
 function Dashboard() {
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-[#26334d] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.22)] sm:p-6">
-      {/* very subtle twilight atmosphere */}
+    <div className="relative w-full overflow-hidden rounded-[24px] border border-[#273653] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.24)] sm:p-6">
+      {/* Twilight atmosphere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#5b6cae]/10 blur-3xl"
+        className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#596ba8]/10 blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-40 left-1/3 h-80 w-80 rounded-full bg-[#f45b08]/[0.035] blur-3xl"
       />
 
       <div className="relative">
-        {/* Dashboard heading */}
+        {/* Dashboard header */}
         <div className="flex items-center justify-between border-b border-[#202c42] pb-4">
           <div>
             <h3 className="text-sm font-bold tracking-tight text-white sm:text-base">
@@ -156,57 +242,11 @@ function Dashboard() {
         </div>
 
         {/* Main dashboard row */}
-        <div className="mt-4 grid gap-3 lg:grid-cols-[245px_1fr]">
+        <div className="mt-4 grid gap-3 lg:grid-cols-[245px_minmax(0,1fr)]">
           {/* Compliance score */}
           <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-5 sm:p-6">
-            <div className="flex h-full flex-col items-center justify-center">
-              <div className="relative h-36 w-36">
-                <svg
-                  viewBox="0 0 120 120"
-                  className="h-full w-full"
-                  aria-label="76 percent overall compliance position"
-                >
-                  {/* track */}
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="47"
-                    fill="none"
-                    stroke="#22304a"
-                    strokeWidth="9"
-                  />
-
-                  {/* progress
-                      Circle begins at 3 o'clock naturally.
-                      rotate(180) moves the beginning to 9 o'clock.
-                      Positive stroke direction remains clockwise. */}
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="47"
-                    fill="none"
-                    stroke="#00d79b"
-                    strokeWidth="9"
-                    strokeLinecap="round"
-                    strokeDasharray="295.31"
-                    strokeDashoffset="70.87"
-                    transform="rotate(180 60 60)"
-                  />
-                </svg>
-
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-2xl font-bold tracking-tight text-white">
-                    76%
-                  </span>
-                  <span className="mt-0.5 text-[9px] leading-3 text-[#a9b5c9]">
-                    Overall
-                    <br />
-                    Compliance
-                    <br />
-                    Position
-                  </span>
-                </div>
-              </div>
+            <div className="flex h-full min-h-[210px] flex-col items-center justify-center">
+              <StatusRing percentage={76} />
 
               <div className="mt-2 text-[9px] font-medium text-[#00d79b]">
                 ↑ 6% vs last 30 days
@@ -222,30 +262,32 @@ function Dashboard() {
               return (
                 <div
                   key={item.title}
-                  className="group flex min-h-[43px] items-center gap-3 rounded-xl border border-[#26334d] bg-[#0e1627] px-3 transition-colors hover:border-[#34445f]"
+                  className="group flex min-h-[43px] min-w-0 items-center gap-2 rounded-xl border border-[#26334d] bg-[#0e1627] px-3 transition-colors duration-200 hover:border-[#3a4c6d] hover:bg-[#111b2d] sm:gap-3"
                 >
                   <Icon
-                    className={`h-3.5 w-3.5 shrink-0 ${statusColor(item.tone)}`}
+                    className={`h-3.5 w-3.5 shrink-0 ${statusColor(
+                      item.tone,
+                    )}`}
                     strokeWidth={2}
                   />
 
-                  <span className="min-w-0 flex-1 truncate text-[10px] font-semibold text-[#edf2fa] sm:text-[11px]">
+                  <span className="min-w-0 flex-1 truncate text-[9px] font-semibold text-[#edf2fa] sm:text-[11px]">
                     {item.title}
                   </span>
 
                   <span
-                    className={`text-[9px] font-semibold ${statusColor(
+                    className={`shrink-0 text-[8px] font-semibold sm:text-[9px] ${statusColor(
                       item.tone,
                     )}`}
                   >
                     {item.status}
                   </span>
 
-                  <span className="text-[10px] font-bold text-white">
+                  <span className="shrink-0 text-[9px] font-bold text-white sm:text-[10px]">
                     {item.value}
                   </span>
 
-                  <ArrowRight className="h-3 w-3 text-[#52627c]" />
+                  <ArrowRight className="h-3 w-3 shrink-0 text-[#52627c] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#8090ad]" />
                 </div>
               )
             })}
@@ -254,11 +296,12 @@ function Dashboard() {
 
         {/* Lower dashboard cards */}
         <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {/* Upcoming */}
+          {/* Upcoming tasks */}
           <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <CalendarDays className="h-3.5 w-3.5 text-[#a9b5c9]" />
+
                 <span className="text-[10px] font-semibold text-white">
                   Upcoming Tasks
                 </span>
@@ -273,10 +316,10 @@ function Dashboard() {
               {upcomingTasks.map((task) => (
                 <div
                   key={task.label}
-                  className="flex items-center gap-2 text-[8px]"
+                  className="flex min-w-0 items-center gap-2 text-[8px]"
                 >
                   <span
-                    className={`h-1.5 w-1.5 rounded-full ${statusDot(
+                    className={`h-1.5 w-1.5 shrink-0 rounded-full ${statusDot(
                       task.tone,
                     )}`}
                   />
@@ -286,7 +329,9 @@ function Dashboard() {
                   </span>
 
                   <span
-                    className={`font-semibold ${statusColor(task.tone)}`}
+                    className={`shrink-0 font-semibold ${statusColor(
+                      task.tone,
+                    )}`}
                   >
                     {task.value}
                   </span>
@@ -300,6 +345,7 @@ function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Clock3 className="h-3.5 w-3.5 text-[#a9b5c9]" />
+
                 <span className="text-[10px] font-semibold text-white">
                   Recent Activity
                 </span>
@@ -314,19 +360,21 @@ function Dashboard() {
               {recentActivity.map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-center gap-2 text-[8px]"
+                  className="flex min-w-0 items-center gap-2 text-[8px]"
                 >
-                  <CheckCircle2 className="h-3 w-3 text-[#00d79b]" />
+                  <CheckCircle2 className="h-3 w-3 shrink-0 text-[#00d79b]" />
 
                   <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
                     {item.label}
                   </span>
 
-                  <span className="font-semibold text-[#00d79b]">
+                  <span className="shrink-0 font-semibold text-[#00d79b]">
                     Completed
                   </span>
 
-                  <span className="text-[#66758d]">{item.date}</span>
+                  <span className="shrink-0 text-[#66758d]">
+                    {item.date}
+                  </span>
                 </div>
               ))}
             </div>
@@ -337,6 +385,7 @@ function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <AlertCircle className="h-3.5 w-3.5 text-[#ff5470]" />
+
                 <span className="text-[10px] font-semibold text-[#ff5470]">
                   At Risk
                 </span>
@@ -353,7 +402,7 @@ function Dashboard() {
                   <div className="flex items-start gap-2">
                     <CircleAlert className="mt-0.5 h-2.5 w-2.5 shrink-0 text-[#ff5470]" />
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-[8px] font-semibold text-[#ff7388]">
                         {item.label}
                       </p>
@@ -369,7 +418,8 @@ function Dashboard() {
           </div>
         </div>
 
-        <p className="mt-5 text-center text-[8px] text-[#53627a]">
+        {/* Disclaimer */}
+        <p className="mt-5 text-center text-[8px] leading-4 text-[#53627a]">
           Interface concept. Illustrative data shown for demonstration
           purposes.
         </p>
@@ -379,33 +429,43 @@ function Dashboard() {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Section 2                                                                  */
+/* Section 2 — Platform Preview                                               */
 /* -------------------------------------------------------------------------- */
 
 export function PlatformPreview() {
   return (
     <section
       id="platform-preview"
-      className="relative overflow-hidden bg-[#f8fafc]"
+      className="relative isolate overflow-hidden bg-[#f7f9fd]"
     >
-      {/* Dusk-derived background treatment */}
+      {/* ------------------------------------------------------------------ */}
+      {/* Dusk-inspired section atmosphere                                  */}
+      {/* ------------------------------------------------------------------ */}
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_50%_0%,rgba(67,78,132,0.14),transparent_58%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-[radial-gradient(circle_at_72%_18%,rgba(50,67,120,0.15),transparent_42%),radial-gradient(circle_at_18%_30%,rgba(101,120,180,0.09),transparent_36%)]"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-48 top-40 h-[420px] w-[420px] rounded-full bg-[#dce5ff]/50 blur-3xl"
+        className="pointer-events-none absolute -right-48 top-32 h-[560px] w-[560px] rounded-full bg-[#ef8b55]/[0.055] blur-3xl"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-48 top-20 h-[460px] w-[460px] rounded-full bg-[#f5dfd0]/50 blur-3xl"
+        className="pointer-events-none absolute -left-56 top-72 h-[500px] w-[500px] rounded-full bg-[#6474ae]/[0.07] blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      {/* Subtle top horizon line */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#65749f]/30 to-transparent"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          {/* Left copy */}
           <Reveal>
             <div>
               <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e85d04]">
@@ -427,7 +487,7 @@ export function PlatformPreview() {
 
               {/* Small visual bridge */}
               <div className="mt-8 hidden items-center gap-3 lg:flex">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#142342] text-white">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#142342] text-white shadow-[0_8px_24px_rgba(20,35,66,0.15)]">
                   <Gauge className="h-4 w-4" />
                 </div>
 
@@ -440,12 +500,19 @@ export function PlatformPreview() {
             </div>
           </Reveal>
 
+          {/* Dashboard */}
           <Reveal delay={100}>
             <div className="relative">
-              {/* soft frame behind dashboard */}
+              {/* Dusk glow behind dashboard */}
               <div
                 aria-hidden="true"
-                className="absolute -inset-5 rounded-[32px] bg-[linear-gradient(135deg,rgba(53,67,112,0.10),rgba(245,112,25,0.07))] blur-xl"
+                className="absolute -inset-8 rounded-[40px] bg-[radial-gradient(circle_at_55%_45%,rgba(66,81,137,0.18),rgba(245,112,25,0.05),transparent_70%)] blur-2xl"
+              />
+
+              {/* Soft frame */}
+              <div
+                aria-hidden="true"
+                className="absolute -inset-4 rounded-[32px] border border-[#d6ddea]/70 bg-white/40 shadow-[0_30px_90px_rgba(29,42,76,0.10)] backdrop-blur-[2px]"
               />
 
               <div className="relative">
@@ -499,7 +566,7 @@ const processSteps = [
 export function Process() {
   return (
     <section className="relative overflow-hidden bg-white">
-      {/* twilight hairline / atmosphere */}
+      {/* Twilight hairline */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7d88b5]/40 to-transparent"
@@ -515,7 +582,7 @@ export function Process() {
         </Reveal>
 
         <div className="relative mt-14">
-          {/* connecting line */}
+          {/* Connecting line */}
           <div
             aria-hidden="true"
             className="absolute left-[8%] right-[8%] top-6 hidden h-px bg-gradient-to-r from-[#d9dfeb] via-[#8793b6] to-[#d9dfeb] lg:block"
@@ -533,7 +600,7 @@ export function Process() {
                 >
                   <div className="flex flex-col items-start lg:items-center lg:text-center">
                     <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-[#dbe2ef] bg-white shadow-[0_6px_20px_rgba(20,35,66,0.08)]">
-                      <Icon className="h-4.5 w-4.5 text-[#4353a4]" />
+                      <Icon className="h-[18px] w-[18px] text-[#4353a4]" />
                     </div>
 
                     <div className="mt-5">
@@ -561,7 +628,7 @@ export function Process() {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Compatibility export                                                       */
+/* Why TruckEase                                                              */
 /* -------------------------------------------------------------------------- */
 
 const benefits = [
@@ -599,8 +666,14 @@ const benefits = [
 
 export function WhyTruckEase() {
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section className="relative overflow-hidden bg-white">
+      {/* Very subtle transition from the dusk platform section */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f7f9fd] to-transparent"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <Reveal>
           <SectionHeading
             eyebrow="Why TruckEase"
@@ -620,7 +693,7 @@ export function WhyTruckEase() {
                 className="group"
               >
                 <div className="h-full rounded-2xl border border-[#e0e5ee] bg-white p-6 shadow-[0_8px_30px_rgba(20,35,66,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#c7d0e3] hover:shadow-[0_16px_40px_rgba(20,35,66,0.08)]">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#edf1ff] text-[#4353a4]">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#edf1ff] text-[#4353a4] transition-colors duration-300 group-hover:bg-[#e7ecff]">
                     <Icon className="h-5 w-5" />
                   </span>
 
