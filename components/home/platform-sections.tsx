@@ -177,7 +177,7 @@ function Dashboard() {
                   />
 
                   {/* progress
-                      Circle begins at 12 o'clock naturally.
+                      Circle begins at 3 o'clock naturally.
                       rotate(180) moves the beginning to 9 o'clock.
                       Positive stroke direction remains clockwise. */}
                   <circle
