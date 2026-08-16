@@ -41,44 +41,51 @@ export function Hero() {
   return (
 <section className="relative overflow-hidden bg-[#fbfcfe]">
 
-      {/* ------------------------------------------------------------------ */}
-      {/* HERO ATMOSPHERE                                                    */}
-      {/* ------------------------------------------------------------------ */}
-
-{/* Dusk-derived background atmosphere */}
-<div
-  aria-hidden="true"
-  className="pointer-events-none absolute inset-x-0 top-0 h-[760px] overflow-hidden"
->
-  {/* The photo itself, pushed further into frame so its dusk palette reads */}
-  <div
-    className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[center_38%] opacity-[0.42]"
-  />
-
-  {/* Color wash sampled from the sky: navy -> indigo -> plum -> horizon amber -> page white.
-      Kept dark/opaque well past where the copy sits so text never lands on a bright patch of sky. */}
-  <div
-    className="absolute inset-0"
-    style={{
-      background:
-        'linear-gradient(180deg, rgba(4,6,15,0.96) 0%, rgba(12,13,32,0.95) 14%, rgba(28,20,48,0.93) 30%, rgba(62,32,42,0.88) 46%, rgba(134,62,38,0.80) 60%, rgba(251,252,254,0.78) 84%, rgba(251,252,254,1) 100%)',
-    }}
-  />
-
-  {/* Indigo glow, echoing the upper sky */}
-  <div className="absolute -right-40 -top-40 h-[40rem] w-[40rem] rounded-full bg-[#2c2361]/[0.28] blur-[130px]" />
-
-  {/* Amber glow, echoing the horizon light */}
-  <div className="absolute -left-32 top-[19rem] h-[34rem] w-[34rem] rounded-full bg-[#f0703a]/[0.20] blur-[130px]" />
-</div>
-
       <div className="relative mx-auto max-w-[1380px] px-6 pb-0 pt-7 lg:px-10">
 
         {/* ---------------------------------------------------------------- */}
         {/* HERO                                                             */}
         {/* ---------------------------------------------------------------- */}
 
-        <div className="flex min-h-[650px] items-center">
+        <div className="relative flex min-h-[650px] items-center overflow-hidden">
+
+          {/* ------------------------------------------------------------ */}
+          {/* HERO ATMOSPHERE — sized to this row, not a fixed pixel        */}
+          {/* height, so it always covers exactly as much content as       */}
+          {/* actually renders (long mobile stacks included) and the       */}
+          {/* image/gradient never "runs out" partway down the text.       */}
+          {/* ------------------------------------------------------------ */}
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+          >
+            {/* The photo itself — brighter and framed lower/right so the
+                tractor-trailer is clearly recognizable, not just a color
+                smear behind the copy. */}
+            <div className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[68%_60%] opacity-[0.65]" />
+
+            {/* Directional scrim: dark over the text column on the left so
+                copy is legible without help, fading out by the right half
+                so the truck itself sits in the clear and reads as the
+                photo it is. A gentle vertical fade is layered underneath
+                so the top of the sky stays moody and the very bottom eases
+                into the page's white before the feature strip. */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(3,5,12,0.82) 0%, rgba(3,5,12,0.55) 32%, rgba(3,5,12,0.20) 55%, rgba(3,5,12,0) 76%), ' +
+                  'linear-gradient(180deg, rgba(5,8,18,0.55) 0%, rgba(16,13,30,0.42) 22%, rgba(60,30,32,0.32) 44%, rgba(140,64,36,0.22) 60%, rgba(251,252,254,0.75) 86%, rgba(251,252,254,1) 100%)',
+              }}
+            />
+
+            {/* Indigo glow, echoing the upper sky */}
+            <div className="absolute -right-40 -top-40 h-[40rem] w-[40rem] rounded-full bg-[#2c2361]/[0.20] blur-[130px]" />
+
+            {/* Amber glow, echoing the horizon light */}
+            <div className="absolute -left-32 top-[19rem] h-[34rem] w-[34rem] rounded-full bg-[#f0703a]/[0.14] blur-[130px]" />
+          </div>
 
           {/* CONTENT */}
           <div className="relative z-10 pb-10 pt-8 lg:pb-20">
@@ -197,4 +204,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+          }
