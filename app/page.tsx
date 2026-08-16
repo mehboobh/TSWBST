@@ -11,7 +11,6 @@ import {
 import { Testimonials } from '@/components/home/testimonials'
 
 import { RiskCta } from '@/components/home/risk-cta'
-import { CtaBand } from '@/components/ui/cta-band'
 
 export default function HomePage() {
   return (
@@ -23,7 +22,6 @@ export default function HomePage() {
       <HowWeHelp />
       <Testimonials />
       <RiskCta />
-      <CtaBand />
     </>
   )
 }
