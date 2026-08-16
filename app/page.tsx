@@ -4,7 +4,7 @@ import { WhyTruckEase } from '@/components/home/why-truck-ease'
 import { PlatformPreview } from '@/components/home/platform-sections'
 
 import { Problem } from '@/components/home/problem'
-import { HowWeHelp } from '@/components/home/value-sections'
+import { HowWeHelp } from '@/components/home/how-we-help'
 
 import { Testimonials } from '@/components/home/testimonials'
 
