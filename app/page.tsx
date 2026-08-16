@@ -1,14 +1,13 @@
-// app/page.tsx
-
 import { Hero } from '@/components/home/hero'
+
 import {
-  PlatformPreview,    
-  Process,            
+  PlatformPreview,
+  WhyTruckEase,
 } from '@/components/home/platform-sections'
 
 import {
-  Problem,            
-  HowWeHelp,          
+  Problem,
+  HowWeHelp,
 } from '@/components/home/value-sections'
 
 import { Testimonials } from '@/components/home/testimonials'
@@ -19,10 +18,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <WhyTruckEase />
       <PlatformPreview />
       <Problem />
       <HowWeHelp />
-      <Process />
       <Testimonials />
       <RiskCta />
       <CtaBand />
