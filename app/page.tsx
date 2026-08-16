@@ -3,10 +3,8 @@ import { WhyTruckEase } from '@/components/home/why-truck-ease'
 
 import { PlatformPreview } from '@/components/home/platform-sections'
 
-import {
-  Problem,
-  HowWeHelp,
-} from '@/components/home/value-sections'
+import { Problem } from '@/components/home/problem'
+import { HowWeHelp } from '@/components/home/value-sections'
 
 import { Testimonials } from '@/components/home/testimonials'
 
