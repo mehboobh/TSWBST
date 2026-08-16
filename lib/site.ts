@@ -37,24 +37,24 @@ export const mainNav = [
 
 export const footerNav = [
   {
-    title: 'Platform Overview',
-    href: '/platform',
-  },
-  {
     title: 'Services',
     href: '/services',
   },
   {
-    title: 'About Us',
-    href: '/about',
+    title: 'Platform Overview',
+    href: '/platform',
+  },
+  {
+    title: 'Risk Screening',
+    href: '/risk-screening',
   },
   {
     title: 'Compliance Insights (Blog)',
     href: '/blog',
   },
   {
-    title: 'Risk Screening',
-    href: '/risk-screening',
+    title: 'About Us',
+    href: '/about',
   },
   {
     title: 'Contact Desk',

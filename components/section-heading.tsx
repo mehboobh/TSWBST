@@ -28,8 +28,8 @@ export function SectionHeading({
       {eyebrow ? (
         <span
           className={cn(
-            'inline-flex items-center gap-2 text-eyebrow',
-            tone === 'light' ? 'text-accent' : 'text-muted-foreground',
+            'inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em]',
+            tone === 'light' ? 'text-accent' : 'text-foreground/70',
           )}
         >
           <span className="h-px w-6 bg-accent" aria-hidden="true" />
@@ -38,7 +38,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          'mt-4 text-balance text-section-title',
+          'mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl',
           tone === 'light' ? 'text-navy-foreground' : 'text-foreground',
         )}
       >
@@ -47,7 +47,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            'mt-4 max-w-2xl text-pretty text-base leading-relaxed',
+            'mt-4 text-pretty text-base leading-relaxed sm:text-lg',
             tone === 'light' ? 'text-navy-muted' : 'text-muted-foreground',
           )}
         >

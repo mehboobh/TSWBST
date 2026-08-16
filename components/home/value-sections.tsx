@@ -15,7 +15,7 @@ import { Reveal } from '@/components/reveal'
 export function Philosophy() {
   return (
     <section className="bg-background">
-      <div className="container-site section-padding-lg">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <SectionHeading
@@ -95,7 +95,7 @@ const problems = [
 export function Problem() {
   return (
     <section className="bg-muted/40">
-      <div className="container-site section-padding-lg">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <Reveal>
           <SectionHeading
             eyebrow="The problem"
@@ -114,11 +114,11 @@ export function Problem() {
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {problems.map((problem, i) => (
             <Reveal key={problem.title} delay={i * 100}>
-              <Card className="card-site h-full">
-                <span className="icon-container">
+              <Card className="h-full border-border bg-card p-6">
+                <span className="grid size-11 place-items-center rounded-xl bg-navy text-navy-foreground">
                   <problem.icon className="size-5 text-accent" />
                 </span>
-                <h3 className="mt-5 text-card-title text-foreground">
+                <h3 className="mt-5 text-lg font-semibold text-foreground">
                   {problem.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -159,7 +159,7 @@ const features = [
 export function HowWeHelp() {
   return (
     <section className="bg-background">
-      <div className="container-site section-padding-lg">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <Reveal>
           <SectionHeading
             eyebrow="How TruckEase helps"
@@ -171,13 +171,13 @@ export function HowWeHelp() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {features.map((feature, i) => (
             <Reveal key={feature.title} delay={(i % 2) * 100}>
-              <Card className="card-site h-full sm:p-7">
+              <Card className="group h-full border-border bg-card p-6 transition-shadow hover:shadow-md sm:p-7">
                 <div className="flex items-start gap-4">
-                  <span className="icon-container">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-navy text-navy-foreground transition-colors group-hover:bg-navy/90">
                     <feature.icon className="size-5 text-accent" />
                   </span>
                   <div>
-                    <h3 className="text-card-title text-foreground">
+                    <h3 className="text-lg font-semibold text-foreground">
                       {feature.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
