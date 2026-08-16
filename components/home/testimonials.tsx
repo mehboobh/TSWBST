@@ -1,320 +1,214 @@
-// components/home/testimonials.tsx
-
-import { Card } from '@/components/ui/card'
-import {
-  ShieldCheck,
-  Globe2,
-  Truck,
-  FileCheck,
-  ArrowRight,
-} from 'lucide-react'
-
 const testimonials = [
   {
+    category: 'Safety & Operational Insights',
     quote:
-      "What's actually changed for us isn't just staying compliant — it's seeing things we'd never have caught on our own. Weekly safety score, HOS reviews, and patterns across inspections help us know which drivers need a conversation before it's a real problem.",
-    author: 'Tejinder K.',
-    role: 'Fleet Owner',
+      "What's changed for us isn't just staying compliant — it's seeing things we'd never have caught on our own. Weekly safety scores, HOS reviews, and inspection patterns help us address problems before they're real problems.",
+    name: 'Tejinder K.',
     location: 'Alberta, Canada',
-    type: 'Safety & Operations',
-    icon: ShieldCheck,
   },
   {
+    category: 'Compliance & Risk',
     quote:
       "IFTA, IRP, our SFC renewal, HOS — TruckEase keeps track of all of it so we're not scrambling every quarter. Having someone watching our safety score before it becomes a problem has made a real difference.",
-    author: 'Harjinder S.',
-    role: 'Fleet Owner',
+    name: 'Harjinder S.',
     location: 'Saskatchewan, Canada',
-    type: 'Compliance & Risk',
-    icon: FileCheck,
   },
   {
+    category: 'Cross-Border Operations',
     quote:
       "The data and analysis help us look into every aspect of our cross-border operation. TruckEase works behind the wheels with us, helping us understand what's happening across the business so we can make better decisions instead of simply reacting to problems.",
-    author: 'Sohail M.',
-    role: 'Fleet Owner',
+    name: 'Sohail M.',
     location: 'Michigan, USA',
-    type: 'Cross-Border Operations',
-    icon: Globe2,
   },
   {
+    category: 'Cross-Border Compliance',
     quote:
-      "We built our cross-border operation from the ground up with TruckEase — authorities, account setup, vehicle registration, tax filing, all of it. Starting a business is stressful enough without wondering if you're compliant. They made sure we weren't.",
-    author: 'Wasim M.',
-    role: 'Fleet Owner',
+      "We built our cross-border operation from the ground up with TruckEase — authorities, account setup, vehicle registration, tax filing, all of it. They made sure we weren't wondering if we were compliant.",
+    name: 'Wasim M.',
     location: 'Ontario, Canada',
-    type: 'Cross-Border Compliance',
-    icon: Truck,
   },
 ]
 
-/*
- * The testimonials are duplicated only to create the continuous
- * carousel effect. It does NOT imply additional customers.
- */
-const marqueeTestimonials = [...testimonials, ...testimonials]
+function CategoryIcon({ index }: { index: number }) {
+  const icons = [
+    (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        className="h-3.5 w-3.5"
+        aria-hidden="true"
+      >
+        <path d="M12 3.5 19 7v5c0 4.5-2.9 7.2-7 8.5C7.9 19.2 5 16.5 5 12V7l7-3.5Z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    ),
+    (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        className="h-3.5 w-3.5"
+        aria-hidden="true"
+      >
+        <path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
+        <path d="M8.5 8h7M8.5 12h7M8.5 16h4" />
+      </svg>
+    ),
+    (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        className="h-3.5 w-3.5"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M3.8 12h16.4M12 3.5c2.2 2.4 3.3 5.2 3.3 8.5S14.2 18.1 12 20.5C9.8 18.1 8.7 15.3 8.7 12S9.8 5.9 12 3.5Z" />
+      </svg>
+    ),
+    (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        className="h-3.5 w-3.5"
+        aria-hidden="true"
+      >
+        <path d="M4 7.5h16v9H4z" />
+        <path d="M7 16.5v2h10v-2M8 7.5V5h8v2" />
+        <path d="M8 11h.01M11 11h5" />
+      </svg>
+    ),
+  ]
+
+  return icons[index]
+}
 
 export function Testimonials() {
   return (
-    <section
-      id="testimonials"
-      className="relative overflow-hidden border-t border-[#e2e7ef] bg-[#f7f9fc] py-16 sm:py-20 lg:py-24"
-    >
-      {/* Background atmosphere */}
+    <section className="relative overflow-hidden bg-[#f7f9fc] py-20 sm:py-24">
+      {/* Soft background atmosphere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/80 to-transparent"
-      />
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="absolute left-[-12%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#e9eef8] opacity-60 blur-3xl" />
+        <div className="absolute bottom-[-25%] right-[-8%] h-[380px] w-[380px] rounded-full bg-[#fff0e7] opacity-45 blur-3xl" />
+      </div>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-32 h-80 w-80 rounded-full bg-[#4353a4]/[0.025] blur-3xl"
-      />
+      <div className="relative mx-auto max-w-[1240px] px-6 lg:px-8">
+        {/* Section heading */}
+        <div className="mb-10 flex flex-col gap-5 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-[650px]">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-7 bg-[#f15a0a]" />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-[#e8720c]/[0.025] blur-3xl"
-      />
-
-      <style>{`
-        @keyframes truckease-testimonial-marquee {
-          from {
-            transform: translate3d(0, 0, 0);
-          }
-
-          to {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-
-        .truckease-testimonial-track {
-          animation: truckease-testimonial-marquee 48s linear infinite;
-          will-change: transform;
-        }
-
-        .truckease-testimonial-track:hover {
-          animation-play-state: paused;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .truckease-testimonial-track {
-            animation: none;
-          }
-        }
-      `}</style>
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-        {/* ============================================================
-            SECTION INTRO
-            ============================================================ */}
-
-        <div className="mx-auto max-w-2xl text-center">
-
-          <div className="mb-4 inline-flex items-center gap-2.5">
-            <span className="h-px w-7 bg-[#e8720c]" />
-
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e8720c]">
-              Client Experience
-            </span>
-
-            <span className="h-px w-7 bg-[#e8720c]" />
-          </div>
-
-          <h2 className="text-3xl font-bold tracking-[-0.04em] text-[#101d39] sm:text-4xl lg:text-[2.75rem] lg:leading-[1.05]">
-            Built Around How Fleets
-            <br className="hidden sm:block" />
-            Actually Operate
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#667085]">
-            Compliance data becomes more valuable when it helps you understand
-            what is happening across the operation — and decide what to do next.
-          </p>
-
-        </div>
-
-        {/* ============================================================
-            OPERATOR SIGNAL
-            ============================================================ */}
-
-        <div className="mt-7 flex justify-center">
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#dce3ed] bg-white px-3.5 py-1.5 shadow-[0_3px_12px_rgba(16,29,57,0.04)]">
-
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5c8a68]/40" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#5c8a68]" />
-            </span>
-
-            <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#53627a]">
-              Experiences from fleet operators across the U.S. & Canada
-            </span>
-
-          </div>
-
-        </div>
-
-        {/* ============================================================
-            TESTIMONIAL CAROUSEL
-            ============================================================ */}
-
-        <div className="relative mt-10 sm:mt-12">
-
-          {/* Edge fades */}
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-[#f7f9fc] to-transparent sm:w-24 lg:w-40"
-          />
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-[#f7f9fc] to-transparent sm:w-24 lg:w-40"
-          />
-
-          <div className="overflow-hidden">
-
-            <div className="truckease-testimonial-track flex w-max gap-4 pr-4">
-
-              {marqueeTestimonials.map((testimonial, index) => {
-                const Icon = testimonial.icon
-
-                return (
-                  <Card
-                    key={`${testimonial.author}-${index}`}
-                    className="
-                      group relative
-                      flex h-[330px] w-[310px]
-                      shrink-0 flex-col
-                      overflow-hidden rounded-[18px]
-                      border border-[#dce2eb]
-                      bg-white
-                      p-5
-                      shadow-[0_8px_28px_rgba(16,29,57,0.045)]
-                      transition-all duration-300
-                      hover:-translate-y-1
-                      hover:border-[#cbd4e1]
-                      hover:shadow-[0_16px_38px_rgba(16,29,57,0.08)]
-                      sm:h-[315px]
-                      sm:w-[350px]
-                      sm:p-6
-                    "
-                  >
-
-                    {/* ==================================================
-                        TOP ROW
-                        ================================================== */}
-
-                    <div className="flex items-center justify-between">
-
-                      <div className="inline-flex items-center gap-2 rounded-full border border-[#e1e6ee] bg-[#f8f9fc] px-2.5 py-1.5">
-
-                        <Icon
-                          className="h-3.5 w-3.5 text-[#4353a4]"
-                          strokeWidth={1.8}
-                        />
-
-                        <span className="text-[9px] font-semibold text-[#53627a]">
-                          {testimonial.type}
-                        </span>
-
-                      </div>
-
-                      <span className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#b1bac8]">
-                        CLIENT
-                      </span>
-
-                    </div>
-
-                    {/* ==================================================
-                        QUOTE
-                        ================================================== */}
-
-                    <div className="flex-1">
-
-                      <div
-                        aria-hidden="true"
-                        className="mt-5 font-serif text-[32px] leading-none text-[#dfe5ef]"
-                      >
-                        “
-                      </div>
-
-                      <p className="mt-1 text-[12px] leading-[1.65] text-[#52617a] sm:text-[13px] sm:leading-[1.65]">
-                        {testimonial.quote}
-                      </p>
-
-                    </div>
-
-                    {/* ==================================================
-                        CUSTOMER
-                        ================================================== */}
-
-                    <div className="mt-4 flex items-center justify-between border-t border-[#edf0f4] pt-4">
-
-                      <div>
-
-                        <p className="text-[12px] font-bold tracking-[-0.01em] text-[#101d39]">
-                          {testimonial.author}
-                        </p>
-
-                        <p className="mt-0.5 text-[9px] text-[#7b8798]">
-                          {testimonial.role} · {testimonial.location}
-                        </p>
-
-                      </div>
-
-                      <div
-                        aria-hidden="true"
-                        className="
-                          flex h-7 w-7 items-center justify-center
-                          rounded-full bg-[#f1f4fa]
-                          text-[#4353a4]
-                          transition-all duration-300
-                          group-hover:bg-[#e9efff]
-                        "
-                      >
-                        <ArrowRight className="h-3 w-3" />
-                      </div>
-
-                    </div>
-
-                    {/* Subtle orange accent */}
-
-                    <div
-                      aria-hidden="true"
-                      className="
-                        absolute bottom-0 left-0
-                        h-[2px] w-0
-                        bg-[#e8720c]
-                        transition-all duration-300
-                        group-hover:w-10
-                      "
-                    />
-
-                  </Card>
-                )
-              })}
-
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#17305f]">
+                Experiences from fleet operators
+              </span>
             </div>
 
+            <h2 className="text-[34px] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#14213f] sm:text-[42px]">
+              Built around the way
+              <br className="hidden sm:block" /> your business actually operates.
+            </h2>
+
+            <p className="mt-4 max-w-[610px] text-[15px] leading-7 text-[#66738a]">
+              Compliance is only part of the picture. Our clients use
+              TruckEase data, analysis, and ongoing support to understand
+              what is happening across their operations and make better
+              decisions.
+            </p>
+          </div>
+
+          <div className="hidden shrink-0 items-center gap-2 pb-1 sm:flex">
+            <span className="h-2 w-2 rounded-full bg-[#f15a0a]" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#7a879b]">
+              Fleet operator experiences
+            </span>
           </div>
         </div>
 
-        {/* ============================================================
-            CAROUSEL INDICATOR
-            ============================================================ */}
+        {/* Testimonials */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {testimonials.map((testimonial, index) => (
+            <article
+              key={testimonial.name}
+              className="group flex min-h-[345px] flex-col rounded-[20px] border border-[#dce3ee] bg-white p-5 shadow-[0_8px_30px_rgba(20,33,63,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-[#cdd7e7] hover:shadow-[0_18px_45px_rgba(20,33,63,0.08)]"
+            >
+              {/* Top row */}
+              <div className="flex items-center justify-between gap-3">
+                <div className="inline-flex min-w-0 items-center gap-2 rounded-full border border-[#dce4f1] bg-[#f7f9fd] px-2.5 py-1.5 text-[10px] font-semibold text-[#52627d]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#edf2ff] text-[#4a63d8]">
+                    <CategoryIcon index={index} />
+                  </span>
 
-        <div className="mt-8 flex items-center justify-center gap-3">
+                  <span className="truncate">
+                    {testimonial.category}
+                  </span>
+                </div>
 
-          <span className="h-px w-10 bg-[#d8dfe9]" />
+                <span className="shrink-0 text-[9px] font-bold uppercase tracking-[0.16em] text-[#b1bac9]">
+                  Client
+                </span>
+              </div>
 
-          <span className="h-1.5 w-1.5 rounded-full bg-[#e8720c]" />
+              {/* Quote */}
+              <div className="mt-7 flex-1">
+                <div className="mb-3 text-[28px] font-serif leading-none text-[#dce4f1]">
+                  “
+                </div>
 
-          <span className="h-px w-10 bg-[#d8dfe9]" />
+                <p className="text-[14px] leading-[1.75] text-[#56657d]">
+                  {testimonial.quote}
+                </p>
+              </div>
 
+              {/* Bottom identity */}
+              <div className="mt-6 border-t border-[#e8edf4] pt-4">
+                <div className="flex items-end justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-bold text-[#172543]">
+                      {testimonial.name}
+                    </p>
+
+                    <p className="mt-1 text-[10px] font-medium text-[#8995a8]">
+                      Fleet Owner · {testimonial.location}
+                    </p>
+                  </div>
+
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f1f5fb] text-[#4962d6] transition-colors duration-200 group-hover:bg-[#fff0e7] group-hover:text-[#f15a0a]">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h13" />
+                      <path d="m13 6 6 6-6 6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
 
+        {/* Bottom reassurance */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 text-center sm:flex-row">
+          <span className="h-px w-8 bg-[#d8dfeb]" />
+          <p className="text-[11px] font-medium text-[#8490a3]">
+            Experiences from trucking businesses operating across the U.S. &amp; Canada
+          </p>
+          <span className="h-px w-8 bg-[#d8dfeb]" />
+        </div>
       </div>
     </section>
   )
