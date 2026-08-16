@@ -177,7 +177,6 @@
   --sidebar-border: oklch(0.91 0.012 255);
   --sidebar-ring: oklch(0.68 0.19 48);
 }
-}
 
 @layer base {
   * {
