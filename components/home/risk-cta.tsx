@@ -1,78 +1,124 @@
-import Link from 'next/link'
-import { ArrowRight, Check } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Reveal } from '@/components/reveal'
+'use client'
 
-const steps = [
+import Link from 'next/link'
+
+const screeningSteps = [
   'Review requested',
   'Public information reviewed',
   'Potential areas for attention',
   'Next steps discussed',
 ]
 
+function CheckIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 9.2L7.7 12L13.2 6.4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3.5 8.5H13.5M9.5 4.5L13.5 8.5L9.5 12.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function RiskCta() {
   return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="overflow-hidden rounded-3xl border border-border bg-navy text-navy-foreground">
-          <div className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:items-center lg:p-16">
-            <div
-              className="grid-lines absolute inset-0 opacity-30"
-              aria-hidden="true"
-            />
-            <Reveal className="relative">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                <span className="h-px w-6 bg-accent" aria-hidden="true" />
-                Risk Screening
-              </span>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                Understand Your Compliance Position Before Small Issues Become
-                Bigger Problems.
-              </h2>
-              <p className="mt-4 text-pretty leading-relaxed text-navy-muted">
-                Our Risk Screening reviews publicly available regulatory
-                information to identify potential compliance signals that may
-                deserve attention. The review is designed to give you greater
-                visibility into your current position and highlight where a
-                closer look might be worthwhile.
-              </p>
-              <p className="mt-4 font-medium text-navy-foreground">
-                No obligation. Just a real answer to where you stand.
-              </p>
-              <Button asChild size="lg" className="mt-8">
-                <Link href="/risk-screening">
-                  Request Your Risk Screening
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-            </Reveal>
-
-            <Reveal delay={120} className="relative">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 ring-1 ring-inset ring-white/10 sm:p-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-navy-muted">
-                  How a screening works
-                </p>
-                <ol className="mt-5 space-y-4">
-                  {steps.map((step, i) => (
-                    <li key={step} className="flex items-center gap-4">
-                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-semibold text-accent-foreground">
-                        {i < steps.length ? (
-                          <Check className="size-4" />
-                        ) : (
-                          i + 1
-                        )}
-                      </span>
-                      <span className="text-sm font-medium">{step}</span>
-                    </li>
-                  ))}
-                </ol>
-                <p className="mt-6 border-t border-white/10 pt-4 text-xs leading-relaxed text-navy-muted">
-                  A screening reviews available information only. It is not a
-                  guarantee of compliance or an official government rating.
-                </p>
-              </div>
-            </Reveal>
+    <section
+      id="risk-screening"
+      className="risk-cta"
+      aria-labelledby="risk-cta-title"
+    >
+      <div className="risk-cta__inner">
+        {/* Left side */}
+        <div className="risk-cta__content">
+          <div className="risk-cta__eyebrow">
+            <span className="risk-cta__eyebrow-line" />
+            <span>RISK SCREENING</span>
           </div>
+
+          <h2 id="risk-cta-title" className="risk-cta__title">
+            Understand Your Compliance
+            <br />
+            Position Before Small Issues
+            <br />
+            Become Bigger Problems.
+          </h2>
+
+          <p className="risk-cta__description">
+            Our Risk Screening reviews publicly available regulatory
+            information to identify potential compliance signals that may
+            deserve attention. The review is designed to give you greater
+            visibility into your current position and highlight where a
+            closer look might be worthwhile.
+          </p>
+
+          <p className="risk-cta__statement">
+            No obligation. Just a real answer to where you stand.
+          </p>
+
+          <Link
+            href="/risk-screening"
+            className="risk-cta__button"
+          >
+            <span>Request Your Risk Screening</span>
+            <ArrowIcon />
+          </Link>
+        </div>
+
+        {/* Right side */}
+        <div className="risk-cta__panel">
+          <div className="risk-cta__panel-title">
+            HOW A SCREENING WORKS
+          </div>
+
+          <div className="risk-cta__steps">
+            {screeningSteps.map((step) => (
+              <div className="risk-cta__step" key={step}>
+                <span className="risk-cta__check">
+                  <CheckIcon />
+                </span>
+
+                <span className="risk-cta__step-text">
+                  {step}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="risk-cta__divider" />
+
+          <p className="risk-cta__disclaimer">
+            A screening reviews available information only. It is not a
+            guarantee of compliance or an official government rating.
+          </p>
         </div>
       </div>
     </section>
