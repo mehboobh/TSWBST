@@ -40,7 +40,7 @@ const features = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white">
+<section className="relative overflow-hidden bg-[#fbfcfe]">
 
       {/* ------------------------------------------------------------------ */}
       {/* HERO ATMOSPHERE                                                    */}
