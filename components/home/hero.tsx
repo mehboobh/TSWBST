@@ -22,7 +22,7 @@ import {
  *
  * Do not change the layout below just to change the image path.
  */
-const HERO_IMAGE = '/hero-truck.jpg'
+const HERO_IMAGE = '/hero-truck.png'
 
 /* -------------------------------------------------------------------------- */
 /* Hero feature strip                                                         */
