@@ -1,108 +1,45 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowRight,
-  Check,
   CheckCircle2,
-  ChevronDown,
+  ChevronRight,
+  ShieldAlert,
   ShieldCheck,
 } from 'lucide-react'
 
 const questions = [
-  {
-    number: '01',
-    question: 'Which safety category is quietly closest to trouble?',
-  },
-  {
-    number: '02',
-    question: 'What would a broker see first on your DOT number?',
-  },
-  {
-    number: '03',
-    question:
-      'Do you actually know why your score moved — or just that it did?',
-  },
-  {
-    number: '04',
-    question:
-      'How many loads or contracts have you quietly lost, without anyone telling you why?',
-  },
-  {
-    number: '05',
-    question:
-      'Same issue, two different trucks, months apart — would you catch the connection?',
-  },
+  'Which safety category is quietly closest to trouble?',
+  'What would a broker see first on your DOT number?',
+  'Do you actually know why your score moved — or just that it did?',
+  'How many loads or contracts have you quietly lost, without anyone telling you why?',
+  'Same issue, two different trucks, months apart — would you catch the connection?',
 ]
 
 const screeningAreas = [
-  {
-    number: '01',
-    title: 'Safety indicators',
-    text: 'Public safety indicators that could attract additional regulatory attention.',
-  },
-  {
-    number: '02',
-    title: 'Authority & registration',
-    text: 'Authority and registration issues that may interrupt operations.',
-  },
-  {
-    number: '03',
-    title: 'Filing consistency',
-    text: 'Filing gaps and regulatory inconsistencies that deserve attention.',
-  },
-  {
-    number: '04',
-    title: 'Canadian indicators',
-    text: 'Canadian compliance indicators where applicable to your operation.',
-  },
+  'Public safety indicators that could attract additional regulatory attention',
+  'Authority and registration issues that may interrupt operations',
+  'Filing gaps and regulatory inconsistencies that deserve attention',
+  'Canadian compliance indicators where applicable',
 ]
 
 const screeningSteps = [
-  {
-    number: '01',
-    title: 'Answer five questions',
-    text: 'Tell us what you know — and where you are unsure.',
-  },
-  {
-    number: '02',
-    title: 'Connect your operation',
-    text: 'Provide the company details needed to identify your operation.',
-  },
-  {
-    number: '03',
-    title: 'Review public information',
-    text: 'We look at the regulatory signals available for review.',
-  },
-  {
-    number: '04',
-    title: 'Understand what matters',
-    text: 'Potential areas of attention become easier to understand and act on.',
-  },
+  'Review requested',
+  'Public information reviewed',
+  'Potential areas identified',
+  'Next steps discussed',
 ]
 
 type Answer = 'confident' | 'unsure' | null
 
-type FormState = {
-  fullName: string
-  email: string
-  phone: string
-  identifier: string
-  region: string
-  cargoType: string
-  haulPattern: string
-  reason: string
-}
-
 export default function RiskScreeningPage() {
-  const formRef = useRef<HTMLElement | null>(null)
-
   const [answers, setAnswers] = useState<Answer[]>(
     Array(questions.length).fill(null),
   )
 
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState({
     fullName: '',
     email: '',
     phone: '',
@@ -113,44 +50,33 @@ export default function RiskScreeningPage() {
     reason: '',
   })
 
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
-  const answeredCount = useMemo(
-    () => answers.filter(Boolean).length,
-    [answers],
-  )
+  const answeredCount = answers.filter(Boolean).length
+  const flaggedCount = answers.filter(
+    (answer) => answer === 'unsure',
+  ).length
 
-  const unsureCount = useMemo(
-    () => answers.filter((answer) => answer === 'unsure').length,
-    [answers],
-  )
+  function answerQuestion(
+    index: number,
+    answer: Exclude<Answer, null>,
+  ) {
+    const updated = [...answers]
+    updated[index] = answer
+    setAnswers(updated)
 
-  const screeningComplete = answeredCount === questions.length
-
-  useEffect(() => {
-    if (!screeningComplete) return
-
-    const timer = window.setTimeout(() => {
-      formRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }, 350)
-
-    return () => window.clearTimeout(timer)
-  }, [screeningComplete])
-
-  function setAnswer(index: number, answer: Exclude<Answer, null>) {
-    setAnswers((current) => {
-      const updated = [...current]
-      updated[index] = answer
-      return updated
-    })
+    if (index === questions.length - 1) {
+      setTimeout(() => {
+        document
+          .getElementById('company-details')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 250)
+    }
   }
 
-  function updateField<K extends keyof FormState>(
-    field: K,
-    value: FormState[K],
+  function handleFormChange(
+    field: keyof typeof form,
+    value: string,
   ) {
     setForm((current) => ({
       ...current,
@@ -162,319 +88,356 @@ export default function RiskScreeningPage() {
     event.preventDefault()
 
     /*
-     * Production OTP / backend submission should be connected here.
-     * The UI does not pretend that a real submission occurred.
+     * Connect this form to the production CRM / OTP / screening
+     * workflow before launch.
      */
-    setFormSubmitted(true)
+    setSubmitted(true)
   }
 
   return (
-    <main className="overflow-hidden bg-[#f7f6f2] text-[#101a2f]">
+    <main className="bg-white text-[#111827]">
       {/* ================================================================
           HERO
-      ================================================================= */}
+      ================================================================ */}
 
-      <section className="relative bg-[#f7f6f2]">
+      <section className="relative overflow-hidden border-b border-[#e5e7eb] bg-white">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute right-[-180px] top-[-240px] h-[520px] w-[520px] rounded-full bg-[#e7e4dc] blur-3xl"
+          className="pointer-events-none absolute right-[-180px] top-[-180px] h-[520px] w-[520px] rounded-full bg-[#eef0f3] blur-3xl"
         />
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-[-220px] left-[-180px] h-[420px] w-[420px] rounded-full bg-[#ece9e2] blur-3xl"
+          className="pointer-events-none absolute bottom-[-260px] left-[-180px] h-[500px] w-[500px] rounded-full bg-[#f5f5f4] blur-3xl"
         />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 sm:px-8 lg:px-10 lg:pb-24 lg:pt-24">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
           <div className="grid items-end gap-14 lg:grid-cols-[1.12fr_0.88fr] lg:gap-20">
             <div>
               <div className="mb-7 flex items-center gap-3">
                 <span className="h-px w-9 bg-[#e8720c]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#687180]">
-                  Risk Screening
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
+                  No Cost · No Obligation
                 </span>
               </div>
 
-              <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[0.98] tracking-[-0.045em] text-[#101a2f] sm:text-6xl lg:text-[76px]">
-                See the risk
+              <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.045em] text-[#111827] sm:text-6xl lg:text-7xl">
+                Know where your
                 <br />
-                <span className="text-[#e8720c]">before it matters.</span>
+                compliance risk
+                <br />
+                <span className="text-[#e8720c]">stands.</span>
               </h1>
 
-              <p className="mt-8 max-w-2xl text-base leading-8 text-[#5d6674] sm:text-lg">
-                A focused screening designed to surface compliance signals
-                that may deserve attention — before they become operational
-                surprises.
+              <p className="mt-8 max-w-2xl text-base leading-8 text-[#596372] sm:text-lg">
+                Five practical questions help surface the areas you may want
+                to look at more closely — before a compliance issue becomes
+                an operational problem.
               </p>
 
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <a
-                  href="#screening"
-                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-semibold text-white transition hover:bg-[#d96608]"
-                >
-                  Start Risk Screening
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-
-                <span className="text-xs font-medium text-[#747c87]">
-                  No cost · No obligation
-                </span>
-              </div>
+              <a
+                href="#screening-overview"
+                className="mt-9 inline-flex min-h-12 items-center gap-3 rounded-xl bg-[#111827] px-6 text-sm font-semibold text-white transition hover:bg-[#273244]"
+              >
+                Start Your Screening
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
 
             <div className="relative">
-              <div className="rounded-[26px] border border-[#dcdad4] bg-white p-7 shadow-[0_24px_70px_rgba(16,26,47,0.07)] sm:p-8">
+              <div className="absolute -inset-5 rounded-[28px] bg-[#f3f4f6]" />
+
+              <div className="relative rounded-2xl border border-[#e1e4e8] bg-white p-7 shadow-[0_24px_70px_rgba(17,24,39,0.08)] sm:p-9">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-[#7a828d]">
-                      Screening Overview
-                    </p>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#8a929e]">
+                    Risk Screening
+                  </span>
 
-                    <p className="mt-2 text-sm font-semibold text-[#101a2f]">
-                      A closer look at your risk signals.
-                    </p>
-                  </div>
-
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f4eee7]">
-                    <ShieldCheck className="h-5 w-5 text-[#e8720c]" />
-                  </div>
+                  <ShieldCheck className="h-5 w-5 text-[#e8720c]" />
                 </div>
 
-                <div className="mt-8 grid grid-cols-3 divide-x divide-[#e7e5df] border-y border-[#e7e5df] py-5">
-                  <HeroMetric
-                    value="05"
-                    label="Questions"
-                  />
+                <h2 className="mt-9 max-w-md font-serif text-3xl font-medium leading-tight tracking-[-0.025em] text-[#111827]">
+                  A quick look can reveal what routine operations may not.
+                </h2>
 
-                  <HeroMetric
-                    value="01"
-                    label="Screening"
-                  />
+                <p className="mt-5 text-sm leading-6 text-[#697281]">
+                  We look at publicly available regulatory information and
+                  help identify areas that may deserve a closer review.
+                </p>
 
-                  <HeroMetric
-                    value="$0"
-                    label="Cost"
-                  />
-                </div>
-
-                <div className="mt-6 flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#5c8a68]" />
-
-                  <p className="text-xs leading-5 text-[#737b86]">
-                    Public regulatory information only. This is not a
-                    government rating, compliance certification, or legal
-                    advice.
-                  </p>
+                <div className="mt-8 grid grid-cols-3 border-t border-[#e5e7eb] pt-6">
+                  <Metric value="05" label="Questions" />
+                  <Metric value="01" label="Screening" />
+                  <Metric value="0$" label="Cost" />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-16 flex items-center gap-4">
-            <div className="h-px flex-1 bg-[#d9d7d0]" />
+          <div className="mt-16 flex items-center gap-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#e8720c]" />
 
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#8a919a]">
-              Start below
+            <span className="h-px flex-1 bg-[#e5e7eb]" />
+
+            <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#9aa2ad]">
+              Visibility before intervention
             </span>
-
-            <div className="h-px w-20 bg-[#d9d7d0]" />
-
-            <ChevronDown className="h-4 w-4 text-[#e8720c]" />
           </div>
         </div>
       </section>
 
       {/* ================================================================
-          FIVE QUESTIONS
-      ================================================================= */}
+          SCREENING OVERVIEW — BLACK
+      ================================================================ */}
 
       <section
-        id="screening"
-        className="bg-[#101a2f]"
+        id="screening-overview"
+        className="scroll-mt-20 bg-[#111827] text-white"
       >
         <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
-          <div className="grid gap-14 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20">
-            <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+            <div>
               <div className="mb-6 flex items-center gap-3">
-                <span className="h-px w-8 bg-white/20" />
+                <span className="h-px w-8 bg-[#e8720c]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">
-                  Five Questions
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-white/45">
+                  Screening Overview
                 </span>
               </div>
 
-              <h2 className="font-serif text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-white sm:text-5xl">
-                Start with what
+              <h2 className="max-w-lg font-serif text-4xl font-medium leading-[1.08] tracking-[-0.035em] sm:text-5xl">
+                Five questions.
                 <br />
-                you know.
+                A better starting point.
               </h2>
 
-              <p className="mt-6 max-w-md text-sm leading-6 text-white/50">
-                You do not need to know every answer. The places where you are
-                unsure can be useful signals too.
+              <p className="mt-6 max-w-md text-sm leading-6 text-white/55">
+                You don't need to know every answer. Knowing what you don't
+                know is useful information too.
               </p>
-
-              <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/40">
-                    Progress
-                  </span>
-
-                  <span className="font-mono text-[10px] font-semibold text-white">
-                    {answeredCount}/05
-                  </span>
-                </div>
-
-                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full bg-[#e8720c] transition-all duration-300"
-                    style={{
-                      width: `${(answeredCount / questions.length) * 100}%`,
-                    }}
-                  />
-                </div>
-
-                <p className="mt-4 text-xs leading-5 text-white/35">
-                  {screeningComplete
-                    ? 'Screening complete. Your company details are next.'
-                    : 'Answer all five questions to continue.'}
-                </p>
-              </div>
             </div>
 
-            <div className="space-y-3">
-              {questions.map((item, index) => {
-                const answer = answers[index]
-
-                return (
+            <div>
+              <div className="grid gap-0 border-t border-white/10">
+                {questions.map((question, index) => (
                   <div
-                    key={item.number}
-                    className={`rounded-2xl border p-5 transition sm:p-6 ${
-                      answer
-                        ? 'border-white/15 bg-white/[0.07]'
-                        : 'border-white/10 bg-white/[0.035]'
-                    }`}
+                    key={question}
+                    className="grid gap-5 border-b border-white/10 py-6 sm:grid-cols-[48px_1fr]"
                   >
-                    <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8">
-                      <div className="flex gap-4">
-                        <span className="pt-1 font-mono text-[9px] font-semibold text-[#e8720c]">
-                          {item.number}
-                        </span>
+                    <div className="font-mono text-[10px] text-[#e8720c]">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
 
-                        <h3 className="max-w-2xl text-base font-medium leading-7 text-white sm:text-lg">
-                          {item.question}
-                        </h3>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2 lg:w-[210px]">
-                        <AnswerButton
-                          active={answer === 'confident'}
-                          onClick={() => setAnswer(index, 'confident')}
-                        >
-                          Confident
-                        </AnswerButton>
-
-                        <AnswerButton
-                          active={answer === 'unsure'}
-                          warning
-                          onClick={() => setAnswer(index, 'unsure')}
-                        >
-                          Not sure
-                        </AnswerButton>
-                      </div>
+                    <div>
+                      <p className="max-w-2xl text-base leading-7 text-white/85">
+                        {question}
+                      </p>
                     </div>
                   </div>
-                )
-              })}
+                ))}
+              </div>
 
-              <div
-                className={`mt-5 rounded-2xl border p-5 transition sm:p-6 ${
-                  screeningComplete
-                    ? 'border-[#e8720c]/40 bg-[#e8720c]/10'
-                    : 'border-white/10 bg-white/[0.025]'
-                }`}
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.15em] text-white/40">
-                      Screening Status
-                    </p>
+              <div className="mt-8 flex items-center gap-3 text-xs text-white/40">
+                <ShieldAlert className="h-4 w-4 text-[#e8720c]" />
 
-                    <p className="mt-2 text-sm leading-6 text-white/70">
-                      {screeningComplete
-                        ? unsureCount > 0
-                          ? `${unsureCount} area${
-                              unsureCount === 1 ? '' : 's'
-                            } marked for a closer look.`
-                          : 'You feel confident across all five areas.'
-                        : `${questions.length - answeredCount} question${
-                            questions.length - answeredCount === 1 ? '' : 's'
-                          } remaining.`}
-                    </p>
-                  </div>
-
-                  {screeningComplete && (
-                    <div className="inline-flex shrink-0 items-center gap-2 text-xs font-semibold text-[#f29a58]">
-                      Continue to company details
-                      <ArrowRight className="h-4 w-4" />
-                    </div>
-                  )}
-                </div>
+                <span>
+                  Your answers are used to guide the screening conversation,
+                  not to create a government compliance rating.
+                </span>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          FIVE QUESTIONS — NORMAL SITE WIDTH
+      ================================================================ */}
+
+      <section
+        id="five-questions"
+        className="scroll-mt-20 bg-[#f7f7f5]"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+          <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#d8dce1]" />
+
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
+                  Your Screening
+                </span>
+              </div>
+
+              <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] text-[#111827] sm:text-5xl">
+                Five questions.
+                <br />
+                Five honest answers.
+              </h2>
+            </div>
+
+            <div className="w-full max-w-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#8a929e]">
+                  Progress
+                </span>
+
+                <span className="font-mono text-[10px] font-semibold text-[#111827]">
+                  {answeredCount}/5
+                </span>
+              </div>
+
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#e1e4e8]">
+                <div
+                  className="h-full rounded-full bg-[#e8720c] transition-all duration-300"
+                  style={{
+                    width: `${(answeredCount / questions.length) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            {questions.map((question, index) => {
+              const answer = answers[index]
+
+              return (
+                <div
+                  key={question}
+                  className={`rounded-2xl border bg-white p-6 transition-all sm:p-7 ${
+                    answer
+                      ? 'border-[#d9dde2]'
+                      : 'border-[#e2e5e9]'
+                  }`}
+                >
+                  <div className="grid gap-6 lg:grid-cols-[60px_1fr_auto] lg:items-center">
+                    <div className="font-mono text-[10px] font-semibold text-[#e8720c]">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+
+                    <div>
+                      <h3 className="max-w-3xl font-serif text-xl font-medium leading-snug tracking-[-0.015em] text-[#111827] sm:text-2xl">
+                        {question}
+                      </h3>
+
+                      {answer && (
+                        <p className="mt-2 text-xs text-[#697281]">
+                          {answer === 'confident'
+                            ? 'You feel confident about this.'
+                            : 'This may deserve a closer look.'}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 sm:flex">
+                      <AnswerButton
+                        active={answer === 'confident'}
+                        tone="green"
+                        onClick={() =>
+                          answerQuestion(index, 'confident')
+                        }
+                      >
+                        Confident
+                        {answer === 'confident' && (
+                          <CheckCircle2 className="h-4 w-4" />
+                        )}
+                      </AnswerButton>
+
+                      <AnswerButton
+                        active={answer === 'unsure'}
+                        tone="orange"
+                        onClick={() =>
+                          answerQuestion(index, 'unsure')
+                        }
+                      >
+                        Not sure
+                        {answer === 'unsure' && (
+                          <ShieldAlert className="h-4 w-4" />
+                        )}
+                      </AnswerButton>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {answeredCount === 5 && (
+            <div className="mt-8 flex flex-col justify-between gap-5 rounded-2xl border border-[#e2e5e9] bg-white p-6 sm:flex-row sm:items-center sm:p-7">
+              <div>
+                <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#697281]">
+                  Screening complete
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-[#111827]">
+                  {flaggedCount > 0
+                    ? `${flaggedCount} area${flaggedCount === 1 ? '' : 's'} may be worth a closer look.`
+                    : 'Your answers indicate strong awareness of your current position.'}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  document
+                    .getElementById('company-details')
+                    ?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    })
+                }
+                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#111827] px-6 text-sm font-semibold text-white transition hover:bg-[#273244]"
+              >
+                Continue to Company Details
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
       {/* ================================================================
           WHAT WE LOOK FOR
-      ================================================================= */}
+      ================================================================ */}
 
-      <section className="bg-white">
+      <section className="border-y border-[#e5e7eb] bg-white">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
-          <div className="grid gap-14 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
             <div>
               <div className="mb-6 flex items-center gap-3">
-                <span className="h-px w-8 bg-[#e8720c]" />
+                <span className="h-px w-8 bg-[#d8dce1]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#78808b]">
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
                   What We Look For
                 </span>
               </div>
 
-              <h2 className="font-serif text-4xl font-medium leading-[1.05] tracking-[-0.035em] text-[#101a2f] sm:text-5xl">
+              <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] sm:text-5xl">
                 Signals worth
                 <br />
                 understanding.
               </h2>
 
-              <p className="mt-6 max-w-md text-sm leading-6 text-[#626b78]">
-                The screening is designed to make potential areas of attention
-                easier to see — not to replace formal regulatory guidance.
+              <p className="mt-6 max-w-md text-sm leading-6 text-[#596372]">
+                The screening is designed to surface potential areas of
+                attention from publicly available regulatory information.
               </p>
             </div>
 
-            <div className="grid border-t border-[#e4e3df] sm:grid-cols-2">
-              {screeningAreas.map((area) => (
+            <div className="grid border-t border-[#e5e7eb] sm:grid-cols-2 sm:border-t-0">
+              {screeningAreas.map((area, index) => (
                 <div
-                  key={area.number}
-                  className="border-b border-[#e4e3df] py-7 sm:px-7 sm:nth-[2n+1]:border-r"
+                  key={area}
+                  className="flex gap-4 border-b border-[#e5e7eb] py-6 sm:pr-8"
                 >
-                  <div className="flex items-start justify-between gap-5">
-                    <span className="font-mono text-[9px] font-semibold text-[#e8720c]">
-                      {area.number}
-                    </span>
+                  <span className="font-mono text-[9px] text-[#e8720c]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
 
-                    <ArrowRight className="h-4 w-4 text-[#c1c5ca]" />
-                  </div>
-
-                  <h3 className="mt-7 text-sm font-semibold text-[#101a2f]">
-                    {area.title}
-                  </h3>
-
-                  <p className="mt-3 max-w-sm text-sm leading-6 text-[#68717e]">
-                    {area.text}
+                  <p className="text-sm leading-6 text-[#596372]">
+                    {area}
                   </p>
                 </div>
               ))}
@@ -485,293 +448,234 @@ export default function RiskScreeningPage() {
 
       {/* ================================================================
           HOW IT WORKS
-      ================================================================= */}
+      ================================================================ */}
 
-      <section className="bg-[#ecebe6]">
+      <section className="bg-[#f7f7f5]">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
-          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <div>
-              <div className="mb-6 flex items-center gap-3">
-                <span className="h-px w-8 bg-[#bfc1bc]" />
+          <div className="text-center">
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-[#d8dce1]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#707780]">
-                  How It Works
-                </span>
-              </div>
+              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
+                How It Works
+              </span>
 
-              <h2 className="max-w-2xl font-serif text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[#101a2f] sm:text-5xl">
-                Simple process.
-                <br />
-                Clearer direction.
-              </h2>
+              <span className="h-px w-8 bg-[#d8dce1]" />
             </div>
 
-            <p className="max-w-md text-sm leading-6 text-[#68717e]">
-              The goal is straightforward: give you a clearer starting point
-              for understanding where your operation may need attention.
-            </p>
+            <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] sm:text-5xl">
+              Simple process.
+              <br />
+              Clear next steps.
+            </h2>
           </div>
 
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-[#d8d7d1] bg-[#d8d7d1] md:grid-cols-2 lg:grid-cols-4">
-            {screeningSteps.map((step) => (
-              <div
-                key={step.number}
-                className="bg-[#f7f6f2] p-7 lg:p-8"
-              >
-                <span className="font-mono text-[9px] font-semibold text-[#e8720c]">
-                  {step.number}
-                </span>
+          <div className="relative mt-16">
+            <div
+              aria-hidden="true"
+              className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-[#d5d9df] lg:block"
+            />
 
-                <h3 className="mt-12 text-sm font-semibold text-[#101a2f]">
-                  {step.title}
-                </h3>
+            <div className="grid gap-10 lg:grid-cols-4 lg:gap-6">
+              {screeningSteps.map((step, index) => (
+                <div key={step} className="relative text-center">
+                  <div className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#e8720c] bg-[#f7f7f5]">
+                    <span className="font-mono text-[10px] font-semibold text-[#111827]">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </div>
 
-                <p className="mt-3 text-sm leading-6 text-[#69727d]">
-                  {step.text}
-                </p>
-              </div>
-            ))}
+                  <h3 className="mt-5 text-sm font-semibold text-[#111827]">
+                    {step}
+                  </h3>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ================================================================
-          COMPANY DETAILS FORM
-      ================================================================= */}
+          COMPANY DETAILS — NORMAL SITE WIDTH
+      ================================================================ */}
 
       <section
-        ref={formRef}
-        id="screening-form"
-        className="scroll-mt-8 bg-[#101a2f]"
+        id="company-details"
+        className="scroll-mt-20 bg-[#111827]"
       >
         <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
-          <div className="grid gap-14 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20">
-            <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+            <div>
               <div className="mb-6 flex items-center gap-3">
-                <span className="h-px w-8 bg-white/20" />
+                <span className="h-px w-8 bg-[#e8720c]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-white/45">
                   Company Details
                 </span>
               </div>
 
-              <h2 className="font-serif text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-white sm:text-5xl">
-                Now connect the
+              <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] text-white sm:text-5xl">
+                Tell us where
                 <br />
-                screening to your
-                <br />
-                <span className="text-[#e8720c]">operation.</span>
+                to look.
               </h2>
 
               <p className="mt-6 max-w-md text-sm leading-6 text-white/50">
-                Tell us who you are and which operation we should review. The
-                information below helps connect the screening to the right
-                regulatory footprint.
+                Provide the details we need to connect the screening to the
+                right company, identifier, and operating region.
               </p>
 
-              <div className="mt-8 space-y-4">
-                <TrustPoint>
-                  Public regulatory information reviewed
-                </TrustPoint>
+              <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-6">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#5c8a68]" />
 
-                <TrustPoint>
-                  No government rating or certification
-                </TrustPoint>
-
-                <TrustPoint>
-                  No legal advice — just greater visibility
-                </TrustPoint>
+                  <p className="text-xs leading-5 text-white/45">
+                    The screening is based on publicly available regulatory
+                    information. It is not a government rating or legal advice.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="rounded-[24px] bg-[#f7f6f2] p-6 sm:p-9 lg:p-10">
-              {!screeningComplete ? (
-                <div className="rounded-2xl border border-[#deddd7] bg-white p-6 sm:p-8">
-                  <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#7b838d]">
-                    Complete the screening first
-                  </p>
-
-                  <h3 className="mt-4 font-serif text-3xl font-medium tracking-[-0.025em] text-[#101a2f]">
-                    Five questions, then your company details.
-                  </h3>
-
-                  <p className="mt-4 max-w-lg text-sm leading-6 text-[#69727e]">
-                    Answer all five questions above and this form will become
-                    the next step automatically.
-                  </p>
-
-                  <a
-                    href="#screening"
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#e8720c]"
-                  >
-                    Return to screening
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                </div>
-              ) : formSubmitted ? (
-                <div className="flex min-h-[430px] flex-col items-center justify-center text-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#e7f0e8]">
-                    <Check className="h-6 w-6 text-[#4e7b59]" />
-                  </div>
-
-                  <h3 className="mt-7 font-serif text-3xl font-medium tracking-[-0.025em] text-[#101a2f] sm:text-4xl">
-                    Screening request ready.
-                  </h3>
-
-                  <p className="mt-4 max-w-md text-sm leading-6 text-[#68717d]">
-                    The production submission and OTP verification step should
-                    be connected to your backend before launch.
-                  </p>
-
-                  <Link
-                    href="/contact"
-                    className="mt-7 inline-flex items-center gap-3 rounded-xl bg-[#e8720c] px-6 py-3 text-sm font-semibold text-white"
-                  >
-                    Contact TruckEase
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-6"
-                >
-                  <div className="border-b border-[#deddd7] pb-6">
-                    <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-[#7b838d]">
-                      Step 02
-                    </p>
-
-                    <h3 className="mt-2 font-serif text-3xl font-medium tracking-[-0.025em] text-[#101a2f]">
-                      Tell us about your operation.
-                    </h3>
-                  </div>
-
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <Field
-                      label="Full name"
-                      required
-                      value={form.fullName}
-                      onChange={(value) =>
-                        updateField('fullName', value)
-                      }
-                    />
-
-                    <Field
-                      label="Email"
-                      required
-                      type="email"
-                      value={form.email}
-                      onChange={(value) =>
-                        updateField('email', value)
-                      }
-                    />
-                  </div>
-
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <Field
-                      label="Phone"
-                      value={form.phone}
-                      onChange={(value) =>
-                        updateField('phone', value)
-                      }
-                    />
-
-                    <Field
-                      label="USDOT / MC / NSC / CVOR number"
-                      required
-                      value={form.identifier}
-                      onChange={(value) =>
-                        updateField('identifier', value)
-                      }
-                    />
-                  </div>
-
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <SelectField
-                      label="Operating region"
-                      required
-                      value={form.region}
-                      onChange={(value) =>
-                        updateField('region', value)
-                      }
-                      options={[
-                        'United States',
-                        'Canada',
-                        'United States & Canada',
-                      ]}
-                    />
-
-                    <Field
-                      label="Primary cargo type"
-                      value={form.cargoType}
-                      onChange={(value) =>
-                        updateField('cargoType', value)
-                      }
-                    />
-                  </div>
-
+            <div className="rounded-2xl bg-white p-7 sm:p-10">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid gap-5 sm:grid-cols-2">
                   <Field
-                    label="Typical haul pattern"
-                    value={form.haulPattern}
+                    label="Full name"
+                    required
+                    value={form.fullName}
                     onChange={(value) =>
-                      updateField('haulPattern', value)
+                      handleFormChange('fullName', value)
                     }
                   />
 
-                  <div>
-                    <label
-                      htmlFor="reason"
-                      className="mb-2 block text-xs font-semibold text-[#101a2f]"
-                    >
-                      What&apos;s the real reason you&apos;re checking today?
-                      <span className="ml-1 font-normal text-[#8a919a]">
-                        Optional
-                      </span>
-                    </label>
+                  <Field
+                    label="Email"
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(value) =>
+                      handleFormChange('email', value)
+                    }
+                  />
+                </div>
 
-                    <textarea
-                      id="reason"
-                      rows={4}
-                      value={form.reason}
-                      onChange={(event) =>
-                        updateField('reason', event.target.value)
-                      }
-                      placeholder="Tell us what prompted you to check today."
-                      className="w-full resize-none rounded-xl border border-[#d8d9d6] bg-white px-4 py-3 text-sm text-[#101a2f] outline-none transition placeholder:text-[#9aa0a8] focus:border-[#101a2f] focus:ring-2 focus:ring-[#101a2f]/10"
-                    />
-                  </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field
+                    label="Phone"
+                    value={form.phone}
+                    onChange={(value) =>
+                      handleFormChange('phone', value)
+                    }
+                  />
 
-                  <div className="border-t border-[#deddd7] pt-6">
-                    <button
-                      type="submit"
-                      disabled={
-                        !form.fullName ||
-                        !form.email ||
-                        !form.identifier ||
-                        !form.region
-                      }
-                      className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-semibold text-white transition hover:bg-[#d96608] disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      Request My Risk Screening
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
+                  <Field
+                    label="USDOT / MC / NSC / CVOR number"
+                    required
+                    value={form.identifier}
+                    onChange={(value) =>
+                      handleFormChange('identifier', value)
+                    }
+                  />
+                </div>
 
-                    <p className="mt-4 text-[11px] leading-5 text-[#777f89]">
-                      By submitting this request, you are asking TruckEase to
-                      review publicly available regulatory information related
-                      to the identifiers and operating region provided.
-                    </p>
-                  </div>
-                </form>
-              )}
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <SelectField
+                    label="Operating region"
+                    required
+                    value={form.region}
+                    onChange={(value) =>
+                      handleFormChange('region', value)
+                    }
+                    options={[
+                      'United States',
+                      'Canada',
+                      'United States & Canada',
+                    ]}
+                  />
+
+                  <Field
+                    label="Primary cargo type"
+                    value={form.cargoType}
+                    onChange={(value) =>
+                      handleFormChange('cargoType', value)
+                    }
+                  />
+                </div>
+
+                <Field
+                  label="Typical haul pattern"
+                  value={form.haulPattern}
+                  onChange={(value) =>
+                    handleFormChange('haulPattern', value)
+                  }
+                />
+
+                <div>
+                  <label
+                    htmlFor="reason"
+                    className="mb-2 block text-xs font-semibold text-[#111827]"
+                  >
+                    What's the real reason you're checking today?
+                    <span className="ml-1 font-normal text-[#8a929e]">
+                      Optional
+                    </span>
+                  </label>
+
+                  <textarea
+                    id="reason"
+                    rows={4}
+                    value={form.reason}
+                    onChange={(event) =>
+                      handleFormChange('reason', event.target.value)
+                    }
+                    className="w-full resize-none rounded-xl border border-[#d8dde3] bg-white px-4 py-3 text-sm text-[#111827] outline-none transition placeholder:text-[#9aa2ad] focus:border-[#111827] focus:ring-2 focus:ring-[#111827]/10"
+                    placeholder="Tell us what prompted you to check today."
+                  />
+                </div>
+
+                <div className="border-t border-[#e5e7eb] pt-6">
+                  <button
+                    type="submit"
+                    disabled={
+                      !form.fullName ||
+                      !form.email ||
+                      !form.identifier ||
+                      !form.region
+                    }
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-semibold text-white transition hover:bg-[#f17d1b] disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {submitted
+                      ? 'Request Received'
+                      : 'Request My Risk Screening'}
+
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+
+                  {submitted && (
+                    <div className="mt-4 rounded-xl border border-[#5c8a68]/20 bg-[#f4f8f4] p-4">
+                      <p className="text-xs leading-5 text-[#35563e]">
+                        Your request has been captured. Connect this form to
+                        your production screening workflow before launch.
+                      </p>
+                    </div>
+                  )}
+
+                  <p className="mt-4 text-[11px] leading-5 text-[#697281]">
+                    By submitting this request, you are asking TruckEase to
+                    review publicly available regulatory information related
+                    to the identifiers and operating region provided above.
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
 
           <div className="mt-10 border-t border-white/10 pt-6">
-            <p className="text-[11px] leading-5 text-white/35">
+            <p className="text-[11px] leading-5 text-white/40">
               This screening reviews publicly available regulatory information
-              only. It is not a guarantee of compliance, an official
-              government rating, or legal advice.
+              only. It is not a guarantee of compliance, an official government
+              rating, or legal advice.
             </p>
           </div>
         </div>
@@ -779,36 +683,56 @@ export default function RiskScreeningPage() {
 
       {/* ================================================================
           CLOSING CTA
-      ================================================================= */}
+      ================================================================ */}
 
-      <section className="bg-[#f7f6f2]">
+      <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-20">
-          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div className="flex flex-col justify-between gap-9 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-8 bg-[#e8720c]" />
+                <span className="h-px w-8 bg-[#d8dce1]" />
 
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#747c86]">
-                  Need More Visibility?
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
+                  Get Started
                 </span>
               </div>
 
-              <h2 className="font-serif text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[#101a2f] sm:text-5xl">
-                Know where you stand.
+              <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] text-[#111827] sm:text-5xl">
+                See what deserves
                 <br />
-                <span className="text-[#e8720c]">
-                  Then decide what comes next.
-                </span>
+                <span className="text-[#e8720c]">your attention.</span>
               </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-6 text-[#596372]">
+                A clearer view of your compliance position starts with knowing
+                what to look for.
+              </p>
             </div>
 
-            <Link
-              href="/contact"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#101a2f] px-6 text-sm font-semibold text-white transition hover:bg-[#182744]"
-            >
-              Talk to TruckEase
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() =>
+                  document
+                    .getElementById('company-details')
+                    ?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    })
+                }
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#111827] px-6 text-sm font-semibold text-white transition hover:bg-[#273244]"
+              >
+                Request a Risk Screening
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <Link
+                href="/contact"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl border border-[#cfd4da] bg-transparent px-6 text-sm font-semibold text-[#111827] transition hover:border-[#111827]"
+              >
+                Contact Our Team
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -817,10 +741,10 @@ export default function RiskScreeningPage() {
 }
 
 /* ======================================================================
-   SMALL COMPONENTS
+   SMALL UI COMPONENTS
 ====================================================================== */
 
-function HeroMetric({
+function Metric({
   value,
   label,
 }: {
@@ -828,12 +752,12 @@ function HeroMetric({
   label: string
 }) {
   return (
-    <div className="px-4 text-center first:pl-0 last:pr-0">
-      <p className="font-serif text-2xl font-medium tracking-[-0.025em] text-[#101a2f]">
+    <div>
+      <p className="font-serif text-2xl font-medium tracking-[-0.02em] text-[#111827]">
         {value}
       </p>
 
-      <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.12em] text-[#8a919a]">
+      <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.12em] text-[#8a929e]">
         {label}
       </p>
     </div>
@@ -843,50 +767,31 @@ function HeroMetric({
 function AnswerButton({
   children,
   active,
-  warning = false,
+  tone,
   onClick,
 }: {
   children: React.ReactNode
   active: boolean
-  warning?: boolean
+  tone: 'green' | 'orange'
   onClick: () => void
 }) {
+  const activeClasses =
+    tone === 'green'
+      ? 'border-[#5c8a68] bg-[#f3f8f4] text-[#35563e]'
+      : 'border-[#e8720c] bg-[#fff7ef] text-[#9a4a08]'
+
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`min-h-11 rounded-lg border px-3 text-xs font-semibold transition ${
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 text-xs font-semibold transition ${
         active
-          ? warning
-            ? 'border-[#e8720c] bg-[#e8720c]/15 text-[#f3a05f]'
-            : 'border-[#5c8a68] bg-[#5c8a68]/15 text-[#9bc0a2]'
-          : 'border-white/10 bg-white/[0.025] text-white/55 hover:border-white/20 hover:text-white'
+          ? activeClasses
+          : 'border-[#d8dde3] bg-white text-[#111827] hover:border-[#aeb7c2]'
       }`}
     >
-      <span className="flex items-center justify-center gap-2">
-        {active && (
-          <CheckCircle2 className="h-3.5 w-3.5" />
-        )}
-
-        {children}
-      </span>
+      {children}
     </button>
-  )
-}
-
-function TrustPoint({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <CheckCircle2 className="h-4 w-4 shrink-0 text-[#5c8a68]" />
-
-      <span className="text-xs leading-5 text-white/45">
-        {children}
-      </span>
-    </div>
   )
 }
 
@@ -905,13 +810,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-xs font-semibold text-[#101a2f]">
+      <label className="mb-2 block text-xs font-semibold text-[#111827]">
         {label}
 
         {required ? (
           <span className="ml-1 text-[#e8720c]">*</span>
         ) : (
-          <span className="ml-1 font-normal text-[#8a919a]">
+          <span className="ml-1 font-normal text-[#8a929e]">
             Optional
           </span>
         )}
@@ -922,7 +827,7 @@ function Field({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full rounded-xl border border-[#d8d9d6] bg-white px-4 text-sm text-[#101a2f] outline-none transition placeholder:text-[#9aa0a8] focus:border-[#101a2f] focus:ring-2 focus:ring-[#101a2f]/10"
+        className="h-12 w-full rounded-xl border border-[#d8dde3] bg-white px-4 text-sm text-[#111827] outline-none transition placeholder:text-[#9aa2ad] focus:border-[#111827] focus:ring-2 focus:ring-[#111827]/10"
       />
     </div>
   )
@@ -943,7 +848,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-xs font-semibold text-[#101a2f]">
+      <label className="mb-2 block text-xs font-semibold text-[#111827]">
         {label}
 
         {required && (
@@ -955,15 +860,12 @@ function SelectField({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full rounded-xl border border-[#d8d9d6] bg-white px-4 text-sm text-[#101a2f] outline-none transition focus:border-[#101a2f] focus:ring-2 focus:ring-[#101a2f]/10"
+        className="h-12 w-full rounded-xl border border-[#d8dde3] bg-white px-4 text-sm text-[#111827] outline-none transition focus:border-[#111827] focus:ring-2 focus:ring-[#111827]/10"
       >
         <option value="">Select one</option>
 
         {options.map((option) => (
-          <option
-            key={option}
-            value={option}
-          >
+          <option key={option} value={option}>
             {option}
           </option>
         ))}
