@@ -47,7 +47,7 @@ export function Hero() {
         {/* HERO                                                             */}
         {/* ---------------------------------------------------------------- */}
 
-        <div className="relative flex min-h-[650px] items-center overflow-hidden">
+        <div className="relative flex min-h-[650px] items-center">
 
           {/* ------------------------------------------------------------ */}
           {/* HERO ATMOSPHERE — sized to this row, not a fixed pixel        */}
@@ -58,25 +58,49 @@ export function Hero() {
 
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
+            className="pointer-events-none absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden"
           >
-            {/* The photo itself — brighter and framed lower/right so the
-                tractor-trailer is clearly recognizable, not just a color
-                smear behind the copy. */}
-            <div className="absolute inset-0 bg-[url('/hero-truck-neutral.jpg')] bg-cover bg-[68%_60%] opacity-[0.65]" />
+            {/* The photo itself — zoomed and framed higher/right so the
+                tractor-trailer sits large and clear in the open part of
+                the frame, not cropped down near the bottom edge. */}
+            <div
+              className="absolute inset-0 opacity-[0.68]"
+              style={{
+                backgroundImage: "url('/hero-truck-neutral.jpg')",
+                backgroundSize: '150%',
+                backgroundPosition: '68% 40%',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
 
             {/* Directional scrim: dark over the text column on the left so
                 copy is legible without help, fading out by the right half
                 so the truck itself sits in the clear and reads as the
-                photo it is. A gentle vertical fade is layered underneath
-                so the top of the sky stays moody and the very bottom eases
-                into the page's white before the feature strip. */}
+                photo it is. It's masked to fade out vertically too, so by
+                the time we reach the bottom it fully disappears and only
+                the plain vertical wash below is left — one smooth, even
+                dusk-to-white transition across the full width, not a
+                patchwork of two different fades. */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(90deg, rgba(3,5,12,0.82) 0%, rgba(3,5,12,0.55) 32%, rgba(3,5,12,0.20) 55%, rgba(3,5,12,0) 76%), ' +
-                  'linear-gradient(180deg, rgba(5,8,18,0.55) 0%, rgba(16,13,30,0.42) 22%, rgba(60,30,32,0.32) 44%, rgba(140,64,36,0.22) 60%, rgba(251,252,254,0.75) 86%, rgba(251,252,254,1) 100%)',
+                  'linear-gradient(90deg, rgba(3,5,12,0.82) 0%, rgba(3,5,12,0.55) 32%, rgba(3,5,12,0.20) 55%, rgba(3,5,12,0) 76%)',
+                WebkitMaskImage:
+                  'linear-gradient(180deg, black 0%, black 55%, transparent 88%)',
+                maskImage:
+                  'linear-gradient(180deg, black 0%, black 55%, transparent 88%)',
+              }}
+            />
+
+            {/* Even, full-width mood wash — this is the layer that actually
+                carries the dusk-to-white transition, in gentle steps so it
+                reads as one continuous fade rather than a hard cut. */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(5,8,18,0.55) 0%, rgba(16,13,30,0.42) 18%, rgba(60,30,32,0.32) 34%, rgba(140,64,36,0.22) 48%, rgba(196,104,56,0.13) 60%, rgba(251,252,254,0.40) 72%, rgba(251,252,254,0.78) 84%, rgba(251,252,254,0.95) 93%, rgba(251,252,254,1) 100%)',
               }}
             />
 
