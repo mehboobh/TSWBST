@@ -474,4 +474,84 @@ export default function ServicesPage() {
                       {step.number}
                     </div>
 
-                    <div className="p
+                    <div className="pb-7 pt-2">
+                      <p className="text-sm font-bold text-[#142342]">
+                        {step.title}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-1 border-t border-[#e5e9ef] pt-5">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#71809a]">
+                  <Headphones className="h-3.5 w-3.5 text-[#4353a4]" />
+                  Scope and expected timelines confirmed before the engagement
+                  begins.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* FINAL CTA                                                             */}
+      {/* ==================================================================== */}
+
+      <section className="bg-[#142342]">
+        <div className="relative mx-auto max-w-7xl overflow-hidden px-6 py-16 sm:px-8 lg:px-10 lg:py-20">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[45%] opacity-40"
+            style={{
+              backgroundImage:
+                'linear-gradient(90deg, transparent, rgba(255,255,255,0.04))',
+            }}
+          />
+
+          <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <div className="max-w-2xl">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#ff7a22]" />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff8a3d]">
+                  Get Started
+                </span>
+              </div>
+
+              <h2 className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">
+                Build compliance around
+                <br />
+                <span className="text-[#ff7a22]">your operation.</span>
+              </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-6 text-white/60">
+                Whether you need greater visibility into your compliance
+                position or a more organized way to manage ongoing regulatory
+                requirements, TruckEase is ready to help.
+              </p>
+            </div>
+
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+              <Link
+                href="/risk-screening"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#e85d04] px-6 text-sm font-bold text-white transition hover:bg-[#f16a12]"
+              >
+                Request a Risk Screening
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl border border-white/20 bg-transparent px-6 text-sm font-bold text-white transition hover:border-white/35"
+              >
+                Contact Our Team
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
