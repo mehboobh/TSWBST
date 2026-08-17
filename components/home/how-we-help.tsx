@@ -1,8 +1,8 @@
 import {
-  Activity,
-  BrainCircuit,
+  BarChart3,
   FileCheck2,
-  Radar,
+  Lightbulb,
+  ShieldCheck,
 } from 'lucide-react'
 
 import { Reveal } from '@/components/reveal'
@@ -10,187 +10,120 @@ import { Reveal } from '@/components/reveal'
 const capabilities = [
   {
     number: '01',
-    icon: Radar,
+    icon: ShieldCheck,
     title: 'Compliance Tracking',
-    body:
-      'Renewals, licensing, and registrations tracked continuously, including IRP, IFTA, USDOT, MC, NSC, CVOR/SFC, UCR, and state or provincial requirements. Gaps get flagged before they become deadlines you’re racing.',
+    description:
+      'Renewals, licensing, and registrations tracked continuously so gaps surface before they become deadlines you are racing.',
   },
   {
     number: '02',
     icon: FileCheck2,
     title: 'Document Organization',
-    body:
-      'Compliance records are securely organized and retained within the platform. When documentation is required for renewals, audits, or operational needs, the system helps assemble the relevant records while maintaining appropriate access controls and activity tracking.',
+    description:
+      'Compliance records stay organized and accessible when documentation is needed for renewals, audits, or operational work.',
   },
   {
     number: '03',
-    icon: Activity,
+    icon: BarChart3,
     title: 'Operational Insights',
-    body:
-      'An always-on layer that connects what’s happening across your operation — which drivers need attention, which trucks keep showing up for the same issue — surfacing patterns that are difficult to identify through manual tracking alone.',
+    description:
+      'Patterns across drivers, vehicles, and compliance activity become easier to see before they turn into recurring problems.',
   },
   {
     number: '04',
-    icon: BrainCircuit,
+    icon: Lightbulb,
     title: 'Decision Support',
-    body:
-      'Your compliance data is evaluated against a growing framework of regulatory checks and operational rules, built on real compliance expertise, to provide practical guidance for what to do next. Not just another report to review.',
+    description:
+      'Compliance data is evaluated against regulatory checks and operational rules to help identify what deserves attention next.',
   },
 ]
 
 export function HowWeHelp() {
   return (
     <section
-      id="how-truckease-helps"
-      className="relative overflow-hidden bg-[#fdfcf9]"
+      id="how-we-help"
+      className="relative overflow-hidden bg-[#fffdfa]"
     >
-      {/* ---------------------------------------------------------------- */}
-      {/* Background                                                        */}
-      {/* ---------------------------------------------------------------- */}
-
+      {/* Background atmosphere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#edf1f8]/80 to-transparent"
+        className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[760px] -translate-x-1/2 rounded-full bg-[#f45b08]/[0.025] blur-3xl"
       />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-52 top-28 h-[420px] w-[420px] rounded-full bg-[#4353a4]/[0.045] blur-3xl"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-52 bottom-0 h-[360px] w-[360px] rounded-full bg-[#e8720c]/[0.025] blur-3xl"
-      />
-
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-[#dfe5ee]"
-      />
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Content                                                           */}
-      {/* ---------------------------------------------------------------- */}
-
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         {/* Heading */}
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-5 inline-flex items-center gap-3">
-              <span className="h-px w-8 bg-[#e8720c]" />
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e8720c]">
-                How TruckEase Helps
-              </span>
-
-              <span className="h-px w-8 bg-[#e8720c]" />
+            <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#f45b08]">
+              <span className="h-px w-7 bg-[#f45b08]" />
+              How TruckEase Helps
+              <span className="h-px w-7 bg-[#f45b08]" />
             </div>
 
-            <h2 className="text-3xl font-bold tracking-[-0.04em] text-[#0c1a36] sm:text-4xl lg:text-[3.15rem] lg:leading-[1.05]">
+            <h2 className="text-balance text-3xl font-bold tracking-[-0.045em] text-[#142342] sm:text-4xl lg:text-[3rem] lg:leading-[1.04]">
               Everything working together,
               <br className="hidden sm:block" />
               continuously.
             </h2>
 
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#5b6472] sm:text-[15px]">
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#60708a] sm:text-[15px]">
               A platform designed so nothing important slips through manual
               tracking, from renewals to the next recommended action.
             </p>
           </div>
         </Reveal>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Capability cards                                                   */}
-        {/* ---------------------------------------------------------------- */}
+        {/* Connected capability system */}
+        <div className="relative mt-12 lg:mt-14">
+          {/* Connecting line */}
+          <div
+            aria-hidden="true"
+            className="absolute left-[12%] right-[12%] top-[31px] hidden h-px bg-gradient-to-r from-[#dbe1eb] via-[#f45b08]/45 to-[#dbe1eb] lg:block"
+          />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-4">
-          {capabilities.map((item, index) => {
-            const Icon = item.icon
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            {capabilities.map((capability, index) => {
+              const Icon = capability.icon
 
-            return (
-              <Reveal
-                key={item.title}
-                delay={index * 80}
-                className="h-full"
-              >
-                <article
-                  className="
-                    group relative flex h-full min-h-[335px]
-                    flex-col overflow-hidden rounded-[20px]
-                    border border-[#dce2eb]
-                    bg-white
-                    p-6
-                    shadow-[0_10px_35px_rgba(12,26,54,0.045)]
-                    transition-all duration-300
-                    hover:-translate-y-1
-                    hover:border-[#c9d2e1]
-                    hover:shadow-[0_20px_50px_rgba(12,26,54,0.09)]
-                  "
-                >
-                  {/* Top number */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold tracking-[0.16em] text-[#a5afbf]">
-                      {item.number}
-                    </span>
+              return (
+                <Reveal key={capability.number} delay={index * 70}>
+                  <article className="group relative h-full rounded-[20px] border border-[#dde3ed] bg-white p-5 shadow-[0_8px_28px_rgba(20,35,66,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#ccd5e3] hover:shadow-[0_18px_42px_rgba(20,35,66,0.08)] sm:p-6">
+                    {/* Top node */}
+                    <div className="relative z-10 flex items-center justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#dce3f1] bg-[#f4f6ff] text-[#5264d6] transition-all duration-300 group-hover:border-[#f7c7aa] group-hover:bg-[#fff5ef] group-hover:text-[#f45b08]">
+                        <Icon className="h-[18px] w-[18px]" strokeWidth={1.8} />
+                      </div>
 
-                    <span
-                      className="
-                        flex h-11 w-11 items-center justify-center
-                        rounded-xl
-                        border border-[#dce5ff]
-                        bg-[#f1f5ff]
-                        text-[#4353a4]
-                        transition-all duration-300
-                        group-hover:border-[#ccd7ff]
-                        group-hover:bg-[#e9efff]
-                        group-hover:text-[#36479a]
-                      "
-                    >
-                      <Icon
-                        className="h-[18px] w-[18px]"
-                        strokeWidth={1.8}
-                      />
-                    </span>
-                  </div>
+                      <span className="text-[9px] font-bold tracking-[0.16em] text-[#a1aec1]">
+                        {capability.number}
+                      </span>
+                    </div>
 
-                  {/* Heading */}
-                  <h3 className="mt-8 text-base font-bold tracking-[-0.015em] text-[#0c1a36]">
-                    {item.title}
-                  </h3>
+                    {/* Accent */}
+                    <div className="mt-6 h-1 w-8 rounded-full bg-[#e5eaf2] transition-all duration-300 group-hover:w-12 group-hover:bg-[#f45b08]" />
 
-                  {/* Body */}
-                  <p className="mt-4 text-xs leading-[1.7] text-[#667085]">
-                    {item.body}
-                  </p>
+                    <h3 className="mt-4 text-base font-bold tracking-[-0.02em] text-[#142342]">
+                      {capability.title}
+                    </h3>
 
-                  {/* Bottom accent */}
-                  <div
-                    aria-hidden="true"
-                    className="
-                      absolute bottom-0 left-6 h-[2px] w-0
-                      bg-[#4353a4]
-                      transition-all duration-300
-                      group-hover:w-10
-                    "
-                  />
-                </article>
-              </Reveal>
-            )
-          })}
+                    <p className="mt-2 text-xs leading-5.5 text-[#66758d] sm:text-[13px]">
+                      {capability.description}
+                    </p>
+                  </article>
+                </Reveal>
+              )
+            })}
+          </div>
         </div>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Closing visual transition                                         */}
-        {/* ---------------------------------------------------------------- */}
-
-        <Reveal delay={420}>
-          <div className="mt-14 flex items-center justify-center gap-3">
-            <div className="h-px w-12 bg-[#d7dee9]" />
-
-            <span className="h-1.5 w-1.5 rounded-full bg-[#e8720c]" />
-
-            <div className="h-px w-12 bg-[#d7dee9]" />
+        {/* Bottom statement */}
+        <Reveal delay={180}>
+          <div className="mx-auto mt-10 flex max-w-2xl items-center justify-center gap-3 text-center">
+            <span className="h-px w-8 bg-[#d9e0eb]" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#718097]">
+              From requirements to the next action
+            </span>
+            <span className="h-px w-8 bg-[#d9e0eb]" />
           </div>
         </Reveal>
       </div>
