@@ -1,714 +1,174 @@
-import {
-  Activity,
-  AlertCircle,
-  ArrowRight,
-  CalendarDays,
-  CheckCircle2,
-  CircleAlert,
-  Clock3,
-  FileCheck2,
-  Gauge,
-  Info,
-  Radar,
-  Settings2,
-  ShieldCheck,
-  Wrench,
-} from 'lucide-react'
-
-import { Reveal } from '@/components/reveal'
-import { SectionHeading } from '@/components/section-heading'
-
-/* -------------------------------------------------------------------------- */
-/* Dashboard data                                                             */
-/* -------------------------------------------------------------------------- */
-
-const complianceItems = [
-  {
-    icon: CircleAlert,
-    title: 'Hours of Service',
-    status: 'Needs Attention',
-    value: '77%',
-    tone: 'danger',
-  },
-  {
-    icon: Wrench,
-    title: 'Vehicle Maintenance Record',
-    status: 'Needs Attention',
-    value: '81%',
-    tone: 'warning',
-  },
-  {
-    icon: Info,
-    title: 'IRP Fleet Renewal',
-    status: 'On Track',
-    value: 'Application Submitted',
-    tone: 'info',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'SCAC Renewal',
-    status: 'Completed',
-    value: '100%',
-    tone: 'success',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'MCS-150 Biannual Update',
-    status: 'Completed',
-    value: '100%',
-    tone: 'success',
-  },
-]
-
-const upcomingTasks = [
-  {
-    label: 'Annual Inspection – Unit T104',
-    value: '21 Days',
-    tone: 'danger',
-  },
-  {
-    label: 'Schedule Maintenance – T134',
-    value: '36 Days',
-    tone: 'warning',
-  },
-  {
-    label: 'IFTA Filing',
-    value: '41 Days',
-    tone: 'warning',
-  },
-]
-
-const recentActivity = [
-  {
-    label: 'MCS-150 Biannual Update',
-    date: 'June 19',
-  },
-  {
-    label: 'SCAC Renewal',
-    date: 'June 10',
-  },
-  {
-    label: 'US Bonded Carrier App.',
-    date: 'June 02',
-  },
-]
-
-const atRiskItems = [
-  {
-    label: '1 Trailer Inspection Expiring in 4 days',
-    detail: 'Reminder sent 8',
-  },
-  {
-    label: '2 Driver Files Expiring in 12 days',
-    detail: 'Reminders sent 5',
-  },
-]
-
-/* -------------------------------------------------------------------------- */
-/* Dashboard helpers                                                          */
-/* -------------------------------------------------------------------------- */
-
-function statusColor(tone: string) {
-  switch (tone) {
-    case 'danger':
-      return 'text-[#ff5470]'
-    case 'warning':
-      return 'text-[#ffb21a]'
-    case 'success':
-      return 'text-[#00d79b]'
-    default:
-      return 'text-[#38bdf8]'
-  }
-}
-
-function statusDot(tone: string) {
-  switch (tone) {
-    case 'danger':
-      return 'bg-[#ff5470]'
-    case 'warning':
-      return 'bg-[#ffb21a]'
-    case 'success':
-      return 'bg-[#00d79b]'
-    default:
-      return 'bg-[#38bdf8]'
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/* Compliance status ring                                                     */
-/* -------------------------------------------------------------------------- */
-
-function StatusRing({
-  percentage = 76,
+function StatusBar({
+  label,
+  status,
+  value,
+  tone = 'good',
 }: {
-  percentage?: number
+  label: string
+  status: string
+  value: string
+  tone?: 'good' | 'warning' | 'bad'
 }) {
-  const radius = 47
-  const circumference = 2 * Math.PI * radius
-  const progress = Math.max(0, Math.min(100, percentage))
-  const dashOffset = circumference * (1 - progress / 100)
+  const dot =
+    tone === 'good'
+      ? 'bg-emerald-400'
+      : tone === 'warning'
+        ? 'bg-orange-400'
+        : 'bg-red-400'
+
+  const text =
+    tone === 'good'
+      ? 'text-emerald-400'
+      : tone === 'warning'
+        ? 'text-orange-400'
+        : 'text-red-400'
 
   return (
-    <div className="relative h-36 w-36">
-      <svg
-        viewBox="0 0 120 120"
-        className="h-full w-full"
-        role="img"
-        aria-label={`${progress}% overall compliance position`}
-      >
-        {/* Background track */}
-        <circle
-          cx="60"
-          cy="60"
-          r={radius}
-          fill="none"
-          stroke="#26344f"
-          strokeWidth="9"
-        />
+    <div className="flex items-center gap-3 border-b border-white/10 py-3 last:border-0">
+      <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
 
-        {/* Progress
-            -90 degrees moves the start point from 3 o'clock to 12 o'clock.
-            SVG stroke direction then proceeds clockwise. */}
-        <circle
-          cx="60"
-          cy="60"
-          r={radius}
-          fill="none"
-          stroke="#00d79b"
-          strokeWidth="9"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={dashOffset}
-          transform="rotate(-90 60 60)"
-        />
+      <span className="min-w-0 flex-1 truncate text-[10px] font-medium text-slate-300">
+        {label}
+      </span>
 
-        {/* Small orange accent marker at the start point */}
-        <circle
-          cx="60"
-          cy="13"
-          r="2.1"
-          fill="#f45b08"
-        />
-      </svg>
+      <span className={`text-[9px] font-semibold ${text}`}>{status}</span>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[25px] font-bold leading-none tracking-[-0.04em] text-white">
-          {progress}%
-        </span>
-
-        <span className="mt-1 text-center text-[9px] leading-[1.25] text-[#a9b5c9]">
-          Overall
-          <br />
-          Compliance
-          <br />
-          Position
-        </span>
-      </div>
+      <span className="w-8 text-right text-[9px] text-slate-500">
+        {value}
+      </span>
     </div>
   )
 }
 
-/* -------------------------------------------------------------------------- */
-/* Dashboard                                                                  */
-/* -------------------------------------------------------------------------- */
-
-function Dashboard() {
+function DashboardMockup() {
   return (
-    <div className="relative w-full overflow-hidden rounded-[24px] border border-[#273653] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.24)] sm:p-6">
-      {/* Twilight atmosphere */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#596ba8]/10 blur-3xl"
-      />
+    <div className="relative mx-auto w-full max-w-[570px]">
+      <div className="absolute -inset-5 rounded-[32px] bg-[#dfe5f2]/70 blur-2xl" />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/3 h-80 w-80 rounded-full bg-[#f45b08]/[0.035] blur-3xl"
-      />
-
-      <div className="relative">
-        {/* Dashboard header */}
-        <div className="flex items-center justify-between border-b border-[#202c42] pb-4">
+      <div className="relative overflow-hidden rounded-[22px] border border-slate-300/70 bg-[#0d1528] p-4 shadow-[0_25px_60px_rgba(20,32,59,0.18)] sm:p-5">
+        <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
           <div>
-            <h3 className="text-sm font-bold tracking-tight text-white sm:text-base">
+            <p className="text-[10px] font-semibold text-white">
               Compliance Overview
-            </h3>
+            </p>
+            <p className="mt-1 text-[8px] text-slate-500">
+              Current operational position
+            </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#00d79b]/25 bg-[#00d79b]/10 px-3 py-1 text-[9px] font-semibold text-[#00d79b] sm:text-[10px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#00d79b]" />
-            Active Monitoring
+          <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[8px] font-semibold text-emerald-400">
+            ● Active Monitoring
+          </span>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-[150px_1fr]">
+          <div className="rounded-xl border border-white/10 bg-[#121b31] p-5">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-[7px] border-emerald-400/20 border-t-emerald-400 border-r-emerald-400">
+              <div className="text-center">
+                <div className="text-xl font-bold text-white">76%</div>
+                <div className="text-[7px] uppercase tracking-wider text-slate-500">
+                  Position
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 text-center text-[8px] text-slate-500">
+              Overall compliance position
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-[#10192c] px-3">
+            <StatusBar
+              label="Hours of Service"
+              status="Needs Attention"
+              value="77%"
+              tone="bad"
+            />
+            <StatusBar
+              label="Vehicle Maintenance"
+              status="Monitoring"
+              value="84%"
+              tone="warning"
+            />
+            <StatusBar
+              label="IFTA / IRP"
+              status="Up to Date"
+              value="100%"
+            />
+            <StatusBar
+              label="SFC Renewal"
+              status="Upcoming"
+              value="92%"
+              tone="warning"
+            />
+            <StatusBar
+              label="MCS-150 Records"
+              status="Current"
+              value="98%"
+            />
           </div>
         </div>
 
-        {/* Main dashboard row */}
-        <div className="mt-4 grid gap-3 lg:grid-cols-[245px_minmax(0,1fr)]">
-          {/* Compliance score */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-5 sm:p-6">
-            <div className="flex h-full min-h-[210px] flex-col items-center justify-center">
-              <StatusRing percentage={76} />
-
-              <div className="mt-2 text-[9px] font-medium text-[#00d79b]">
-                ↑ 6% vs last 30 days
-              </div>
-            </div>
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          <div className="rounded-lg border border-white/10 bg-[#121b31] p-3">
+            <span className="text-[7px] uppercase tracking-wider text-slate-500">
+              Open items
+            </span>
+            <p className="mt-1 text-sm font-bold text-white">04</p>
           </div>
 
-          {/* Compliance status list */}
-          <div className="space-y-2">
-            {complianceItems.map((item) => {
-              const Icon = item.icon
+          <div className="rounded-lg border border-white/10 bg-[#121b31] p-3">
+            <span className="text-[7px] uppercase tracking-wider text-slate-500">
+              Documents
+            </span>
+            <p className="mt-1 text-sm font-bold text-white">128</p>
+          </div>
 
-              return (
-                <div
-                  key={item.title}
-                  className="group flex min-h-[43px] min-w-0 items-center gap-2 rounded-xl border border-[#26334d] bg-[#0e1627] px-3 transition-colors duration-200 hover:border-[#3a4c6d] hover:bg-[#111b2d] sm:gap-3"
-                >
-                  <Icon
-                    className={`h-3.5 w-3.5 shrink-0 ${statusColor(
-                      item.tone,
-                    )}`}
-                    strokeWidth={2}
-                  />
-
-                  <span className="min-w-0 flex-1 truncate text-[9px] font-semibold text-[#edf2fa] sm:text-[11px]">
-                    {item.title}
-                  </span>
-
-                  <span
-                    className={`shrink-0 text-[8px] font-semibold sm:text-[9px] ${statusColor(
-                      item.tone,
-                    )}`}
-                  >
-                    {item.status}
-                  </span>
-
-                  <span className="shrink-0 text-[9px] font-bold text-white sm:text-[10px]">
-                    {item.value}
-                  </span>
-
-                  <ArrowRight className="h-3 w-3 shrink-0 text-[#52627c] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#8090ad]" />
-                </div>
-              )
-            })}
+          <div className="rounded-lg border border-white/10 bg-[#121b31] p-3">
+            <span className="text-[7px] uppercase tracking-wider text-slate-500">
+              Alerts
+            </span>
+            <p className="mt-1 text-sm font-bold text-orange-400">03</p>
           </div>
         </div>
-
-        {/* Lower dashboard cards */}
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {/* Upcoming tasks */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CalendarDays className="h-3.5 w-3.5 text-[#a9b5c9]" />
-
-                <span className="text-[10px] font-semibold text-white">
-                  Upcoming Tasks
-                </span>
-              </div>
-
-              <span className="text-[8px] font-semibold text-[#38bdf8]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
-              {upcomingTasks.map((task) => (
-                <div
-                  key={task.label}
-                  className="flex min-w-0 items-center gap-2 text-[8px]"
-                >
-                  <span
-                    className={`h-1.5 w-1.5 shrink-0 rounded-full ${statusDot(
-                      task.tone,
-                    )}`}
-                  />
-
-                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
-                    {task.label}
-                  </span>
-
-                  <span
-                    className={`shrink-0 font-semibold ${statusColor(
-                      task.tone,
-                    )}`}
-                  >
-                    {task.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Recent activity */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Clock3 className="h-3.5 w-3.5 text-[#a9b5c9]" />
-
-                <span className="text-[10px] font-semibold text-white">
-                  Recent Activity
-                </span>
-              </div>
-
-              <span className="text-[8px] font-semibold text-[#38bdf8]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
-              {recentActivity.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex min-w-0 items-center gap-2 text-[8px]"
-                >
-                  <CheckCircle2 className="h-3 w-3 shrink-0 text-[#00d79b]" />
-
-                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
-                    {item.label}
-                  </span>
-
-                  <span className="shrink-0 font-semibold text-[#00d79b]">
-                    Completed
-                  </span>
-
-                  <span className="shrink-0 text-[#66758d]">
-                    {item.date}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* At risk */}
-          <div className="rounded-xl border border-[#8f2443]/70 bg-[#1a101a] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="h-3.5 w-3.5 text-[#ff5470]" />
-
-                <span className="text-[10px] font-semibold text-[#ff5470]">
-                  At Risk
-                </span>
-              </div>
-
-              <span className="text-[8px] font-semibold text-[#ff5470]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-3">
-              {atRiskItems.map((item) => (
-                <div key={item.label}>
-                  <div className="flex items-start gap-2">
-                    <CircleAlert className="mt-0.5 h-2.5 w-2.5 shrink-0 text-[#ff5470]" />
-
-                    <div className="min-w-0">
-                      <p className="text-[8px] font-semibold text-[#ff7388]">
-                        {item.label}
-                      </p>
-
-                      <p className="mt-0.5 text-[7px] text-[#b75a70]">
-                        {item.detail}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Disclaimer */}
-        <p className="mt-5 text-center text-[8px] leading-4 text-[#53627a]">
-          Interface concept. Illustrative data shown for demonstration
-          purposes.
-        </p>
       </div>
     </div>
   )
 }
-
-/* -------------------------------------------------------------------------- */
-/* Section 2 — Platform Preview                                               */
-/* -------------------------------------------------------------------------- */
 
 export function PlatformPreview() {
   return (
-    <section
-      id="platform-preview"
-      className="relative isolate overflow-hidden bg-[#f7f9fd]"
-    >
-      {/* ------------------------------------------------------------------ */}
-      {/* Dusk-inspired section atmosphere                                  */}
-      {/* ------------------------------------------------------------------ */}
+    <section className="overflow-hidden bg-[#f3f6fa] px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+        <div>
+          <div className="mb-3 flex items-center gap-3">
+            <span className="h-px w-7 bg-orange-500" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-600">
+              From compliance data
+            </span>
+          </div>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-[radial-gradient(circle_at_72%_18%,rgba(50,67,120,0.15),transparent_42%),radial-gradient(circle_at_18%_30%,rgba(101,120,180,0.09),transparent_36%)]"
-      />
+          <h2 className="max-w-md text-3xl font-bold leading-[1.02] tracking-[-0.04em] text-[#14203b] sm:text-4xl">
+            From compliance data
+            <br />
+            to operational clarity.
+          </h2>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-48 top-32 h-[560px] w-[560px] rounded-full bg-[#ef8b55]/[0.055] blur-3xl"
-      />
+          <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500">
+            A single view that connects requirements, deadlines, documents,
+            and monitoring signals so you can understand what is happening
+            before you decide what to do next.
+          </p>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-56 top-72 h-[500px] w-[500px] rounded-full bg-[#6474ae]/[0.07] blur-3xl"
-      />
-
-      {/* Subtle top horizon line */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#65749f]/30 to-transparent"
-      />
-
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-          {/* Left copy */}
-          <Reveal>
-            <div>
-              <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e85d04]">
-                <span className="h-px w-7 bg-[#e85d04]" />
-                From compliance data
-              </div>
-
-              <h2 className="max-w-xl text-balance text-3xl font-bold tracking-[-0.035em] text-[#142342] sm:text-4xl lg:text-[3.15rem] lg:leading-[1.04]">
-                From Compliance Data
-                <br />
-                to Operational Clarity.
-              </h2>
-
-              <p className="mt-5 max-w-lg text-sm leading-7 text-[#536782] sm:text-[15px]">
-                A single view that connects requirements, deadlines, documents,
-                and monitoring activity, then points to the next action worth
-                taking.
-              </p>
-
-              {/* Small visual bridge */}
-              <div className="mt-8 hidden items-center gap-3 lg:flex">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#142342] text-white shadow-[0_8px_24px_rgba(20,35,66,0.15)]">
-                  <Gauge className="h-4 w-4" />
-                </div>
-
-                <div className="h-px w-10 bg-[#c7d1e1]" />
-
-                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#697990]">
-                  One operational view
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Dashboard */}
-          <Reveal delay={100}>
-            <div className="relative">
-              {/* Dusk glow behind dashboard */}
-              <div
-                aria-hidden="true"
-                className="absolute -inset-8 rounded-[40px] bg-[radial-gradient(circle_at_55%_45%,rgba(66,81,137,0.18),rgba(245,112,25,0.05),transparent_70%)] blur-2xl"
-              />
-
-              {/* Soft frame */}
-              <div
-                aria-hidden="true"
-                className="absolute -inset-4 rounded-[32px] border border-[#d6ddea]/70 bg-white/40 shadow-[0_30px_90px_rgba(29,42,76,0.10)] backdrop-blur-[2px]"
-              />
-
-              <div className="relative">
-                <Dashboard />
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* -------------------------------------------------------------------------- */
-/* Process                                                                    */
-/* -------------------------------------------------------------------------- */
-
-const processSteps = [
-  {
-    number: '01',
-    icon: Radar,
-    title: 'Discover',
-    body: 'Understand your operation, requirements, and current compliance position.',
-  },
-  {
-    number: '02',
-    icon: Settings2,
-    title: 'Assess',
-    body: 'Evaluate compliance records, documentation, and requirements to understand where attention is needed.',
-  },
-  {
-    number: '03',
-    icon: FileCheck2,
-    title: 'Implement',
-    body: 'Organize records, address identified gaps, and document the work required to keep your operation on track.',
-  },
-  {
-    number: '04',
-    icon: Activity,
-    title: 'Monitor',
-    body: 'Continuously monitor requirements and surface changes or issues before they become operational problems.',
-  },
-  {
-    number: '05',
-    icon: ShieldCheck,
-    title: 'Support',
-    body: 'Get practical human support when your business needs help navigating what comes next.',
-  },
-]
-
-export function Process() {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      {/* Twilight hairline */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#7d88b5]/40 to-transparent"
-      />
-
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal>
-          <SectionHeading
-            eyebrow="OUR PROCESS"
-            title="A Clearer Path to Compliance Confidence."
-            description="A practical process designed to move from understanding your position to maintaining confidence in your operation."
-          />
-        </Reveal>
-
-        <div className="relative mt-14">
-          {/* Connecting line */}
-          <div
-            aria-hidden="true"
-            className="absolute left-[8%] right-[8%] top-6 hidden h-px bg-gradient-to-r from-[#d9dfeb] via-[#8793b6] to-[#d9dfeb] lg:block"
-          />
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
-            {processSteps.map((step, index) => {
-              const Icon = step.icon
-
-              return (
-                <Reveal
-                  key={step.number}
-                  delay={index * 70}
-                  className="relative"
-                >
-                  <div className="flex flex-col items-start lg:items-center lg:text-center">
-                    <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-[#dbe2ef] bg-white shadow-[0_6px_20px_rgba(20,35,66,0.08)]">
-                      <Icon className="h-[18px] w-[18px] text-[#4353a4]" />
-                    </div>
-
-                    <div className="mt-5">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#e85d04]">
-                        {step.number}
-                      </span>
-
-                      <h3 className="mt-2 text-sm font-bold text-[#142342]">
-                        {step.title}
-                      </h3>
-
-                      <p className="mt-2 text-xs leading-5 text-[#66758d]">
-                        {step.body}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              )
-            })}
+          <div className="mt-6 flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#14203b] text-white">
+              ↗
+            </span>
+            One view. One operational picture.
           </div>
         </div>
-      </div>
-    </section>
-  )
-}
 
-/* -------------------------------------------------------------------------- */
-/* Why TruckEase                                                              */
-/* -------------------------------------------------------------------------- */
-
-const benefits = [
-  {
-    icon: Radar,
-    title: 'Proactive, continuously tracked compliance',
-    body: 'Requirements monitored on an ongoing basis so gaps surface early.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Cross-border regulatory knowledge',
-    body: 'Experience spanning requirements across the United States and Canada.',
-  },
-  {
-    icon: Activity,
-    title: 'Technology-first compliance platform',
-    body: 'Built for ongoing operational visibility, not periodic paperwork.',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Organized, accessible documents',
-    body: 'Records retained with appropriate access controls and activity tracking.',
-  },
-  {
-    icon: FileCheck2,
-    title: 'Practical ongoing support',
-    body: 'A person to help when a system alone isn’t enough.',
-  },
-  {
-    icon: Settings2,
-    title: 'Long-term compliance confidence',
-    body: 'Support that adapts as regulations evolve and your business grows.',
-  },
-]
-
-export function WhyTruckEase() {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      {/* Very subtle transition from the dusk platform section */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f7f9fd] to-transparent"
-      />
-
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Why TruckEase"
-            title="More than filing paperwork."
-            description="Businesses choose TruckEase because compliance requires more than filing paperwork. It requires consistency, attention to detail, and technology built to catch what manual tracking misses."
-          />
-        </Reveal>
-
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit, i) => {
-            const Icon = benefit.icon
-
-            return (
-              <Reveal
-                key={benefit.title}
-                delay={(i % 3) * 80}
-                className="group"
-              >
-                <div className="h-full rounded-2xl border border-[#e0e5ee] bg-white p-6 shadow-[0_8px_30px_rgba(20,35,66,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#c7d0e3] hover:shadow-[0_16px_40px_rgba(20,35,66,0.08)]">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#edf1ff] text-[#4353a4] transition-colors duration-300 group-hover:bg-[#e7ecff]">
-                    <Icon className="h-5 w-5" />
-                  </span>
-
-                  <h3 className="mt-5 text-base font-semibold text-[#142342]">
-                    {benefit.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-relaxed text-[#66758d]">
-                    {benefit.body}
-                  </p>
-                </div>
-              </Reveal>
-            )
-          })}
-        </div>
+        <DashboardMockup />
       </div>
     </section>
   )
