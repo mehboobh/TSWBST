@@ -1,10 +1,9 @@
-// components/site-header.tsx
 'use client'
 
-import React, { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 
 const navItems = [
   { label: 'Platform', href: '/platform' },
@@ -15,87 +14,166 @@ const navItems = [
   { label: 'Contact', href: '/contact' },
 ]
 
-export function SiteHeader() {
-  const [isOpen, setIsOpen] = useState(false)
-
+function TruckEaseMark() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-90">
-          <Image
-            src="/logo.png"
-            alt="TruckEase Solutions Logo"
-            width={32}
-            height={32}
-            className="size-8 object-contain"
-            priority
-          />
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            TruckEase <span className="text-primary font-normal">Solutions</span>
-          </span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Action Button */}
-        <div className="hidden md:flex items-center">
-          <Link
-            href="/risk-screening"
-            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
-          >
-            Request a Risk Screening
-          </Link>
-        </div>
-
-        {/* Mobile Toggle */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-        >
-          {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="border-b border-border bg-background px-4 pb-6 pt-2 md:hidden">
-          <nav className="flex flex-col gap-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="py-2 text-base font-medium text-muted-foreground hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              href="/risk-screening"
-              onClick={() => setIsOpen(false)}
-              className="mt-2 w-full rounded-lg bg-slate-900 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-slate-800"
-            >
-              Request a Risk Screening
-            </Link>
-          </nav>
-        </div>
-      )}
-    </header>
+    <span
+      aria-hidden="true"
+      className="relative flex h-7 w-8 shrink-0 items-center justify-center"
+    >
+      <span className="absolute left-0 top-[10px] h-[7px] w-[25px] -skew-x-[20deg] rounded-[2px] bg-[#0c1a36]" />
+      <span className="absolute left-[7px] top-[7px] h-[7px] w-[14px] -skew-x-[20deg] rounded-[2px] bg-[#5b6472]" />
+      <span className="absolute right-[1px] top-[12px] h-[4px] w-[7px] rounded-full bg-[#e8720c]" />
+      <span className="absolute bottom-[4px] left-[7px] h-[3px] w-[3px] rounded-full bg-[#0c1a36]" />
+      <span className="absolute bottom-[4px] right-[5px] h-[3px] w-[3px] rounded-full bg-[#0c1a36]" />
+    </span>
   )
 }
 
-// Export default as fallback safety so imports never evaluate to undefined
-export default SiteHeader
+function Logo() {
+  return (
+    <Link
+      href="/"
+      aria-label="TruckEase Solutions home"
+      className="group flex items-center gap-2.5"
+    >
+      <TruckEaseMark />
+
+      <span className="whitespace-nowrap text-[17px] font-semibold tracking-[-0.025em] text-[#162033] sm:text-[18px]">
+        TruckEase
+        <span className="font-normal text-[#5b6472]"> Solutions</span>
+      </span>
+    </Link>
+  )
+}
+
+function isActivePath(pathname: string, href: string) {
+  if (href === '/') {
+    return pathname === '/'
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
+
+export function SiteHeader() {
+  const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  return (
+    <header className="relative z-50 border-b border-[#e2e7ec] bg-[#fdfcf9]/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-[68px] w-full max-w-[1400px] items-center px-5 sm:px-7 lg:h-[74px] lg:px-10 xl:px-12">
+        {/* Logo */}
+        <div className="shrink-0">
+          <Logo />
+        </div>
+
+        {/* Desktop navigation */}
+        <nav
+          aria-label="Primary navigation"
+          className="ml-auto hidden items-center gap-1 lg:flex"
+        >
+          {navItems.map((item) => {
+            const active = isActivePath(pathname, item.href)
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={[
+                  'relative rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors',
+                  active
+                    ? 'text-[#0c1a36]'
+                    : 'text-[#5b6472] hover:text-[#0c1a36]',
+                ].join(' ')}
+              >
+                {item.label}
+
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-1/2 h-[2px] w-4 -translate-x-1/2 rounded-full bg-[#e8720c]"
+                  />
+                )}
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Desktop CTA */}
+        <Link
+          href="/risk-screening"
+          className="ml-5 hidden h-11 items-center gap-2 rounded-[11px] bg-[#0c1a36] px-5 text-[13px] font-semibold text-white shadow-[0_6px_18px_rgba(12,26,54,0.12)] transition-all hover:-translate-y-[1px] hover:bg-[#16274a] hover:shadow-[0_8px_22px_rgba(12,26,54,0.16)] lg:inline-flex"
+        >
+          Request a Risk Screening
+          <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+        </Link>
+
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((value) => !value)}
+          className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#dce2eb] text-[#0c1a36] transition hover:bg-[#f2f4f7] lg:hidden"
+        >
+          {mobileOpen ? (
+            <X className="h-5 w-5" strokeWidth={1.8} />
+          ) : (
+            <Menu className="h-5 w-5" strokeWidth={1.8} />
+          )}
+        </button>
+      </div>
+
+      {/* Mobile navigation */}
+      <div
+        className={[
+          'overflow-hidden border-t border-[#e2e7ec] bg-[#fdfcf9] transition-all duration-300 lg:hidden',
+          mobileOpen
+            ? 'max-h-[520px] opacity-100'
+            : 'max-h-0 border-t-0 opacity-0',
+        ].join(' ')}
+      >
+        <nav
+          aria-label="Mobile navigation"
+          className="mx-auto flex max-w-[1400px] flex-col px-5 py-3 sm:px-7"
+        >
+          {navItems.map((item) => {
+            const active = isActivePath(pathname, item.href)
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={[
+                  'flex min-h-[48px] items-center justify-between border-b border-[#edf0f3] text-[14px] font-medium transition-colors',
+                  active ? 'text-[#0c1a36]' : 'text-[#5b6472]',
+                ].join(' ')}
+              >
+                <span>{item.label}</span>
+
+                <ArrowRight
+                  className={[
+                    'h-4 w-4 transition-transform',
+                    active
+                      ? 'text-[#e8720c]'
+                      : 'text-[#9aa3b0]',
+                  ].join(' ')}
+                  strokeWidth={1.8}
+                />
+              </Link>
+            )
+          })}
+
+          <Link
+            href="/risk-screening"
+            onClick={() => setMobileOpen(false)}
+            className="my-4 flex h-12 items-center justify-center gap-2 rounded-[11px] bg-[#0c1a36] px-5 text-[14px] font-semibold text-white"
+          >
+            Request a Risk Screening
+            <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+          </Link>
+        </nav>
+      </div>
+    </header>
+  )
+}
