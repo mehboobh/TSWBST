@@ -157,7 +157,6 @@ function StatusRing({
           transform="rotate(-90 60 60)"
         />
 
-        {/* Orange accent marker */}
         <circle
           cx="60"
           cy="13"
@@ -186,7 +185,7 @@ function StatusRing({
 export function ComplianceDashboard() {
   return (
     <div className="relative w-full overflow-hidden rounded-[24px] border border-[#273653] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.24)] sm:p-6">
-      {/* Twilight atmosphere */}
+      {/* Dashboard atmosphere */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#596ba8]/10 blur-3xl"
@@ -223,7 +222,7 @@ export function ComplianceDashboard() {
             </div>
           </div>
 
-          {/* Compliance status */}
+          {/* Compliance status list */}
           <div className="space-y-2">
             {complianceItems.map((item) => {
               const Icon = item.icon
@@ -265,7 +264,7 @@ export function ComplianceDashboard() {
 
         {/* Lower dashboard cards */}
         <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {/* Upcoming tasks */}
+          {/* Upcoming Tasks */}
           <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -309,7 +308,7 @@ export function ComplianceDashboard() {
             </div>
           </div>
 
-          {/* Recent activity */}
+          {/* Recent Activity */}
           <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -349,7 +348,7 @@ export function ComplianceDashboard() {
             </div>
           </div>
 
-          {/* At risk */}
+          {/* At Risk */}
           <div className="rounded-xl border border-[#8f2443]/70 bg-[#1a101a] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
