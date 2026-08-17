@@ -1,396 +1,520 @@
-import {
-  AlertCircle,
-  ArrowRight,
-  CalendarDays,
-  CheckCircle2,
-  CircleAlert,
-  Clock3,
-  Info,
-  Wrench,
-} from 'lucide-react'
+import type { ReactNode } from 'react'
 
-const complianceItems = [
-  {
-    icon: CircleAlert,
-    title: 'Hours of Service',
-    status: 'Needs Attention',
-    value: '77%',
-    tone: 'danger',
-  },
-  {
-    icon: Wrench,
-    title: 'Vehicle Maintenance Record',
-    status: 'Needs Attention',
-    value: '81%',
-    tone: 'warning',
-  },
-  {
-    icon: Info,
-    title: 'IRP Fleet Renewal',
-    status: 'On Track',
-    value: 'Application Submitted',
-    tone: 'info',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'SCAC Renewal',
-    status: 'Completed',
-    value: '100%',
-    tone: 'success',
-  },
-  {
-    icon: CheckCircle2,
-    title: 'MCS-150 Biannual Update',
-    status: 'Completed',
-    value: '100%',
-    tone: 'success',
-  },
-]
+type StatusTone = 'danger' | 'warning' | 'info' | 'success'
 
-const upcomingTasks = [
-  {
-    label: 'Annual Inspection – Unit T104',
-    value: '21 Days',
-    tone: 'danger',
-  },
-  {
-    label: 'Schedule Maintenance – T134',
-    value: '36 Days',
-    tone: 'warning',
-  },
-  {
-    label: 'IFTA Filing',
-    value: '41 Days',
-    tone: 'warning',
-  },
-]
-
-const recentActivity = [
-  {
-    label: 'MCS-150 Biannual Update',
-    date: 'June 19',
-  },
-  {
-    label: 'SCAC Renewal',
-    date: 'June 10',
-  },
-  {
-    label: 'US Bonded Carrier App.',
-    date: 'June 02',
-  },
-]
-
-const atRiskItems = [
-  {
-    label: '1 Trailer Inspection Expiring in 4 days',
-    detail: 'Reminder sent 8',
-  },
-  {
-    label: '2 Driver Files Expiring in 12 days',
-    detail: 'Reminders sent 5',
-  },
-]
-
-function statusColor(tone: string) {
-  switch (tone) {
-    case 'danger':
-      return 'text-[#ff5470]'
-    case 'warning':
-      return 'text-[#ffb21a]'
-    case 'success':
-      return 'text-[#00d79b]'
-    default:
-      return 'text-[#38bdf8]'
-  }
-}
-
-function statusDot(tone: string) {
-  switch (tone) {
-    case 'danger':
-      return 'bg-[#ff5470]'
-    case 'warning':
-      return 'bg-[#ffb21a]'
-    case 'success':
-      return 'bg-[#00d79b]'
-    default:
-      return 'bg-[#38bdf8]'
-  }
-}
-
-function StatusRing({
-  percentage = 76,
+function Icon({
+  children,
+  className = '',
 }: {
-  percentage?: number
+  children: ReactNode
+  className?: string
 }) {
-  const radius = 47
-  const circumference = 2 * Math.PI * radius
-  const progress = Math.max(0, Math.min(100, percentage))
-  const dashOffset = circumference * (1 - progress / 100)
+  return (
+    <span
+      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.06] ${className}`}
+    >
+      {children}
+    </span>
+  )
+}
+
+function StatusIcon({ tone }: { tone: StatusTone }) {
+  const styles = {
+    danger: 'text-red-400',
+    warning: 'text-amber-400',
+    info: 'text-sky-400',
+    success: 'text-emerald-400',
+  }
 
   return (
-    <div className="relative h-36 w-36">
-      <svg
-        viewBox="0 0 120 120"
-        className="h-full w-full"
-        role="img"
-        aria-label={`${progress}% overall compliance position`}
-      >
-        <circle
-          cx="60"
-          cy="60"
-          r={radius}
-          fill="none"
-          stroke="#26344f"
-          strokeWidth="9"
-        />
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      className={`h-3.5 w-3.5 ${styles[tone]}`}
+      aria-hidden="true"
+    >
+      {tone === 'success' ? (
+        <>
+          <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
+          <path
+            d="M7 10.2 9 12l4-4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </>
+      ) : tone === 'danger' ? (
+        <>
+          <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
+          <path
+            d="M10 6.5v4.2M10 13.5h.01"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </>
+      ) : tone === 'warning' ? (
+        <>
+          <path
+            d="m10 3 7 12.5H3L10 3Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M10 7.5v3.2M10 13h.01"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </>
+      ) : (
+        <>
+          <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
+          <path
+            d="M10 8v4M10 6.3h.01"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </>
+      )}
+    </svg>
+  )
+}
 
-        <circle
-          cx="60"
-          cy="60"
-          r={radius}
-          fill="none"
-          stroke="#00d79b"
-          strokeWidth="9"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={dashOffset}
-          transform="rotate(-90 60 60)"
-        />
+function StatusRow({
+  label,
+  status,
+  value,
+  tone,
+}: {
+  label: string
+  status: string
+  value: string
+  tone: StatusTone
+}) {
+  const statusColor = {
+    danger: 'text-red-400',
+    warning: 'text-amber-400',
+    info: 'text-sky-400',
+    success: 'text-emerald-400',
+  }[tone]
 
-        <circle
-          cx="60"
-          cy="13"
-          r="2.1"
-          fill="#f45b08"
-        />
-      </svg>
+  return (
+    <div className="flex min-w-0 items-center gap-2.5 border-b border-white/[0.07] py-2.5 last:border-b-0">
+      <StatusIcon tone={tone} />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[25px] font-bold leading-none tracking-[-0.04em] text-white">
-          {progress}%
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[9px] font-semibold text-slate-200">
+          {label}
+        </p>
+      </div>
+
+      <span className={`shrink-0 text-[8px] font-semibold ${statusColor}`}>
+        {status}
+      </span>
+
+      <span className="w-7 shrink-0 text-right text-[8px] font-medium text-slate-500">
+        {value}
+      </span>
+
+      <span className="text-[10px] text-slate-600">›</span>
+    </div>
+  )
+}
+
+function MetricCard({
+  label,
+  value,
+  detail,
+  icon,
+  tone = 'blue',
+}: {
+  label: string
+  value: string
+  detail: string
+  icon: ReactNode
+  tone?: 'blue' | 'green' | 'orange'
+}) {
+  const iconStyles = {
+    blue: 'bg-blue-400/10 text-blue-300',
+    green: 'bg-emerald-400/10 text-emerald-300',
+    orange: 'bg-orange-400/10 text-orange-300',
+  }
+
+  return (
+    <div className="min-w-0 rounded-xl border border-white/[0.08] bg-[#10192c] p-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="truncate text-[7px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+          {label}
         </span>
 
-        <span className="mt-1 text-center text-[9px] leading-[1.25] text-[#a9b5c9]">
-          Overall
-          <br />
-          Compliance
-          <br />
-          Position
+        <span
+          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg ${iconStyles[tone]}`}
+        >
+          {icon}
+        </span>
+      </div>
+
+      <div className="mt-3 flex items-end justify-between gap-2">
+        <span className="text-lg font-bold tracking-tight text-white">
+          {value}
+        </span>
+
+        <span className="text-right text-[7px] leading-3 text-slate-500">
+          {detail}
         </span>
       </div>
     </div>
   )
 }
 
+function ComplianceRing() {
+  return (
+    <div className="flex min-h-[138px] items-center justify-center rounded-xl border border-white/[0.08] bg-[#10192c] p-4">
+      <div className="relative flex h-[100px] w-[100px] items-center justify-center rounded-full bg-[conic-gradient(from_220deg,#32d39a_0deg,#32d39a_274deg,rgba(50,211,154,0.12)_274deg,rgba(50,211,154,0.12)_360deg)]">
+        <div className="absolute inset-[7px] flex flex-col items-center justify-center rounded-full bg-[#10192c]">
+          <span className="text-[24px] font-bold tracking-[-0.05em] text-white">
+            76%
+          </span>
+
+          <span className="mt-0.5 text-center text-[6px] uppercase leading-[1.2] tracking-[0.08em] text-slate-500">
+            Overall
+            <br />
+            compliance
+            <br />
+            position
+          </span>
+        </div>
+
+        <span className="absolute right-[5px] top-[17px] h-1.5 w-1.5 rounded-full bg-orange-400" />
+      </div>
+    </div>
+  )
+}
+
+function SmallPanel({
+  title,
+  action,
+  children,
+}: {
+  title: string
+  action?: string
+  children: ReactNode
+}) {
+  return (
+    <div className="min-w-0 rounded-xl border border-white/[0.08] bg-[#10192c] p-3">
+      <div className="mb-2.5 flex items-center justify-between gap-2">
+        <span className="truncate text-[8px] font-semibold text-slate-200">
+          {title}
+        </span>
+
+        {action && (
+          <span className="shrink-0 text-[7px] font-medium text-sky-400">
+            {action}
+          </span>
+        )}
+      </div>
+
+      {children}
+    </div>
+  )
+}
+
+function TaskRow({
+  label,
+  value,
+  tone = 'neutral',
+}: {
+  label: string
+  value: string
+  tone?: 'neutral' | 'warning' | 'danger' | 'success'
+}) {
+  const dot = {
+    neutral: 'bg-slate-500',
+    warning: 'bg-amber-400',
+    danger: 'bg-red-400',
+    success: 'bg-emerald-400',
+  }[tone]
+
+  const valueColor = {
+    neutral: 'text-slate-500',
+    warning: 'text-amber-400',
+    danger: 'text-red-400',
+    success: 'text-emerald-400',
+  }[tone]
+
+  return (
+    <div className="flex items-center gap-2 py-1.5">
+      <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${dot}`} />
+
+      <span className="min-w-0 flex-1 truncate text-[7px] text-slate-400">
+        {label}
+      </span>
+
+      <span className={`shrink-0 text-[7px] font-semibold ${valueColor}`}>
+        {value}
+      </span>
+    </div>
+  )
+}
+
 export function ComplianceDashboard() {
   return (
-    <div className="relative w-full overflow-hidden rounded-[24px] border border-[#273653] bg-[#080e1b] p-4 shadow-[0_35px_90px_rgba(12,23,48,0.24)] sm:p-6">
-      {/* Dashboard atmosphere */}
+    <div className="relative mx-auto w-full max-w-[680px]">
+      {/* Outer glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-[#596ba8]/10 blur-3xl"
+        className="absolute -inset-6 rounded-[34px] bg-[radial-gradient(circle_at_55%_45%,rgba(62,81,145,0.24),rgba(245,112,25,0.06),transparent_72%)] blur-2xl"
       />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/3 h-80 w-80 rounded-full bg-[#f45b08]/[0.035] blur-3xl"
-      />
-
-      <div className="relative">
+      {/* Dashboard frame */}
+      <div className="relative overflow-hidden rounded-[24px] border border-[#293654] bg-[#080f1f] p-3 shadow-[0_28px_80px_rgba(20,32,59,0.22)] sm:p-4">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#202c42] pb-4">
-          <h3 className="text-sm font-bold tracking-tight text-white sm:text-base">
-            Compliance Overview
-          </h3>
+        <div className="mb-3 flex items-center justify-between gap-4 border-b border-white/[0.08] px-1 pb-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="truncate text-[11px] font-bold tracking-[-0.02em] text-white sm:text-xs">
+                Compliance Overview
+              </h3>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#00d79b]/25 bg-[#00d79b]/10 px-3 py-1 text-[9px] font-semibold text-[#00d79b] sm:text-[10px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#00d79b]" />
-            Active Monitoring
+              <span className="hidden rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[6px] font-semibold text-emerald-400 sm:inline-flex">
+                Active Monitoring
+              </span>
+            </div>
+
+            <p className="mt-1 text-[7px] text-slate-500">
+              One operational view across your compliance position
+            </p>
           </div>
+
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.08] px-2 py-1 text-[7px] font-semibold text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            Monitoring
+          </span>
         </div>
 
         {/* Main dashboard */}
-        <div className="mt-4 grid gap-3 lg:grid-cols-[245px_minmax(0,1fr)]">
-          {/* Compliance score */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-5 sm:p-6">
-            <div className="flex h-full min-h-[210px] flex-col items-center justify-center">
-              <StatusRing percentage={76} />
+        <div className="grid gap-3 lg:grid-cols-[155px_1fr]">
+          {/* Score */}
+          <ComplianceRing />
 
-              <div className="mt-2 text-[9px] font-medium text-[#00d79b]">
-                ↑ 6% vs last 30 days
-              </div>
-            </div>
-          </div>
+          {/* Compliance signals */}
+          <div className="rounded-xl border border-white/[0.08] bg-[#0d1629] px-3">
+            <StatusRow
+              label="Hours of Service"
+              status="Needs Attention"
+              value="77%"
+              tone="danger"
+            />
 
-          {/* Compliance status list */}
-          <div className="space-y-2">
-            {complianceItems.map((item) => {
-              const Icon = item.icon
+            <StatusRow
+              label="Vehicle Maintenance Record"
+              status="Needs Attention"
+              value="81%"
+              tone="warning"
+            />
 
-              return (
-                <div
-                  key={item.title}
-                  className="group flex min-h-[43px] min-w-0 items-center gap-2 rounded-xl border border-[#26334d] bg-[#0e1627] px-3 transition-colors duration-200 hover:border-[#3a4c6d] hover:bg-[#111b2d] sm:gap-3"
-                >
-                  <Icon
-                    className={`h-3.5 w-3.5 shrink-0 ${statusColor(
-                      item.tone,
-                    )}`}
-                    strokeWidth={2}
-                  />
+            <StatusRow
+              label="TRK-101 Plate Renewal"
+              status="Upcoming"
+              value="7d"
+              tone="warning"
+            />
 
-                  <span className="min-w-0 flex-1 truncate text-[9px] font-semibold text-[#edf2fa] sm:text-[11px]">
-                    {item.title}
-                  </span>
+            <StatusRow
+              label="TRK-131 NY OSOW Permit"
+              status="Renewal Due"
+              value="12d"
+              tone="warning"
+            />
 
-                  <span
-                    className={`shrink-0 text-[8px] font-semibold sm:text-[9px] ${statusColor(
-                      item.tone,
-                    )}`}
-                  >
-                    {item.status}
-                  </span>
-
-                  <span className="shrink-0 text-[9px] font-bold text-white sm:text-[10px]">
-                    {item.value}
-                  </span>
-
-                  <ArrowRight className="h-3 w-3 shrink-0 text-[#52627c] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#8090ad]" />
-                </div>
-              )
-            })}
+            <StatusRow
+              label="TRK-138 Annual Inspection"
+              status="Upcoming"
+              value="23d"
+              tone="info"
+            />
           </div>
         </div>
 
-        {/* Lower dashboard cards */}
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {/* Upcoming Tasks */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CalendarDays className="h-3.5 w-3.5 text-[#a9b5c9]" />
+        {/* Operational metrics */}
+        <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+          <MetricCard
+            label="Fleet Power Units"
+            value="41"
+            detail="Active fleet units"
+            tone="blue"
+            icon={
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 5.5h9v8H3v-8ZM12 8h2.5l2 2v3.5H12V8Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  cx="6"
+                  cy="15"
+                  r="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <circle
+                  cx="15"
+                  cy="15"
+                  r="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            }
+          />
 
-                <span className="text-[10px] font-semibold text-white">
-                  Upcoming Tasks
-                </span>
-              </div>
+          <MetricCard
+            label="Drivers & Contacts"
+            value="67"
+            detail="Active driver pool"
+            tone="green"
+            icon={
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="8"
+                  cy="7"
+                  r="2.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M3.5 15c.5-2.4 2-3.5 4.5-3.5S12 12.6 12.5 15"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M13 5.5a2.2 2.2 0 0 1 0 4M14 11.8c1.5.5 2.3 1.5 2.5 3.2"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+          />
 
-              <span className="text-[8px] font-semibold text-[#38bdf8]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
-              {upcomingTasks.map((task) => (
-                <div
-                  key={task.label}
-                  className="flex min-w-0 items-center gap-2 text-[8px]"
-                >
-                  <span
-                    className={`h-1.5 w-1.5 shrink-0 rounded-full ${statusDot(
-                      task.tone,
-                    )}`}
-                  />
-
-                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
-                    {task.label}
-                  </span>
-
-                  <span
-                    className={`shrink-0 font-semibold ${statusColor(
-                      task.tone,
-                    )}`}
-                  >
-                    {task.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="rounded-xl border border-[#26334d] bg-[#0e1627] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Clock3 className="h-3.5 w-3.5 text-[#a9b5c9]" />
-
-                <span className="text-[10px] font-semibold text-white">
-                  Recent Activity
-                </span>
-              </div>
-
-              <span className="text-[8px] font-semibold text-[#38bdf8]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
-              {recentActivity.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex min-w-0 items-center gap-2 text-[8px]"
-                >
-                  <CheckCircle2 className="h-3 w-3 shrink-0 text-[#00d79b]" />
-
-                  <span className="min-w-0 flex-1 truncate text-[#d7dfed]">
-                    {item.label}
-                  </span>
-
-                  <span className="shrink-0 font-semibold text-[#00d79b]">
-                    Completed
-                  </span>
-
-                  <span className="shrink-0 text-[#66758d]">
-                    {item.date}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* At Risk */}
-          <div className="rounded-xl border border-[#8f2443]/70 bg-[#1a101a] p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="h-3.5 w-3.5 text-[#ff5470]" />
-
-                <span className="text-[10px] font-semibold text-[#ff5470]">
-                  At Risk
-                </span>
-              </div>
-
-              <span className="text-[8px] font-semibold text-[#ff5470]">
-                View all
-              </span>
-            </div>
-
-            <div className="mt-3 space-y-3">
-              {atRiskItems.map((item) => (
-                <div key={item.label}>
-                  <div className="flex items-start gap-2">
-                    <CircleAlert className="mt-0.5 h-2.5 w-2.5 shrink-0 text-[#ff5470]" />
-
-                    <div className="min-w-0">
-                      <p className="text-[8px] font-semibold text-[#ff7388]">
-                        {item.label}
-                      </p>
-
-                      <p className="mt-0.5 text-[7px] text-[#b75a70]">
-                        {item.detail}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <MetricCard
+            label="Compliance Alerts"
+            value="03"
+            detail="Items to monitor"
+            tone="orange"
+            icon={
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="m10 3 7 13H3L10 3Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M10 7.5v3.5M10 13.5h.01"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+          />
         </div>
 
-        {/* Disclaimer */}
-        <p className="mt-5 text-center text-[8px] leading-4 text-[#53627a]">
-          Interface concept. Illustrative data shown for demonstration
-          purposes.
-        </p>
+        {/* Lower intelligence row */}
+        <div className="mt-3 grid gap-2.5 sm:grid-cols-3">
+          <SmallPanel title="Upcoming Tasks" action="View all">
+            <TaskRow
+              label="TRK-101 Plate Renewal"
+              value="7 days"
+              tone="warning"
+            />
+
+            <TaskRow
+              label="TRK-131 NY OSOW Permit"
+              value="12 days"
+              tone="warning"
+            />
+
+            <TaskRow
+              label="TRK-138 Annual Inspection"
+              value="23 days"
+              tone="warning"
+            />
+          </SmallPanel>
+
+          <SmallPanel title="Recent Activity" action="View all">
+            <TaskRow
+              label="Compliance monitoring"
+              value="Active"
+              tone="success"
+            />
+
+            <TaskRow
+              label="Fleet records reviewed"
+              value="Current"
+              tone="success"
+            />
+
+            <TaskRow
+              label="Driver records"
+              value="Updated"
+              tone="success"
+            />
+          </SmallPanel>
+
+          <SmallPanel title="At Risk" action="View all">
+            <TaskRow
+              label="Plate renewal"
+              value="7 days"
+              tone="danger"
+            />
+
+            <TaskRow
+              label="OSOW permit"
+              value="12 days"
+              tone="warning"
+            />
+
+            <TaskRow
+              label="Annual inspection"
+              value="23 days"
+              tone="warning"
+            />
+          </SmallPanel>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-3 flex items-center justify-between gap-3 px-1 pt-1">
+          <span className="text-[6px] uppercase tracking-[0.12em] text-slate-600">
+            TruckEase operational intelligence
+          </span>
+
+          <span className="text-[6px] text-slate-600">
+            Data shown for demonstration purposes
+          </span>
+        </div>
       </div>
     </div>
   )
