@@ -1,273 +1,582 @@
-// app/contact/page.tsx
 'use client'
 
-import React, { useState } from 'react'
-import { Mail, Clock, MapPin, ShieldCheck, Check, Send, Sparkles } from 'lucide-react'
+import { useState } from 'react'
+import Link from 'next/link'
+import {
+  ArrowRight,
+  Check,
+  Clock3,
+  Mail,
+  MapPin,
+  ShieldCheck,
+} from 'lucide-react'
 
-const inquiryTopics = [
-  'CSA / BASIC scores',
+const contactReasons = [
+  'General question',
+  'Risk Screening follow-up',
+  'Direct Filing Support inquiry',
+  'Platform / pricing question',
+  'Other',
+]
+
+const topicOptions = [
+  'CSA/BASIC scores',
   'Driver qualification files',
   'Hours of Service compliance',
   'Drug & alcohol program review',
   'Vehicle maintenance records',
-  'Risk Screening & Audits',
-  'IFTA & Highway Use Tax filing',
-  'Platform / pricing question',
   'New authority setup',
-  'General Support',
 ]
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false)
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    companyName: '',
+    identifier: '',
+    reason: '',
+    message: '',
+  })
 
-  const toggleTopic = (topic: string) => {
-    setSelectedTopics((prev) =>
-      prev.includes(topic)
-        ? prev.filter((t) => t !== topic)
-        : [...prev, topic]
+  const [topics, setTopics] = useState<string[]>([])
+  const [submitted, setSubmitted] = useState(false)
+
+  function updateField(
+    field: keyof typeof form,
+    value: string,
+  ) {
+    setForm((current) => ({
+      ...current,
+      [field]: value,
+    }))
+  }
+
+  function toggleTopic(topic: string) {
+    setTopics((current) =>
+      current.includes(topic)
+        ? current.filter((item) => item !== topic)
+        : [...current, topic],
     )
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    /*
+     * Connect this handler to the production contact endpoint when
+     * backend/email delivery is ready.
+     */
     setSubmitted(true)
   }
 
   return (
-    <div className="bg-white min-h-screen text-slate-900">
-      
-      {/* 
-        HERO SECTION 
-        Matches the exact style of About, Services, and Platform pages 
-      */}
-      <section className="pt-20 pb-16 sm:pt-24 sm:pb-20 px-4 max-w-4xl mx-auto text-center">
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold uppercase tracking-widest text-slate-600 mb-6 shadow-sm">
-          <div className="size-1.5 rounded-full bg-cyan-600" />
-          Support & Inquiries
-        </div>
-        
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
-          Talk to Us
-        </h1>
-        
-        <p className="text-base sm:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
-          Have a question about compliance, the platform, or something specific to your operation? Send us a message and we'll get back to you.
-        </p>
-      </section>
+    <main className="bg-[#f7f4ee] text-[#0c1a36]">
+      {/* ================================================================ */}
+      {/* HERO                                                            */}
+      {/* ================================================================ */}
 
-      {/* THE LINE BREAK - Matching established site design */}
-      <div className="w-full border-t border-slate-100"></div>
+      <section className="bg-[#0c1a36]">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[1fr_0.75fr] lg:items-end lg:gap-24">
+            <div>
+              <div className="mb-7 flex items-center gap-3">
+                <span className="h-px w-9 bg-[#e8720c]" />
 
-      {/* CONTENT SECTION */}
-      <section className="bg-slate-50/50 pb-20 pt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-12 items-start">
-            
-            {/* Left Panel: Direct Channels */}
-            <div className="lg:col-span-5 flex flex-col space-y-6 lg:sticky lg:top-24">
-              <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-8">
-                <div>
-                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                    Direct Channels
-                  </h2>
-                </div>
-
-                <div className="space-y-7">
-                  {/* Email Info */}
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-blue-50 p-3 text-blue-600 shrink-0">
-                      <Mail className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900">Email Contact</h3>
-                      <p className="text-xs text-slate-500 mt-1">General &amp; Support Inquiries</p>
-                      <a
-                        href="mailto:contact@truckease.co"
-                        className="mt-1.5 inline-block text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-                      >
-                        contact@truckease.co
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Desk Hours */}
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-blue-50 p-3 text-blue-600 shrink-0">
-                      <Clock className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900">Human Review Hours</h3>
-                      <p className="text-sm text-slate-600 mt-1 font-medium">Monday – Friday</p>
-                      <p className="text-xs text-slate-500 mt-0.5">8:00 AM – 6:00 PM EST</p>
-                    </div>
-                  </div>
-
-                  {/* Coverage */}
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-full bg-blue-50 p-3 text-blue-600 shrink-0">
-                      <MapPin className="size-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900">Regional Operations</h3>
-                      <p className="text-sm text-slate-600 mt-1 leading-relaxed">
-                        Serving commercial fleets across the United States and Canada.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
+                  Human Support & Compliance Inquiries
+                </span>
               </div>
 
-              {/* Operational Confidence - Dark Accent Box for contrast */}
-              <div className="bg-slate-900 rounded-3xl p-8 shadow-sm space-y-3">
-                <div className="flex items-center gap-2 text-blue-400 font-bold text-xs tracking-wider uppercase">
-                  <ShieldCheck className="size-4" />
-                  Operational Confidence
-                </div>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  TruckEase Solutions Inc. provides independent compliance software and administrative workflow support for commercial trucking operations.
-                </p>
-              </div>
+              <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
+                Talk to
+                <br />
+                <span className="text-[#e8720c]">Us.</span>
+              </h1>
+
+              <p className="mt-8 max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
+                Have a question about compliance, the platform, or something
+                specific to your operation? Send us a message and we&apos;ll
+                get back to you.
+              </p>
             </div>
 
-            {/* Right Panel: Form Card */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
-              <div className="space-y-2 pb-8 border-b border-slate-100 mb-8">
-                <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-                  Send Us a Message
-                </h2>
-                <p className="text-sm text-slate-500">
-                  Fill out the form below and our team will get back to you during desk review hours.
-                </p>
-              </div>
+            <div className="border-l border-white/10 pl-7 lg:pl-10">
+              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">
+                TruckEase Solutions Inc.
+              </p>
 
-              {submitted ? (
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center space-y-4">
-                  <div className="mx-auto size-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                    <Check className="size-6 stroke-[3]" />
-                  </div>
-                  <h3 className="font-bold text-xl text-emerald-950">Thank you for reaching out!</h3>
-                  <p className="text-sm text-emerald-800 leading-relaxed max-w-md mx-auto">
-                    Your message has been received. Our support desk will review your inquiry and respond during human review hours.
-                  </p>
-                </div>
-              ) : (
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                  {/* Inputs Grid */}
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="full-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="full-name"
-                        name="full-name"
-                        required
-                        className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 focus:border-cyan-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all font-medium"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="company-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        id="company-name"
-                        name="company-name"
-                        className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 focus:border-cyan-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                        Work Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 focus:border-cyan-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all font-medium"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="dot-number" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                        USDOT / MC / NSC / CVOR
-                      </label>
-                      <input
-                        type="text"
-                        id="dot-number"
-                        name="dot-number"
-                        className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 focus:border-cyan-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Topic Pills */}
-                  <div className="space-y-3 pt-2">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                      What's this about, more specifically?{' '}
-                      <span className="font-normal text-slate-400 lowercase">(optional)</span>
-                    </label>
-                    
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {inquiryTopics.map((topic) => {
-                        const isChecked = selectedTopics.includes(topic)
-                        return (
-                          <button
-                            key={topic}
-                            type="button"
-                            onClick={() => toggleTopic(topic)}
-                            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                              isChecked
-                                ? 'bg-slate-900 text-white shadow-sm'
-                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 border border-slate-200/60'
-                            }`}
-                          >
-                            {isChecked ? <Check className="size-3.5 stroke-[3]" /> : <Sparkles className="size-3 opacity-40" />}
-                            <span>{topic}</span>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Message Input */}
-                  <div className="space-y-2 pt-2">
-                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                      What's driving this today? *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      required
-                      className="w-full rounded-xl border border-slate-300 bg-slate-50/50 px-4 py-3 text-sm text-slate-900 focus:border-cyan-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all font-medium resize-none"
-                    />
-                  </div>
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-600 px-8 py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-600/20 active:scale-[0.99]"
-                    >
-                      <Send className="size-4" />
-                      <span>Send Message</span>
-                    </button>
-                  </div>
-                </form>
-              )}
+              <p className="mt-5 max-w-sm font-serif text-2xl leading-tight text-white/90">
+                Independent compliance software and administrative workflow
+                support for commercial trucking operations.
+              </p>
             </div>
-
           </div>
         </div>
       </section>
+
+      {/* ================================================================ */}
+      {/* DIRECT CHANNELS + FORM                                          */}
+      {/* ================================================================ */}
+
+      <section>
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+            {/* LEFT COLUMN */}
+            <aside>
+              <div className="mb-6 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#dcd8cf]" />
+
+                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#697281]">
+                  Direct Channels
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-[#e0ddd5] bg-white p-7 sm:p-8">
+                <div className="space-y-7">
+                  <Channel
+                    icon={<Mail className="h-4 w-4" />}
+                    label="Email Contact"
+                    value="contact@truckease.co"
+                    description="General & Support Inquiries"
+                    href="mailto:contact@truckease.co"
+                  />
+
+                  <Channel
+                    icon={<Clock3 className="h-4 w-4" />}
+                    label="Human Review Hours"
+                    value="Monday–Friday"
+                    description="8:00 AM–6:00 PM EST"
+                  />
+
+                  <Channel
+                    icon={<MapPin className="h-4 w-4" />}
+                    label="Regional Operations"
+                    value="United States & Canada"
+                    description="Serving commercial fleets across both countries."
+                  />
+                </div>
+              </div>
+
+              {/* Operational Confidence */}
+              <div className="mt-6 overflow-hidden rounded-2xl bg-[#0c1a36]">
+                <div className="p-7 sm:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
+                      <ShieldCheck className="h-4 w-4 text-[#e8720c]" />
+                    </span>
+
+                    <span className="font-mono text-[9px] font-medium uppercase tracking-[0.15em] text-white/45">
+                      Scope
+                    </span>
+                  </div>
+
+                  <h2 className="mt-7 font-serif text-2xl font-medium text-white">
+                    Operational Confidence
+                  </h2>
+
+                  <p className="mt-4 text-sm leading-6 text-white/50">
+                    TruckEase Solutions Inc. provides independent compliance
+                    software and administrative workflow support for commercial
+                    trucking operations.
+                  </p>
+                </div>
+
+                <div className="h-1 bg-[#e8720c]" />
+              </div>
+            </aside>
+
+            {/* RIGHT COLUMN — FORM */}
+            <div className="rounded-2xl border border-[#e0ddd5] bg-white p-7 shadow-[0_18px_55px_rgba(12,26,54,0.045)] sm:p-10 lg:p-12">
+              {!submitted ? (
+                <>
+                  <div className="mb-9">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#697281]">
+                      Send a Message
+                    </span>
+
+                    <h2 className="mt-4 font-serif text-3xl font-medium tracking-[-0.025em] sm:text-4xl">
+                      What can we help
+                      <br />
+                      you with?
+                    </h2>
+                  </div>
+
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
+                    {/* Name + email */}
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field
+                        label="Full name"
+                        required
+                        value={form.fullName}
+                        onChange={(value) =>
+                          updateField('fullName', value)
+                        }
+                      />
+
+                      <Field
+                        label="Email"
+                        type="email"
+                        required
+                        value={form.email}
+                        onChange={(value) =>
+                          updateField('email', value)
+                        }
+                      />
+                    </div>
+
+                    {/* Company + identifier */}
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field
+                        label="Company name"
+                        value={form.companyName}
+                        onChange={(value) =>
+                          updateField('companyName', value)
+                        }
+                      />
+
+                      <Field
+                        label="USDOT / MC / NSC / CVOR number"
+                        value={form.identifier}
+                        onChange={(value) =>
+                          updateField('identifier', value)
+                        }
+                      />
+                    </div>
+
+                    {/* Reason */}
+                    <SelectField
+                      label="Reason for contact"
+                      required
+                      value={form.reason}
+                      onChange={(value) =>
+                        updateField('reason', value)
+                      }
+                      options={contactReasons}
+                    />
+
+                    {/* Topic checkboxes */}
+                    <fieldset>
+                      <legend className="mb-3 text-xs font-semibold text-[#0c1a36]">
+                        What&apos;s this about, more specifically?
+                        <span className="ml-1 font-normal text-[#8a929e]">
+                          Optional
+                        </span>
+                      </legend>
+
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        {topicOptions.map((topic) => {
+                          const selected = topics.includes(topic)
+
+                          return (
+                            <button
+                              key={topic}
+                              type="button"
+                              onClick={() => toggleTopic(topic)}
+                              className={`flex min-h-11 items-center gap-3 rounded-xl border px-3.5 text-left text-xs transition ${
+                                selected
+                                  ? 'border-[#e8720c] bg-[#fff7ef] text-[#9a4a08]'
+                                  : 'border-[#dce0e5] bg-[#fdfcf9] text-[#596372] hover:border-[#aeb7c2]'
+                              }`}
+                            >
+                              <span
+                                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
+                                  selected
+                                    ? 'border-[#e8720c] bg-[#e8720c]'
+                                    : 'border-[#bcc3cc] bg-white'
+                                }`}
+                              >
+                                {selected && (
+                                  <Check className="h-3 w-3 text-white" />
+                                )}
+                              </span>
+
+                              <span>{topic}</span>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </fieldset>
+
+                    {/* Message */}
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="mb-2 block text-xs font-semibold text-[#0c1a36]"
+                      >
+                        What&apos;s driving this today?
+                        <span className="ml-1 text-[#e8720c]">*</span>
+                      </label>
+
+                      <textarea
+                        id="message"
+                        required
+                        rows={6}
+                        value={form.message}
+                        onChange={(event) =>
+                          updateField('message', event.target.value)
+                        }
+                        placeholder="Tell us what's going on, what you're trying to solve, or what you'd like to understand."
+                        className="w-full resize-none rounded-xl border border-[#d8dde3] bg-[#fdfcf9] px-4 py-3.5 text-sm leading-6 text-[#0c1a36] outline-none transition placeholder:text-[#9aa2ad] focus:border-[#16274a] focus:ring-2 focus:ring-[#16274a]/10"
+                      />
+                    </div>
+
+                    {/* Submit */}
+                    <div className="border-t border-[#e2e7ec] pt-6">
+                      <button
+                        type="submit"
+                        disabled={
+                          !form.fullName ||
+                          !form.email ||
+                          !form.reason ||
+                          !form.message
+                        }
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-semibold text-white transition hover:bg-[#f17d1b] disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        Send Your Message
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
+
+                      <p className="mt-4 text-[11px] leading-5 text-[#7a838f]">
+                        We use the information you provide to understand your
+                        inquiry and respond appropriately.
+                      </p>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <SuccessState
+                  email={form.email}
+                  onReset={() => setSubmitted(false)}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================ */}
+      {/* QUIET CLOSING                                                   */}
+      {/* ================================================================ */}
+
+      <section className="border-t border-[#e2e7ec] bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-20">
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
+            <div>
+              <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#697281]">
+                Need a different starting point?
+              </span>
+
+              <h2 className="mt-3 font-serif text-3xl font-medium tracking-[-0.025em]">
+                See where your compliance position stands.
+              </h2>
+            </div>
+
+            <Link
+              href="/risk-screening"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#0c1a36] px-6 text-sm font-semibold text-white transition hover:bg-[#16274a]"
+            >
+              Request a Risk Screening
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+/* ====================================================================== */
+/* SUPPORTING COMPONENTS                                                  */
+/* ====================================================================== */
+
+function Channel({
+  icon,
+  label,
+  value,
+  description,
+  href,
+}: {
+  icon: React.ReactNode
+  label: string
+  value: string
+  description: string
+  href?: string
+}) {
+  const content = (
+    <>
+      <div className="flex items-center gap-3">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f4f1ea] text-[#e8720c]">
+          {icon}
+        </span>
+
+        <span className="font-mono text-[9px] font-medium uppercase tracking-[0.14em] text-[#697281]">
+          {label}
+        </span>
+      </div>
+
+      <div className="mt-4">
+        <p className="text-sm font-semibold text-[#0c1a36]">
+          {value}
+        </p>
+
+        <p className="mt-1 text-xs leading-5 text-[#697281]">
+          {description}
+        </p>
+      </div>
+    </>
+  )
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        className="block rounded-xl transition hover:bg-[#faf8f3]"
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return <div>{content}</div>
+}
+
+function Field({
+  label,
+  required = false,
+  type = 'text',
+  value,
+  onChange,
+}: {
+  label: string
+  required?: boolean
+  type?: string
+  value: string
+  onChange: (value: string) => void
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-xs font-semibold text-[#0c1a36]">
+        {label}
+
+        {required ? (
+          <span className="ml-1 text-[#e8720c]">*</span>
+        ) : (
+          <span className="ml-1 font-normal text-[#8a929e]">
+            Optional
+          </span>
+        )}
+      </label>
+
+      <input
+        type={type}
+        required={required}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="h-12 w-full rounded-xl border border-[#d8dde3] bg-[#fdfcf9] px-4 text-sm text-[#0c1a36] outline-none transition placeholder:text-[#9aa2ad] focus:border-[#16274a] focus:ring-2 focus:ring-[#16274a]/10"
+      />
+    </div>
+  )
+}
+
+function SelectField({
+  label,
+  required = false,
+  value,
+  onChange,
+  options,
+}: {
+  label: string
+  required?: boolean
+  value: string
+  onChange: (value: string) => void
+  options: string[]
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-xs font-semibold text-[#0c1a36]">
+        {label}
+
+        {required && (
+          <span className="ml-1 text-[#e8720c]">*</span>
+        )}
+      </label>
+
+      <select
+        required={required}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="h-12 w-full rounded-xl border border-[#d8dde3] bg-[#fdfcf9] px-4 text-sm text-[#0c1a36] outline-none transition focus:border-[#16274a] focus:ring-2 focus:ring-[#16274a]/10"
+      >
+        <option value="">Select one</option>
+
+        {options.map((option) => (
+          <option
+            key={option}
+            value={option}
+          >
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+function SuccessState({
+  email,
+  onReset,
+}: {
+  email: string
+  onReset: () => void
+}) {
+  return (
+    <div className="flex min-h-[620px] flex-col justify-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#edf5ef]">
+        <Check className="h-6 w-6 text-[#4d7758]" />
+      </div>
+
+      <span className="mt-8 font-mono text-[9px] uppercase tracking-[0.15em] text-[#697281]">
+        Message Prepared
+      </span>
+
+      <h2 className="mt-4 max-w-xl font-serif text-4xl font-medium leading-tight tracking-[-0.03em]">
+        Thanks for reaching out.
+      </h2>
+
+      <p className="mt-6 max-w-xl text-sm leading-7 text-[#596372]">
+        Your message has been captured for the contact workflow. The next step
+        is connecting this form to the production email delivery endpoint.
+      </p>
+
+      <div className="mt-8 rounded-xl border border-[#e2e7ec] bg-[#f7f4ee] p-5">
+        <p className="text-xs leading-5 text-[#697281]">
+          Contact email
+        </p>
+
+        <p className="mt-1 text-sm font-semibold text-[#0c1a36]">
+          {email}
+        </p>
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-3">
+        <Link
+          href="/"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#0c1a36] px-5 text-xs font-semibold text-white transition hover:bg-[#16274a]"
+        >
+          Back to Home
+        </Link>
+
+        <button
+          type="button"
+          onClick={onReset}
+          className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[#cfd5dc] px-5 text-xs font-semibold text-[#0c1a36] transition hover:border-[#9fa8b3]"
+        >
+          Send another message
+        </button>
+      </div>
     </div>
   )
 }
