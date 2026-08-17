@@ -642,4 +642,240 @@ function PlatformOverview() {
               A single view that connects requirements, deadlines, documents,
               and monitoring activity, then points to the next action worth
               taking.
-            <
+            </p>
+
+            <div className="mt-8 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0c1a36] text-white">
+                <Gauge className="h-4.5 w-4.5" />
+              </div>
+
+              <div className="h-px w-10 bg-[#c7d1e1]" />
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#697990]">
+                One operational view
+              </span>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-5 rounded-[32px] bg-[linear-gradient(135deg,rgba(53,67,112,0.10),rgba(245,112,25,0.06))] blur-xl"
+            />
+
+            <div className="relative">
+              <PlatformDashboard />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================================
+   MORE THAN FILING PAPERWORK
+   ========================================================================== */
+
+function MoreThanPaperwork() {
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="max-w-2xl">
+          <Eyebrow>More Than Filing Paperwork</Eyebrow>
+
+          <h2 className="text-3xl font-semibold leading-tight tracking-[-0.035em] text-[#0c1a36] sm:text-4xl">
+            Compliance is stronger when
+            <span className="text-[#e8720c]"> everything stays connected.</span>
+          </h2>
+
+          <p className="mt-5 max-w-xl text-[15px] leading-7 text-[#5b6b84]">
+            Businesses choose TruckEase because compliance requires more than
+            filing paperwork. It requires consistency, attention to detail,
+            and technology built to catch what manual tracking misses.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {benefits.map((benefit) => {
+            const Icon = benefit.icon
+
+            return (
+              <article
+                key={benefit.title}
+                className="group rounded-2xl border border-[#e0e5ee] bg-[#fdfcf9] p-6 shadow-[0_8px_30px_rgba(20,35,66,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#c9d2e1] hover:shadow-[0_18px_45px_rgba(20,35,66,0.08)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#edf1ff] text-[#4353a4]">
+                    <Icon className="h-5 w-5" />
+                  </span>
+
+                  <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#c1c9d7]">
+                    0{benefits.indexOf(benefit) + 1}
+                  </span>
+                </div>
+
+                <h3 className="mt-6 text-[15px] font-bold leading-6 text-[#142342]">
+                  {benefit.title}
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-[#66758d]">
+                  {benefit.body}
+                </p>
+              </article>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================================
+   OUR PROCESS
+   ========================================================================== */
+
+function OurProcess() {
+  return (
+    <section className="relative overflow-hidden bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <Eyebrow>Our Process</Eyebrow>
+
+          <h2 className="text-3xl font-semibold leading-tight tracking-[-0.035em] text-[#0c1a36] sm:text-4xl lg:text-[3rem]">
+            A Clearer Path to
+            <span className="text-[#e8720c]"> Compliance Confidence.</span>
+          </h2>
+
+          <p className="mt-5 text-[15px] leading-7 text-[#5b6b84]">
+            A practical process designed to move from understanding your
+            position to maintaining confidence in your operation.
+          </p>
+        </div>
+
+        <div className="relative mt-14">
+          {/* desktop connector */}
+          <div
+            aria-hidden="true"
+            className="absolute left-[9%] right-[9%] top-6 hidden h-px bg-gradient-to-r from-[#d8d5cd] via-[#9ea7b9] to-[#d8d5cd] lg:block"
+          />
+
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
+            {processSteps.map((step) => {
+              const Icon = step.icon
+
+              return (
+                <article
+                  key={step.number}
+                  className="relative text-left lg:text-center"
+                >
+                  <div className="relative z-10 mx-0 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7dce5] bg-white shadow-[0_8px_24px_rgba(20,35,66,0.08)] lg:mx-auto">
+                    <Icon className="h-[18px] w-[18px] text-[#4353a4]" />
+                  </div>
+
+                  <div className="mt-5">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#e8720c]">
+                      {step.number}
+                    </span>
+
+                    <h3 className="mt-2 text-sm font-bold text-[#142342]">
+                      {step.title}
+                    </h3>
+
+                    <p className="mx-auto mt-2 max-w-[190px] text-xs leading-5 text-[#66758d]">
+                      {step.body}
+                    </p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================================
+   CLOSING CTA
+   ========================================================================== */
+
+function ClosingCta() {
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#0c1a36] px-6 py-10 shadow-[0_25px_70px_rgba(12,26,54,0.16)] sm:px-10 lg:px-14 lg:py-12">
+          {/* atmosphere */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-[#3e527f]/25 blur-3xl"
+          />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-32 left-1/3 h-64 w-64 rounded-full bg-[#e8720c]/[0.07] blur-3xl"
+          />
+
+          <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <div className="mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#f2a15d]">
+                <span className="h-px w-8 bg-[#e8720c]" />
+                Get Started
+              </div>
+
+              <h2 className="text-3xl font-semibold tracking-[-0.035em] text-white sm:text-4xl">
+                Build Compliance With Confidence.
+              </h2>
+
+              <p className="mt-4 max-w-xl text-sm leading-6 text-[#b8c3d6] sm:text-[15px]">
+                Whether you're looking for greater visibility into your
+                compliance position or a more organized way to manage ongoing
+                regulatory requirements, TruckEase is ready to help. Let's
+                build a stronger compliance foundation for your business.
+              </p>
+            </div>
+
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+              <a
+                href="/risk-screening"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#e8720c] px-5 text-sm font-bold text-white transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                Request a Risk Screening
+                <ArrowRight className="h-4 w-4" />
+              </a>
+
+              <a
+                href="/contact"
+                className="inline-flex h-11 items-center justify-center rounded-xl border border-white/25 bg-transparent px-5 text-sm font-semibold text-white transition-colors hover:border-white/50"
+              >
+                Contact Our Team
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================================
+   PAGE
+   ========================================================================== */
+
+export default function PlatformPage() {
+  return (
+    <main className="min-h-screen bg-white text-[#0c1a36]">
+      <PlatformHero />
+
+      <PlatformOverview />
+
+      <CheckpointLine />
+
+      <MoreThanPaperwork />
+
+      <OurProcess />
+
+      <ClosingCta />
+    </main>
+  )
+}
