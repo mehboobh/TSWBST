@@ -1,37 +1,38 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Reveal } from '@/components/reveal'
-
 export function CtaBand() {
   return (
-    <section className="border-t border-border bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-            Get started
-          </span>
-          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            Build Compliance With Confidence.
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
-            Whether you&apos;re looking for greater visibility into your
-            compliance position or a more organized way to manage ongoing
-            regulatory requirements, TruckEase is ready to help. Let&apos;s build
-            a stronger compliance foundation for your business.
+    <section className="border-t border-slate-200 bg-[#f3f6fa] px-5 py-12 sm:px-8 lg:px-10 lg:py-14">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 rounded-2xl border border-slate-200 bg-white px-6 py-7 shadow-[0_8px_30px_rgba(20,32,59,0.04)] sm:flex-row sm:items-center sm:px-8">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-600">
+            Ready for more visibility?
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/risk-screening">
-                Request a Risk Screening
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact">Contact Our Team</Link>
-            </Button>
-          </div>
-        </Reveal>
+
+          <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-[#14203b]">
+            Compliance should support the business — not slow it down.
+          </h2>
+
+          <p className="mt-2 max-w-xl text-xs leading-5 text-slate-500">
+            See how TruckEase can bring your compliance requirements,
+            operational data, and decisions into one clearer picture.
+          </p>
+        </div>
+
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#14203b] px-5 py-3 text-xs font-bold text-white transition-transform hover:-translate-y-0.5"
+          >
+            Talk to TruckEase
+            <span>→</span>
+          </a>
+
+          <a
+            href="/platform"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-[#14203b] transition-colors hover:bg-slate-50"
+          >
+            Explore Platform
+          </a>
+        </div>
       </div>
     </section>
   )
