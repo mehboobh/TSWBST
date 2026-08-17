@@ -1,200 +1,119 @@
-import {
-  Activity,
-  CheckCircle2,
-  FileCheck2,
-  Radar,
-  Settings2,
-  ShieldCheck,
-} from 'lucide-react'
-
-import { Reveal } from '@/components/reveal'
-
-const benefits = [
+const reasons = [
   {
-    icon: Radar,
-    title: 'Proactive, continuously tracked compliance',
-    body: 'Requirements monitored on an ongoing basis so gaps surface early.',
+    number: '01',
+    title: 'Proactive compliance monitoring',
+    text: 'Requirements are monitored continuously so gaps surface early.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 8v4l2.5 2" />
+      </svg>
+    ),
   },
   {
-    icon: ShieldCheck,
+    number: '02',
     title: 'Cross-border regulatory knowledge',
-    body: 'Experience spanning requirements across the United States and Canada.',
+    text: 'Experience spanning requirements across the United States and Canada.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M12 3l7 3v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z" />
+        <path d="m9.5 12 1.7 1.7 3.5-3.5" />
+      </svg>
+    ),
   },
   {
-    icon: Activity,
-    title: 'Technology-first compliance platform',
-    body: 'Built for ongoing operational visibility, not periodic paperwork.',
+    number: '03',
+    title: 'Technology-first compliance',
+    text: 'Built for operational visibility, not periodic paperwork.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M3 12h4l2-7 4 14 2-7h6" />
+      </svg>
+    ),
   },
   {
-    icon: CheckCircle2,
-    title: 'Organized, accessible documents',
-    body: 'Records retained with appropriate access controls and activity tracking.',
+    number: '04',
+    title: 'Organized, accessible records',
+    text: 'Records stay organized with appropriate access controls and tracking.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <rect x="5" y="4" width="14" height="16" rx="2" />
+        <path d="M8 8h8M8 12h8M8 16h5" />
+      </svg>
+    ),
   },
   {
-    icon: FileCheck2,
+    number: '05',
     title: 'Practical ongoing support',
-    body: 'A person to help when a system alone isn’t enough.',
+    text: 'A person to help when a system alone is not enough.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M7 4h7l4 4v12H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
+        <path d="M14 4v5h5M9 14h6M9 17h4" />
+      </svg>
+    ),
   },
   {
-    icon: Settings2,
+    number: '06',
     title: 'Long-term compliance confidence',
-    body: 'Support that adapts as regulations evolve and your business grows.',
+    text: 'Support that adapts as regulations evolve and your business grows.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M5 12h14M12 5v14" />
+        <circle cx="12" cy="12" r="8" />
+      </svg>
+    ),
   },
 ]
 
 export function WhyTruckEase() {
   return (
-    <section
-      id="why-truckease"
-      className="relative overflow-hidden bg-white"
-    >
-      {/* ------------------------------------------------------------------ */}
-      {/* Background atmosphere                                               */}
-      {/* ------------------------------------------------------------------ */}
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
-        {/* Soft dusk/navy atmosphere at the top */}
-        <div className="absolute inset-x-0 top-0 h-[260px] bg-[radial-gradient(circle_at_50%_0%,rgba(66,82,145,0.09),transparent_68%)]" />
-
-        {/* Very subtle warm transition on the right */}
-        <div className="absolute -right-48 top-24 h-[420px] w-[420px] rounded-full bg-[#f3e8df]/35 blur-3xl" />
-
-        {/* Cool transition on the left */}
-        <div className="absolute -left-48 bottom-0 h-[360px] w-[360px] rounded-full bg-[#e9eefc]/45 blur-3xl" />
-      </div>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Section content                                                     */}
-      {/* ------------------------------------------------------------------ */}
-
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <Reveal>
-          <div className="max-w-3xl">
-            {/* Eyebrow */}
-            <div className="mb-5 flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="h-px w-7 bg-[#e85d04]"
-              />
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#526078]">
-                Why TruckEase
-              </span>
-            </div>
-
-            {/* Heading */}
-            <h2 className="max-w-3xl text-[2.25rem] font-bold leading-[0.98] tracking-[-0.045em] text-[#142342] sm:text-[2.75rem] lg:text-[3.35rem]">
-              More than filing paperwork.
-            </h2>
-
-            {/* Description */}
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-[#66758d] sm:text-[15px]">
-              Businesses choose TruckEase because compliance requires more
-              than filing paperwork. It requires consistency, attention to
-              detail, and technology built to catch what manual tracking
-              misses.
-            </p>
+    <section className="bg-white px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-9 max-w-2xl">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="h-px w-7 bg-orange-500" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-600">
+              Why TruckEase
+            </span>
           </div>
-        </Reveal>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Benefits                                                          */}
-        {/* ---------------------------------------------------------------- */}
+          <h2 className="text-3xl font-bold tracking-[-0.035em] text-[#14203b] sm:text-4xl">
+            More than filing paperwork.
+          </h2>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon
-
-            return (
-              <Reveal
-                key={benefit.title}
-                delay={index * 70}
-                className="h-full"
-              >
-                <article
-                  className="
-                    group relative flex h-full min-h-[190px] flex-col
-                    overflow-hidden rounded-[22px]
-                    border border-[#dce3ef]
-                    bg-white
-                    p-6
-                    shadow-[0_10px_35px_rgba(20,35,66,0.045)]
-                    transition-all duration-300
-                    hover:-translate-y-1
-                    hover:border-[#cbd5e5]
-                    hover:shadow-[0_18px_45px_rgba(20,35,66,0.09)]
-                  "
-                >
-                  {/* Very subtle card highlight */}
-                  <div
-                    aria-hidden="true"
-                    className="
-                      pointer-events-none absolute inset-x-0 top-0 h-20
-                      bg-[radial-gradient(circle_at_20%_0%,rgba(67,83,164,0.08),transparent_70%)]
-                      opacity-0 transition-opacity duration-300
-                      group-hover:opacity-100
-                    "
-                  />
-
-                  {/* Icon */}
-                  <div
-                    className="
-                      relative flex h-10 w-10 shrink-0 items-center
-                      justify-center rounded-xl
-                      border border-[#dce5ff]
-                      bg-[#f1f5ff]
-                      text-[#4353a4]
-                      transition-colors duration-300
-                      group-hover:border-[#cbd6ff]
-                      group-hover:bg-[#e9efff]
-                    "
-                  >
-                    <Icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
-                  </div>
-
-                  {/* Text */}
-                  <div className="relative mt-7">
-                    <h3 className="text-[14px] font-bold leading-5 text-[#142342]">
-                      {benefit.title}
-                    </h3>
-
-                    <p className="mt-2 text-xs leading-5 text-[#687790]">
-                      {benefit.body}
-                    </p>
-                  </div>
-
-                  {/* Tiny bottom indicator */}
-                  <div
-                    aria-hidden="true"
-                    className="
-                      absolute bottom-0 left-6 h-[2px] w-0
-                      bg-[#4353a4]
-                      transition-all duration-300
-                      group-hover:w-10
-                    "
-                  />
-                </article>
-              </Reveal>
-            )
-          })}
+          <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-[15px]">
+            Compliance requires consistency, attention to detail, and technology
+            built to catch what manual tracking misses.
+          </p>
         </div>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Bottom transition                                                  */}
-        {/* ---------------------------------------------------------------- */}
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {reasons.map((reason) => (
+            <article
+              key={reason.number}
+              className="group rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_30px_rgba(20,32,59,0.07)]"
+            >
+              <div className="mb-5 flex items-center justify-between">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0f3ff] text-[#5267d9]">
+                  <div className="h-[17px] w-[17px]">{reason.icon}</div>
+                </div>
 
-        <Reveal delay={420}>
-          <div className="mt-12 flex items-center gap-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-[#d8dfeb] to-transparent" />
+                <span className="text-[9px] font-bold tracking-[0.18em] text-slate-300">
+                  {reason.number}
+                </span>
+              </div>
 
-            <div className="h-1.5 w-1.5 rounded-full bg-[#aeb9cc]" />
+              <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#14203b]">
+                {reason.title}
+              </h3>
 
-            <div className="h-px flex-1 bg-gradient-to-l from-[#d8dfeb] to-transparent" />
-          </div>
-        </Reveal>
+              <p className="mt-2 text-xs leading-5 text-slate-500">
+                {reason.text}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )
