@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -14,34 +15,21 @@ const navItems = [
   { label: 'Contact', href: '/contact' },
 ]
 
-function TruckEaseMark() {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative flex h-7 w-8 shrink-0 items-center justify-center"
-    >
-      <span className="absolute left-0 top-[10px] h-[7px] w-[25px] -skew-x-[20deg] rounded-[2px] bg-[#0c1a36]" />
-      <span className="absolute left-[7px] top-[7px] h-[7px] w-[14px] -skew-x-[20deg] rounded-[2px] bg-[#5b6472]" />
-      <span className="absolute right-[1px] top-[12px] h-[4px] w-[7px] rounded-full bg-[#e8720c]" />
-      <span className="absolute bottom-[4px] left-[7px] h-[3px] w-[3px] rounded-full bg-[#0c1a36]" />
-      <span className="absolute bottom-[4px] right-[5px] h-[3px] w-[3px] rounded-full bg-[#0c1a36]" />
-    </span>
-  )
-}
-
 function Logo() {
   return (
     <Link
       href="/"
       aria-label="TruckEase Solutions home"
-      className="group flex items-center gap-2.5"
+      className="group inline-flex items-center"
     >
-      <TruckEaseMark />
-
-      <span className="whitespace-nowrap text-[17px] font-semibold tracking-[-0.025em] text-[#162033] sm:text-[18px]">
-        TruckEase
-        <span className="font-normal text-[#5b6472]"> Solutions</span>
-      </span>
+      <Image
+        src="/logo.png"
+        alt="TruckEase Solutions"
+        width={180}
+        height={48}
+        priority
+        className="h-auto w-[148px] object-contain sm:w-[158px]"
+      />
     </Link>
   )
 }
@@ -104,21 +92,35 @@ export function SiteHeader() {
           className="ml-5 hidden h-11 items-center gap-2 rounded-[11px] bg-[#0c1a36] px-5 text-[13px] font-semibold text-white shadow-[0_6px_18px_rgba(12,26,54,0.12)] transition-all hover:-translate-y-[1px] hover:bg-[#16274a] hover:shadow-[0_8px_22px_rgba(12,26,54,0.16)] lg:inline-flex"
         >
           Request a Risk Screening
-          <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+
+          <ArrowRight
+            className="h-4 w-4"
+            strokeWidth={1.8}
+          />
         </Link>
 
         {/* Mobile menu button */}
         <button
           type="button"
-          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={
+            mobileOpen
+              ? 'Close navigation menu'
+              : 'Open navigation menu'
+          }
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((value) => !value)}
           className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#dce2eb] text-[#0c1a36] transition hover:bg-[#f2f4f7] lg:hidden"
         >
           {mobileOpen ? (
-            <X className="h-5 w-5" strokeWidth={1.8} />
+            <X
+              className="h-5 w-5"
+              strokeWidth={1.8}
+            />
           ) : (
-            <Menu className="h-5 w-5" strokeWidth={1.8} />
+            <Menu
+              className="h-5 w-5"
+              strokeWidth={1.8}
+            />
           )}
         </button>
       </div>
@@ -146,7 +148,9 @@ export function SiteHeader() {
                 onClick={() => setMobileOpen(false)}
                 className={[
                   'flex min-h-[48px] items-center justify-between border-b border-[#edf0f3] text-[14px] font-medium transition-colors',
-                  active ? 'text-[#0c1a36]' : 'text-[#5b6472]',
+                  active
+                    ? 'text-[#0c1a36]'
+                    : 'text-[#5b6472]',
                 ].join(' ')}
               >
                 <span>{item.label}</span>
@@ -170,7 +174,11 @@ export function SiteHeader() {
             className="my-4 flex h-12 items-center justify-center gap-2 rounded-[11px] bg-[#0c1a36] px-5 text-[14px] font-semibold text-white"
           >
             Request a Risk Screening
-            <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
+
+            <ArrowRight
+              className="h-4 w-4"
+              strokeWidth={1.8}
+            />
           </Link>
         </nav>
       </div>
