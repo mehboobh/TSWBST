@@ -181,9 +181,8 @@ export function SiteFooter() {
             </Link>
 
             <p className="mt-6 max-w-[370px] text-[14px] leading-7 text-white/58">
-              TruckEase helps trucking companies across the United States and
-              Canada manage regulatory compliance through modern technology,
-              organized records, and direct support when you need it.
+            Compliance management for trucking companies
+            across the United States and Canada.
             </p>
 
             <p className="mt-4 text-[14px] font-medium leading-6 text-white/85">
