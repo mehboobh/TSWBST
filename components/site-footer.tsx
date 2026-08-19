@@ -109,16 +109,6 @@ export function SiteFooter() {
 
   return (
     <footer className="relative overflow-hidden bg-[#0c1a36] text-white">
-      {/* Subtle background grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.045]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }}
-      />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-7 lg:px-10 xl:px-12">
         {/* Main footer */}
