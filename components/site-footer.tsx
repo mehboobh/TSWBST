@@ -162,7 +162,7 @@ export function SiteFooter() {
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-7 lg:px-10 xl:px-12">
         {/* Main footer */}
-        <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-10 lg:py-20">
+        <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-6 lg:py-20">
           {/* Brand */}
           <div className="max-w-[390px]">
             <Link
@@ -180,22 +180,22 @@ export function SiteFooter() {
               />
             </Link>
 
-            <p className="mt-4 max-w-[320px] text-[14px] leading-6 text-white/58">
+            <p className="mt-3 max-w-[320px] text-[14px] leading-6 text-white/58">
             Compliance management for trucking companies
             across the United States and Canada.
             </p>
 
-            <p className="mt-4 text-[14px] font-medium leading-6 text-white/85">
+            <p className="mt-3 text-[14px] font-medium leading-6 text-white/85">
               Compliance built for operational confidence.
             </p>
 
-            <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-[11px] font-medium tracking-[0.04em] text-white/60">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-[11px] font-medium tracking-[0.04em] text-white/60">
               <ShieldCheck className="h-3.5 w-3.5 text-[#5c8a68]" />
               Secure, access-controlled records
             </div>
 
             {/* Social media */}
-            <div className="mt-7">
+            <div className="mt-6">
               <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
                 Follow TruckEase
               </p>
@@ -221,7 +221,7 @@ export function SiteFooter() {
           </div>
 
           {/* Navigate */}
-          <div>
+          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Navigate
             </p>
@@ -239,7 +239,7 @@ export function SiteFooter() {
           </div>
 
           {/* Legal */}
-          <div>
+          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Legal &amp; Support
             </p>
@@ -257,7 +257,7 @@ export function SiteFooter() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Contact
             </p>
