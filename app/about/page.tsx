@@ -2,17 +2,22 @@ import Link from 'next/link'
 import {
   ArrowRight,
   CheckCircle2,
+  Clock,
+  Compass,
+  Eye,
+  FileCheck2,
   Globe2,
+  Lock,
+  Quote,
+  RefreshCw,
   ShieldCheck,
   Target,
-  Eye,
   Users,
   Award,
-  RefreshCw,
 } from 'lucide-react'
 
 /* -------------------------------------------------------------------------- */
-/* Values                                                                     */
+/* Data                                                                       */
 /* -------------------------------------------------------------------------- */
 
 const values = [
@@ -54,6 +59,37 @@ const values = [
   },
 ]
 
+const story = [
+  'The trucking industry operates in an environment where regulations keep evolving and documentation requirements keep growing, while running the actual business doesn\u2019t slow down to make room for either.',
+  'Our role is to close that gap, not by adding more paperwork, but by building a system that tracks what matters continuously, so problems get caught early instead of discovered late.',
+  'We combine regulatory experience with automated monitoring built specifically for that job: organizing records, tracking renewals, and surfacing patterns that are difficult to catch through manual review alone.',
+  'We\u2019re not simply here to complete filings. We\u2019re here to help businesses maintain a continuously updated understanding of their compliance position, providing greater visibility before issues become operational challenges.',
+  'Because when compliance is visible instead of reactive, businesses spend less time worrying about paperwork and more time running the business.',
+]
+
+const commitments = [
+  {
+    icon: FileCheck2,
+    title: 'No legal advice, ever',
+    body: 'Screenings and monitoring reflect publicly available regulatory information. They are not a government rating or a substitute for legal counsel.',
+  },
+  {
+    icon: Lock,
+    title: 'Your data stays yours',
+    body: 'Information you share is used to support your compliance position, not sold, and not repurposed for anything outside that work.',
+  },
+  {
+    icon: Clock,
+    title: 'A person, when you need one',
+    body: 'Automated monitoring runs continuously. Human review is available Monday\u2013Friday, 8:00 AM\u20136:00 PM EST, for anything that needs judgment.',
+  },
+  {
+    icon: Globe2,
+    title: 'Built for two countries, one system',
+    body: 'United States and Canadian requirements are tracked side by side, so cross-border operations don\u2019t need two separate processes.',
+  },
+]
+
 /* -------------------------------------------------------------------------- */
 /* Page                                                                       */
 /* -------------------------------------------------------------------------- */
@@ -66,20 +102,32 @@ export default function AboutPage() {
       {/* HERO                                                               */}
       {/* ================================================================== */}
 
-      <section className="relative overflow-hidden border-b border-[#dfe5ef] bg-white">
+      <section className="relative overflow-hidden bg-white">
 
-        {/* subtle atmosphere */}
+        {/* atmosphere — brand navy + orange + indigo, echoed across the page */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-48 -top-48 h-[620px] w-[620px] rounded-full bg-[#e85d04]/[0.035] blur-3xl"
+          className="pointer-events-none absolute -right-48 -top-56 h-[640px] w-[640px] rounded-full bg-[#e85d04]/[0.07] blur-[120px]"
         />
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-48 bottom-[-220px] h-[520px] w-[520px] rounded-full bg-[#4353a4]/[0.035] blur-3xl"
+          className="pointer-events-none absolute -left-56 bottom-[-260px] h-[560px] w-[560px] rounded-full bg-[#4353a4]/[0.07] blur-[120px]"
         />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.028]"
+          style={{
+            backgroundImage:
+              'linear-gradient(#142342 1px, transparent 1px), linear-gradient(90deg, #142342 1px, transparent 1px)',
+            backgroundSize: '46px 46px',
+            maskImage:
+              'radial-gradient(ellipse 70% 60% at 30% 20%, black, transparent)',
+          }}
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-8 lg:px-10 lg:pb-20 lg:pt-28">
 
           <div className="max-w-5xl">
 
@@ -98,8 +146,14 @@ export default function AboutPage() {
               <br />
               and Confidence to
               <br />
-              <span className="text-[#e85d04]">
-                Commercial Compliance.
+              <span className="relative inline-block">
+                <span
+                  aria-hidden="true"
+                  className="absolute -inset-x-2 bottom-[0.1em] top-[0.32em] -z-10 rounded-full bg-[#e85d04]/[0.12] blur-xl"
+                />
+                <span className="text-[#e85d04]">
+                  Commercial Compliance.
+                </span>
               </span>
             </h1>
 
@@ -109,27 +163,57 @@ export default function AboutPage() {
               continuous operational visibility.
             </p>
 
-            {/* bottom signal */}
-            <div className="mt-12 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#71809a]">
-              <span className="h-px w-10 bg-[#cbd5e3]" />
-              <span>Compliance built for operational confidence.</span>
+            {/* at-a-glance strip */}
+            <div className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-[#e4e8f0] pt-7">
+              <div>
+                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
+                  2
+                </p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
+                  Countries Covered
+                </p>
+              </div>
+
+              <div>
+                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
+                  24/7
+                </p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
+                  Automated Monitoring
+                </p>
+              </div>
+
+              <div>
+                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
+                  Mon&ndash;Fri
+                </p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
+                  Human Review
+                </p>
+              </div>
             </div>
 
           </div>
         </div>
+
+        {/* soft blend into the next section instead of a hard rule */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#f5f1e9]"
+        />
       </section>
 
       {/* ================================================================== */}
       {/* WHY TRUCK EASE                                                     */}
       {/* ================================================================== */}
 
-      <section className="bg-[#f5f1e9]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+      <section className="relative bg-[#f5f1e9]">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
 
           <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
 
             {/* Pull quote */}
-            <div>
+            <div className="lg:sticky lg:top-24 lg:self-start">
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-px w-8 bg-[#e85d04]" />
 
@@ -138,8 +222,8 @@ export default function AboutPage() {
                 </span>
               </div>
 
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#142342] text-white">
-                <Target className="h-5 w-5" />
+              <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-[#142342] text-white shadow-[0_10px_25px_rgba(20,35,66,0.18)]">
+                <Quote className="h-5 w-5" />
               </div>
 
               <p className="mt-6 max-w-xs font-serif text-[24px] leading-[1.2] tracking-[-0.02em] text-[#142342]">
@@ -156,43 +240,21 @@ export default function AboutPage() {
                 create operational confidence, not administrative frustration.
               </h2>
 
-              <div className="mt-7 space-y-5 text-[14px] leading-7 text-[#66758c] sm:text-[15px]">
-
-                <p>
-                  The trucking industry operates in an environment where
-                  regulations keep evolving and documentation requirements keep
-                  growing, while running the actual business doesn&apos;t slow
-                  down to make room for either.
-                </p>
-
-                <p>
-                  Our role is to close that gap, not by adding more paperwork,
-                  but by building a system that tracks what matters
-                  continuously, so problems get caught early instead of
-                  discovered late.
-                </p>
-
-                <p>
-                  We combine regulatory experience with automated monitoring
-                  built specifically for that job: organizing records,
-                  tracking renewals, and surfacing patterns that are difficult
-                  to catch through manual review alone.
-                </p>
-
-                <p>
-                  We&apos;re not simply here to complete filings. We&apos;re
-                  here to help businesses maintain a continuously updated
-                  understanding of their compliance position, providing greater
-                  visibility before issues become operational challenges.
-                </p>
-
-                <p>
-                  Because when compliance is visible instead of reactive,
-                  businesses spend less time worrying about paperwork and more
-                  time running the business.
-                </p>
-
+              <div className="relative mt-9 space-y-8 border-l border-[#d7d0c5] pl-7 text-[14px] leading-7 text-[#66758c] sm:text-[15px]">
+                {story.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="relative"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-[31px] top-1.5 h-2 w-2 rounded-full border-2 border-[#f5f1e9] bg-[#e85d04]"
+                    />
+                    {paragraph}
+                  </p>
+                ))}
               </div>
+
             </div>
           </div>
         </div>
@@ -202,56 +264,77 @@ export default function AboutPage() {
       {/* THREE PRINCIPLES                                                   */}
       {/* ================================================================== */}
 
-      <section className="border-b border-[#e1e5ec] bg-white">
+      <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-20">
 
           <div className="grid gap-5 md:grid-cols-3">
 
-            <article className="rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff]">
-                <Eye className="h-4.5 w-4.5 text-[#4353a4]" />
+            <article className="group relative overflow-hidden rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#c7d2e6] hover:shadow-[0_20px_45px_rgba(20,35,66,0.08)]">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-3 -top-5 font-serif text-[90px] font-medium leading-none text-[#142342]/[0.04] transition-colors duration-300 group-hover:text-[#4353a4]/[0.06]"
+              >
+                01
+              </span>
+
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff] transition-colors duration-300 group-hover:bg-[#4353a4]/[0.12]">
+                <Eye className="h-[18px] w-[18px] text-[#4353a4]" />
               </div>
 
-              <h3 className="mt-5 text-base font-bold text-[#142342]">
+              <h3 className="relative mt-5 text-base font-bold text-[#142342]">
                 Visibility
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-[#71809a]">
+              <p className="relative mt-2 text-sm leading-6 text-[#71809a]">
                 A continuously updated understanding of your compliance
                 position, rather than a snapshot assembled when something
                 needs attention.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff]">
-                <ShieldCheck className="h-4.5 w-4.5 text-[#4353a4]" />
+            <article className="group relative overflow-hidden rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#c7d2e6] hover:shadow-[0_20px_45px_rgba(20,35,66,0.08)]">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-3 -top-5 font-serif text-[90px] font-medium leading-none text-[#142342]/[0.04] transition-colors duration-300 group-hover:text-[#4353a4]/[0.06]"
+              >
+                02
+              </span>
+
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff] transition-colors duration-300 group-hover:bg-[#4353a4]/[0.12]">
+                <ShieldCheck className="h-[18px] w-[18px] text-[#4353a4]" />
               </div>
 
-              <h3 className="mt-5 text-base font-bold text-[#142342]">
+              <h3 className="relative mt-5 text-base font-bold text-[#142342]">
                 Confidence
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-[#71809a]">
+              <p className="relative mt-2 text-sm leading-6 text-[#71809a]">
                 Regulatory requirements become something the business can
                 actively manage instead of something it has to constantly
                 worry about.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff]">
-                <Users className="h-4.5 w-4.5 text-[#4353a4]" />
+            <article className="group relative overflow-hidden rounded-2xl border border-[#dce3ed] bg-[#fbfcfe] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#c7d2e6] hover:shadow-[0_20px_45px_rgba(20,35,66,0.08)]">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-3 -top-5 font-serif text-[90px] font-medium leading-none text-[#142342]/[0.04] transition-colors duration-300 group-hover:text-[#4353a4]/[0.06]"
+              >
+                03
+              </span>
+
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f3ff] transition-colors duration-300 group-hover:bg-[#4353a4]/[0.12]">
+                <Users className="h-[18px] w-[18px] text-[#4353a4]" />
               </div>
 
-              <h3 className="mt-5 text-base font-bold text-[#142342]">
+              <h3 className="relative mt-5 text-base font-bold text-[#142342]">
                 Practical support
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-[#71809a]">
-                Technology handles continuous tracking while practical support
-                remains available when the situation requires a person, not
-                just a system.
+              <p className="relative mt-2 text-sm leading-6 text-[#71809a]">
+                Technology handles continuous tracking while practical
+                support remains available when the situation requires a
+                person, not just a system.
               </p>
             </article>
 
@@ -263,14 +346,21 @@ export default function AboutPage() {
       {/* MISSION + VISION                                                   */}
       {/* ================================================================== */}
 
-      <section className="bg-[#f5f1e9]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+      <section className="relative bg-[#f5f1e9]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[#d7d0c5] to-transparent lg:block hidden"
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
 
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-0">
 
-            <div className="lg:border-r lg:border-[#d7d0c5] lg:pr-16">
+            <div className="lg:pr-16">
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-8 bg-[#c9b79f]" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#142342]/[0.06]">
+                  <Target className="h-3.5 w-3.5 text-[#8a6b50]" />
+                </div>
 
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a6b50]">
                   Our Mission
@@ -292,7 +382,9 @@ export default function AboutPage() {
 
             <div className="lg:pl-16">
               <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-8 bg-[#c9b79f]" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#142342]/[0.06]">
+                  <Compass className="h-3.5 w-3.5 text-[#8a6b50]" />
+                </div>
 
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a6b50]">
                   Our Vision
@@ -307,13 +399,68 @@ export default function AboutPage() {
 
               <p className="mt-6 max-w-xl text-sm leading-7 text-[#69778c]">
                 To become the trusted compliance platform for trucking
-                companies across North America, where regulatory expertise and
-                real technology work together, not one standing in for the
-                other.
+                companies across North America, where regulatory expertise
+                and real technology work together, not one standing in for
+                the other.
               </p>
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* OUR COMMITMENT — policy & trust, in plain language                 */}
+      {/* ================================================================== */}
+
+      <section className="bg-white px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+
+          <div className="max-w-2xl">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-[#e85d04]" />
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+                Our Commitment
+              </span>
+            </div>
+
+            <h2 className="font-serif text-[30px] leading-[1.12] tracking-[-0.025em] text-[#142342] sm:text-[36px]">
+              What we promise, in plain terms.
+            </h2>
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-[#69778c]">
+              No fine print required to understand where TruckEase stands.
+              These are the same commitments that shape every screening,
+              every record we track, and every conversation with our team.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {commitments.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <div
+                  key={item.title}
+                  className="group rounded-2xl border border-[#e4e8f0] bg-[#fbfcfe] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#e85d04]/30 hover:shadow-[0_18px_40px_rgba(232,93,4,0.08)]"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#142342] transition-colors duration-300 group-hover:bg-[#e85d04]">
+                    <Icon className="h-[18px] w-[18px] text-white" />
+                  </div>
+
+                  <h3 className="mt-5 text-sm font-bold text-[#142342]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-2 text-xs leading-5 text-[#71809a]">
+                    {item.body}
+                  </p>
+                </div>
+              )
+            })}
+          </div>
+
         </div>
       </section>
 
@@ -338,6 +485,17 @@ export default function AboutPage() {
                   'linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)',
                 backgroundSize: '34px 34px',
               }}
+            />
+
+            {/* ambient brand glows, echoing the hero */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full bg-[#e85d04]/[0.10] blur-[110px]"
+            />
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-24 bottom-[-160px] h-[380px] w-[380px] rounded-full bg-[#4353a4]/[0.14] blur-[110px]"
             />
 
             <div className="relative">
@@ -375,12 +533,17 @@ export default function AboutPage() {
                     return (
                       <article
                         key={value.number}
-                        className="group border-b border-white/10 py-5 first:border-t first:border-white/10 sm:first:border-t-0 sm:nth-[2]:border-t-0"
+                        className="group relative border-b border-white/10 py-5 pl-4 -ml-4 transition-colors duration-300 first:border-t first:border-white/10 hover:bg-white/[0.025] sm:first:border-t-0 sm:nth-[2]:border-t-0"
                       >
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-0 top-0 h-full w-[2px] scale-y-0 bg-[#e85d04] transition-transform duration-300 group-hover:scale-y-100"
+                        />
+
                         <div className="flex items-start gap-3">
 
-                          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                            <Icon className="h-3.5 w-3.5 text-[#8fa1c5]" />
+                          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] transition-colors duration-300 group-hover:border-[#e85d04]/40 group-hover:bg-[#e85d04]/10">
+                            <Icon className="h-3.5 w-3.5 text-[#8fa1c5] transition-colors duration-300 group-hover:text-[#f0a56b]" />
                           </div>
 
                           <div className="min-w-0 flex-1">
@@ -459,6 +622,11 @@ export default function AboutPage() {
               }}
             />
 
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full bg-[#e85d04]/[0.16] blur-[100px]"
+            />
+
             <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
               <div className="max-w-2xl">
@@ -490,7 +658,7 @@ export default function AboutPage() {
 
                 <Link
                   href="/risk-screening"
-                  className="inline-flex min-h-11 items-center justify-center gap-3 rounded-xl bg-[#e85d04] px-5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(232,93,4,0.18)] transition hover:-translate-y-0.5 hover:bg-[#d95200]"
+                  className="inline-flex min-h-11 items-center justify-center gap-3 rounded-xl bg-[#e85d04] px-5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(232,93,4,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#d95200] hover:shadow-[0_14px_32px_rgba(232,93,4,0.24)]"
                 >
                   Request a Risk Screening
                   <ArrowRight className="h-4 w-4" />
@@ -498,7 +666,7 @@ export default function AboutPage() {
 
                 <Link
                   href="/contact"
-                  className="inline-flex min-h-11 items-center justify-center gap-3 rounded-xl border border-white/20 bg-transparent px-5 text-sm font-bold text-white transition hover:border-white/40"
+                  className="inline-flex min-h-11 items-center justify-center gap-3 rounded-xl border border-white/20 bg-transparent px-5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white/40"
                 >
                   Contact Our Team
                 </Link>
