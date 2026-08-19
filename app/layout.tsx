@@ -22,8 +22,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default:
-      'TruckEase Solutions | Trucking Compliance Built for Operational Confidence',
-    template: '%s | TruckEase Solutions',
+      'TES | Trucking Compliance Built for Operational Confidence',
+    template: '%s | TES',
   },
 
   description:
