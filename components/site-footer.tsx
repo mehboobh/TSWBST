@@ -1,9 +1,14 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowUpRight,
   Clock3,
+  Facebook,
+  Instagram,
+  Linkedin,
   Mail,
   ShieldCheck,
+  Twitter,
 } from 'lucide-react'
 
 const navigateLinks = [
@@ -21,20 +26,28 @@ const legalLinks = [
   { label: 'Legal Disclaimer', href: '/disclaimer' },
 ]
 
-function TruckEaseMark() {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative flex h-8 w-9 shrink-0 items-center justify-center"
-    >
-      <span className="absolute left-0 top-[11px] h-[8px] w-[28px] -skew-x-[20deg] rounded-[2px] bg-white" />
-      <span className="absolute left-[8px] top-[7px] h-[7px] w-[15px] -skew-x-[20deg] rounded-[2px] bg-white/65" />
-      <span className="absolute right-0 top-[13px] h-[4px] w-[7px] rounded-full bg-[#e8720c]" />
-      <span className="absolute bottom-[4px] left-[8px] h-[3px] w-[3px] rounded-full bg-white" />
-      <span className="absolute bottom-[4px] right-[5px] h-[3px] w-[3px] rounded-full bg-white" />
-    </span>
-  )
-}
+const socialLinks = [
+  {
+    label: 'Facebook',
+    href: '#',
+    icon: Facebook,
+  },
+  {
+    label: 'LinkedIn',
+    href: '#',
+    icon: Linkedin,
+  },
+  {
+    label: 'Twitter',
+    href: '#',
+    icon: Twitter,
+  },
+  {
+    label: 'Instagram',
+    href: '#',
+    icon: Instagram,
+  },
+]
 
 function FooterLink({
   href,
@@ -82,17 +95,15 @@ export function SiteFooter() {
             <Link
               href="/"
               aria-label="TruckEase Solutions home"
-              className="inline-flex items-center gap-3"
+              className="inline-flex items-center"
             >
-              <TruckEaseMark />
-
-              <span className="text-[19px] font-semibold tracking-[-0.025em]">
-                TruckEase
-                <span className="font-normal text-white/65">
-                  {' '}
-                  Solutions
-                </span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="TruckEase Solutions"
+                width={200}
+                height={54}
+                className="h-auto w-[170px] object-contain brightness-0 invert"
+              />
             </Link>
 
             <p className="mt-6 max-w-[370px] text-[14px] leading-7 text-white/58">
@@ -109,6 +120,34 @@ export function SiteFooter() {
               <ShieldCheck className="h-3.5 w-3.5 text-[#5c8a68]" />
               Serving the United States and Canada
             </div>
+
+            {/* Social media */}
+            <div className="mt-7">
+              <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
+                Follow TruckEase
+              </p>
+
+              <div className="mt-4 flex items-center gap-2">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon
+
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      aria-label={social.label}
+                      title={social.label}
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white/60 transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09] hover:text-white"
+                    >
+                      <Icon
+                        className="h-4 w-4"
+                        strokeWidth={1.8}
+                      />
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Navigate */}
@@ -119,7 +158,10 @@ export function SiteFooter() {
 
             <div className="mt-5 flex flex-col items-start">
               {navigateLinks.map((item) => (
-                <FooterLink key={item.href} href={item.href}>
+                <FooterLink
+                  key={item.href}
+                  href={item.href}
+                >
                   {item.label}
                 </FooterLink>
               ))}
@@ -134,7 +176,10 @@ export function SiteFooter() {
 
             <div className="mt-5 flex flex-col items-start">
               {legalLinks.map((item) => (
-                <FooterLink key={item.href} href={item.href}>
+                <FooterLink
+                  key={item.href}
+                  href={item.href}
+                >
                   {item.label}
                 </FooterLink>
               ))}
@@ -160,6 +205,7 @@ export function SiteFooter() {
                   <span className="block text-[11px] uppercase tracking-[0.08em] text-white/35">
                     Email
                   </span>
+
                   <span className="mt-0.5 block text-[13px] text-white/70 transition-colors group-hover:text-white">
                     contact@truckease.co
                   </span>
@@ -175,6 +221,7 @@ export function SiteFooter() {
                   <span className="block text-[11px] uppercase tracking-[0.08em] text-white/35">
                     Human Review Hours
                   </span>
+
                   <span className="mt-0.5 block text-[13px] leading-5 text-white/70">
                     Monday–Friday
                     <br />
