@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       },
     ],
 
-    apple: '/apple-icon.png',
+    TES: '/logo.png',
   },
 }
 
