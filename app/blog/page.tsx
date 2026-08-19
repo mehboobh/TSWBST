@@ -242,28 +242,45 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* CLOSING CTA */}
-      <section className="bg-[#0d1831] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
-          <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-black tracking-[-0.045em] text-white sm:text-4xl lg:text-5xl">
-                Information is useful. Visibility is better.
-              </h2>
-              <p className="mt-4 text-[16px] leading-7 text-[#aeb9ca]">
-                If you want to understand your own compliance position rather than simply read about regulatory changes, start with a TruckEase Risk Screening.
-              </p>
-            </div>
+{/* ==================================================================== */}
+{/* CLOSING CTA                                                         */}
+{/* ==================================================================== */}
 
-            <Link
-              href="/risk-screening"
-              className="inline-flex items-center justify-center rounded-xl bg-[#f57019] px-8 py-4 text-[13px] font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#e0610d]"
-            >
-              Request a Risk Screening
-            </Link>
-          </div>
+<section className="bg-[#f7f8fb] py-16 sm:py-20 lg:py-24">
+  <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+    <div className="relative overflow-hidden rounded-[32px] bg-[#0d1831] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20 shadow-2xl">
+      {/* Background ambient lighting subtle glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 -top-20 h-[380px] w-[380px] rounded-full bg-[#405486]/20 blur-3xl"
+      />
+
+      <div className="relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-black leading-[1.05] tracking-[-0.045em] text-white sm:text-4xl lg:text-5xl">
+            Information is useful.{' '}
+            <span className="text-[#f57019]">
+              Visibility is better.
+            </span>
+          </h2>
+          <p className="mt-5 text-[15px] leading-7 text-[#aeb9ca] sm:text-[16px]">
+            If you want to understand your own compliance position rather than simply read about regulatory changes, start with a TruckEase Risk Screening.
+          </p>
         </div>
-      </section>
+
+        <div className="flex shrink-0 items-center gap-4">
+          <Link
+            href="/risk-screening"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#f57019] px-7 py-4 text-[12px] font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#e0610d]"
+          >
+            Request a Risk Screening
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     </main>
   )
 }
