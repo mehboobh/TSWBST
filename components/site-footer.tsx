@@ -180,7 +180,7 @@ export function SiteFooter() {
               />
             </Link>
 
-            <p className="mt-6 max-w-[370px] text-[14px] leading-7 text-white/58">
+            <p className="mt-4 max-w-[320px] text-[14px] leading-6 text-white/58">
             Compliance management for trucking companies
             across the United States and Canada.
             </p>
