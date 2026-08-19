@@ -98,110 +98,139 @@ export default function AboutPage() {
   return (
     <main className="overflow-hidden bg-[#f7f8fb] text-[#142342]">
 
-      {/* ================================================================== */}
-      {/* HERO                                                               */}
-      {/* ================================================================== */}
+{/* ================================================================== */}
+{/* HERO                                                               */}
+{/* ================================================================== */}
 
-      <section className="relative overflow-hidden bg-white">
+<section className="relative overflow-hidden bg-white">
+  {/* atmosphere — brand navy + orange + indigo */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute -right-48 -top-56 h-[640px] w-[640px] rounded-full bg-[#e85d04]/[0.07] blur-[120px]"
+  />
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute -left-56 bottom-[-260px] h-[560px] w-[560px] rounded-full bg-[#4353a4]/[0.07] blur-[120px]"
+  />
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0 opacity-[0.028]"
+    style={{
+      backgroundImage:
+        'linear-gradient(#142342 1px, transparent 1px), linear-gradient(90deg, #142342 1px, transparent 1px)',
+      backgroundSize: '46px 46px',
+      maskImage:
+        'radial-gradient(ellipse 70% 60% at 30% 20%, black, transparent)',
+    }}
+  />
 
-        {/* atmosphere — brand navy + orange + indigo, echoed across the page */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-48 -top-56 h-[640px] w-[640px] rounded-full bg-[#e85d04]/[0.07] blur-[120px]"
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -left-56 bottom-[-260px] h-[560px] w-[560px] rounded-full bg-[#4353a4]/[0.07] blur-[120px]"
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.028]"
-          style={{
-            backgroundImage:
-              'linear-gradient(#142342 1px, transparent 1px), linear-gradient(90deg, #142342 1px, transparent 1px)',
-            backgroundSize: '46px 46px',
-            maskImage:
-              'radial-gradient(ellipse 70% 60% at 30% 20%, black, transparent)',
-          }}
-        />
-
-        <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-8 lg:px-10 lg:pb-20 lg:pt-28">
-
-          <div className="max-w-5xl">
-
-            {/* eyebrow */}
-            <div className="mb-7 flex items-center gap-3">
-              <span className="h-px w-8 bg-[#e85d04]" />
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
-                About TruckEase
-              </span>
-            </div>
-
-            {/* headline */}
-            <h1 className="max-w-4xl text-[48px] font-black leading-[0.98] tracking-[-0.05em] text-[#142342] sm:text-[62px] lg:text-[78px]">
-              Bringing Clarity
-              <br />
-              and Confidence to
-              <br />
-              <span className="relative inline-block">
-                <span
-                  aria-hidden="true"
-                  className="absolute -inset-x-2 bottom-[0.1em] top-[0.32em] -z-10 rounded-full bg-[#e85d04]/[0.12] blur-xl"
-                />
-                <span className="text-[#e85d04]">
-                  Commercial Compliance.
-                </span>
-              </span>
-            </h1>
-
-            {/* supporting statement */}
-            <p className="mt-8 max-w-2xl text-[17px] leading-8 text-[#5f708c] sm:text-[18px]">
-              Built for United States and Canadian commercial fleets seeking
-              continuous operational visibility.
-            </p>
-
-            {/* at-a-glance strip */}
-            <div className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-[#e4e8f0] pt-7">
-              <div>
-                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
-                  2
-                </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
-                  Countries Covered
-                </p>
-              </div>
-
-              <div>
-                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
-                  24/7
-                </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
-                  Automated Monitoring
-                </p>
-              </div>
-
-              <div>
-                <p className="font-serif text-2xl font-medium text-[#142342] sm:text-3xl">
-                  Mon&ndash;Fri
-                </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a94a8]">
-                  Human Review
-                </p>
-              </div>
-            </div>
-
-          </div>
+  <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-8 lg:px-10 lg:pb-20 lg:pt-28">
+    <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+      
+      {/* Left Column Content */}
+      <div className="max-w-2xl">
+        {/* eyebrow */}
+        <div className="mb-7 flex items-center gap-3">
+          <span className="h-px w-8 bg-[#e85d04]" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+            About TruckEase
+          </span>
         </div>
 
-        {/* soft blend into the next section instead of a hard rule */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#f5f1e9]"
-        />
-      </section>
+        {/* headline */}
+        <h1 className="text-[44px] font-black leading-[0.98] tracking-[-0.05em] text-[#142342] sm:text-[56px] lg:text-[70px]">
+          Bringing Clarity
+          <br />
+          and Confidence to
+          <br />
+          <span className="relative inline-block">
+            <span
+              aria-hidden="true"
+              className="absolute -inset-x-2 bottom-[0.1em] top-[0.32em] -z-10 rounded-full bg-[#e85d04]/[0.12] blur-xl"
+            />
+            <span className="text-[#e85d04]">
+              Commercial Compliance.
+            </span>
+          </span>
+        </h1>
+
+        {/* supporting statement */}
+        <p className="mt-8 max-w-xl text-[17px] leading-8 text-[#5f708c] sm:text-[18px]">
+          Built for United States and Canadian commercial fleets seeking
+          continuous operational visibility.
+        </p>
+      </div>
+
+      {/* Right Column Dark Box Card */}
+      <div className="relative w-full max-w-md justify-self-center lg:justify-self-end">
+        <div className="relative overflow-hidden rounded-[28px] bg-[#0d172c] p-8 text-white shadow-[0_25px_60px_-15px_rgba(13,23,44,0.3)] border border-white/10 sm:p-10">
+          
+          {/* Card Top Eyebrow */}
+          <div className="mb-5 flex items-center gap-3">
+            <span className="h-px w-6 bg-[#e85d04]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e85d04]">
+              Overview
+            </span>
+          </div>
+
+          {/* Card Heading */}
+          <h2 className="font-serif text-[26px] leading-[1.15] tracking-[-0.02em] text-white sm:text-[30px]">
+            Understand the signals before they become surprises.
+          </h2>
+
+          {/* Card Subtitle */}
+          <p className="mt-4 text-xs leading-6 text-[#8a9bba]">
+            Continuous monitoring and regulatory clarity designed for seamless cross-border operations.
+          </p>
+
+          {/* Stats Grid */}
+          <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <div>
+              <p className="font-serif text-2xl font-bold text-white sm:text-3xl">
+                2
+              </p>
+              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6b7c96]">
+                Countries Covered
+              </p>
+            </div>
+
+            <div>
+              <p className="font-serif text-2xl font-bold text-white sm:text-3xl">
+                24/7
+              </p>
+              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6b7c96]">
+                Automated Monitoring
+              </p>
+            </div>
+
+            <div>
+              <p className="font-serif text-2xl font-bold text-white sm:text-3xl">
+                Mon&ndash;Fri
+              </p>
+              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6b7c96]">
+                Human Review
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Footer Note */}
+          <div className="mt-8 flex items-center gap-2 border-t border-white/10 pt-5 text-[11px] text-[#71829e]">
+            <ShieldCheck className="h-4 w-4 shrink-0 text-[#e85d04]" />
+            <span>Continuous visibility for US and Canadian fleets.</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {/* soft blend into the next section */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#f5f1e9]"
+  />
+</section>
 
       {/* ================================================================== */}
       {/* WHY TRUCK EASE                                                     */}
