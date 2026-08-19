@@ -75,9 +75,21 @@ export default function ContactPage() {
       {/* HERO                                                            */}
       {/* ================================================================ */}
 
-      <section className="bg-[#0c1a36]">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1fr_0.75fr] lg:items-end lg:gap-24">
+      <section className="relative overflow-hidden bg-[#0c1a36]">
+        {/* Very subtle background atmosphere */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#16274a] opacity-60 blur-3xl"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-48 -left-40 h-[480px] w-[480px] rounded-full bg-[#16274a] opacity-40 blur-3xl"
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-28">
+          <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
+            {/* LEFT — HERO COPY */}
             <div>
               <div className="mb-7 flex items-center gap-3">
                 <span className="h-px w-9 bg-[#e8720c]" />
@@ -87,10 +99,12 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[1.02] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
+              <h1 className="max-w-3xl font-serif text-5xl font-medium leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-[76px]">
                 Talk to
                 <br />
-                <span className="text-[#e8720c]">Us.</span>
+                <span className="text-[#e8720c]">
+                  our team.
+                </span>
               </h1>
 
               <p className="mt-8 max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
@@ -100,15 +114,31 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="border-l border-white/10 pl-7 lg:pl-10">
-              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">
-                TruckEase Solutions Inc.
-              </p>
+            {/* RIGHT — SUPPORT STATEMENT */}
+            <div className="lg:pb-2">
+              <div className="border-l border-white/10 pl-7 lg:pl-10">
+                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">
+                  TruckEase Solutions Inc.
+                </p>
 
-              <p className="mt-5 max-w-sm font-serif text-2xl leading-tight text-white/90">
-                Independent compliance software and administrative workflow
-                support for commercial trucking operations.
-              </p>
+                <p className="mt-5 max-w-md font-serif text-2xl leading-[1.25] text-white/90 sm:text-3xl">
+                  Independent compliance software and administrative workflow
+                  support for commercial trucking operations.
+                </p>
+
+                <div className="mt-8 h-px w-full max-w-md bg-white/10" />
+
+                <div className="mt-5 flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06]">
+                    <ShieldCheck className="h-4 w-4 text-[#e8720c]" />
+                  </span>
+
+                  <p className="max-w-md text-xs leading-5 text-white/45">
+                    Direct human support for questions about compliance,
+                    operations, and the TruckEase platform.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -131,7 +161,7 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <div className="rounded-2xl border border-[#e0ddd5] bg-white p-7 sm:p-8">
+              <div className="rounded-[24px] border border-[#e0ddd5] bg-white p-7 sm:p-8">
                 <div className="space-y-7">
                   <Channel
                     icon={<Mail className="h-4 w-4" />}
@@ -157,8 +187,8 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Operational Confidence */}
-              <div className="mt-6 overflow-hidden rounded-2xl bg-[#0c1a36]">
+              {/* OPERATIONAL CONFIDENCE */}
+              <div className="mt-6 overflow-hidden rounded-[24px] bg-[#0c1a36]">
                 <div className="p-7 sm:p-8">
                   <div className="flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
@@ -186,7 +216,7 @@ export default function ContactPage() {
             </aside>
 
             {/* RIGHT COLUMN — FORM */}
-            <div className="rounded-2xl border border-[#e0ddd5] bg-white p-7 shadow-[0_18px_55px_rgba(12,26,54,0.045)] sm:p-10 lg:p-12">
+            <div className="rounded-[24px] border border-[#e0ddd5] bg-white p-7 shadow-[0_18px_55px_rgba(12,26,54,0.045)] sm:p-10 lg:p-12">
               {!submitted ? (
                 <>
                   <div className="mb-9">
@@ -194,7 +224,7 @@ export default function ContactPage() {
                       Send a Message
                     </span>
 
-                    <h2 className="mt-4 font-serif text-3xl font-medium tracking-[-0.025em] sm:text-4xl">
+                    <h2 className="mt-4 font-serif text-3xl font-medium leading-tight tracking-[-0.03em] sm:text-4xl">
                       What can we help
                       <br />
                       you with?
@@ -205,7 +235,7 @@ export default function ContactPage() {
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
-                    {/* Name + email */}
+                    {/* Name + Email */}
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Field
                         label="Full name"
@@ -227,7 +257,7 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    {/* Company + identifier */}
+                    {/* Company + Identifier */}
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Field
                         label="Company name"
@@ -257,7 +287,7 @@ export default function ContactPage() {
                       options={contactReasons}
                     />
 
-                    {/* Topic checkboxes */}
+                    {/* Topic Checkboxes */}
                     <fieldset>
                       <legend className="mb-3 text-xs font-semibold text-[#0c1a36]">
                         What&apos;s this about, more specifically?
@@ -358,29 +388,60 @@ export default function ContactPage() {
       </section>
 
       {/* ================================================================ */}
-      {/* QUIET CLOSING                                                   */}
+      {/* DIFFERENT STARTING POINT                                        */}
       {/* ================================================================ */}
 
-      <section className="border-t border-[#e2e7ec] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-20">
-          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
-            <div>
-              <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#697281]">
-                Need a different starting point?
-              </span>
+      <section className="bg-[#f7f4ee]">
+        <div className="mx-auto max-w-7xl px-6 pb-16 sm:px-8 lg:px-10 lg:pb-24">
+          {/* Contained dark panel */}
+          <div className="relative overflow-hidden rounded-[24px] bg-[#0c1a36]">
+            {/* Subtle grid */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-40"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)',
+                backgroundSize: '32px 32px',
+              }}
+            />
 
-              <h2 className="mt-3 font-serif text-3xl font-medium tracking-[-0.025em]">
-                See where your compliance position stands.
-              </h2>
+            {/* Subtle orange atmosphere */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[#e8720c]/10 blur-3xl"
+            />
+
+            <div className="relative flex flex-col justify-between gap-10 p-8 sm:p-10 lg:flex-row lg:items-center lg:p-14">
+              <div className="max-w-2xl">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="h-px w-8 bg-[#e8720c]" />
+
+                  <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#e8720c]">
+                    Need a different starting point?
+                  </span>
+                </div>
+
+                <h2 className="font-serif text-3xl font-medium leading-tight tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl">
+                  See where your
+                  <br />
+                  compliance position stands.
+                </h2>
+
+                <p className="mt-5 max-w-xl text-sm leading-6 text-white/50">
+                  Start with a risk screening and get a clearer view of the
+                  compliance signals that may deserve attention.
+                </p>
+              </div>
+
+              <Link
+                href="/risk-screening"
+                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#e8720c] px-6 text-sm font-semibold text-white transition hover:bg-[#f17d1b]"
+              >
+                Request a Risk Screening
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-
-            <Link
-              href="/risk-screening"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#0c1a36] px-6 text-sm font-semibold text-white transition hover:bg-[#16274a]"
-            >
-              Request a Risk Screening
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
         </div>
       </section>
