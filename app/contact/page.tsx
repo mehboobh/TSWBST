@@ -100,10 +100,10 @@ export default function ContactPage() {
               </div>
 
               <h1 className="max-w-3xl font-serif text-5xl font-medium leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-[76px]">
-                Talk to
+                Let’s Talk About
                 <br />
                 <span className="text-[#e8720c]">
-                  our team.
+                  Your Compliance.
                 </span>
               </h1>
 
