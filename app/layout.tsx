@@ -30,13 +30,9 @@ export const metadata: Metadata = {
     'TruckEase combines regulatory expertise and AI-powered technology to help trucking companies across the United States and Canada manage compliance with greater visibility and confidence.',
 
   icons: {
-icon: '/logo.png',
+    icon: '/logo.png',
     shortcut: '/logo.png',
     apple: '/logo.png',
-      },
-    ],
-
-    TES: '/logo.png',
   },
 }
 
