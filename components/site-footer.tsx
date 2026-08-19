@@ -183,7 +183,7 @@ export function SiteFooter() {
           </div>
 
           {/* Navigate */}
-          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
+          <div className="lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Navigate
             </p>
@@ -201,7 +201,7 @@ export function SiteFooter() {
           </div>
 
           {/* Legal */}
-          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
+          <div className="lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Legal &amp; Support
             </p>
@@ -219,7 +219,7 @@ export function SiteFooter() {
           </div>
 
           {/* Contact */}
-          <div className="lg:self-center lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
+          <div className="lg:border-l lg:border-white/[0.06] lg:pl-8 xl:pl-10">
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#e8720c]">
               Contact
             </p>
