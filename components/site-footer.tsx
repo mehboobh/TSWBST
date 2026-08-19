@@ -64,61 +64,21 @@ function XTwitterIcon() {
   )
 }
 
-function InstagramIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      aria-hidden="true"
-      className="h-4 w-4"
-    >
-      <rect
-        x="3.5"
-        y="3.5"
-        width="17"
-        height="17"
-        rx="4.5"
-      />
-
-      <circle
-        cx="12"
-        cy="12"
-        r="4"
-      />
-
-      <circle
-        cx="17.3"
-        cy="6.8"
-        r="1"
-        fill="currentColor"
-        stroke="none"
-      />
-    </svg>
-  )
-}
-
 const socialLinks = [
   {
     label: 'Facebook',
-    href: '#',
+    href: 'https://www.facebook.com/truckease',
     icon: FacebookIcon,
   },
   {
     label: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/company/truckease',
     icon: LinkedInIcon,
   },
   {
     label: 'Twitter',
-    href: '#',
+    href: 'https://x.com/TruckEase',
     icon: XTwitterIcon,
-  },
-  {
-    label: 'Instagram',
-    href: '#',
-    icon: InstagramIcon,
   },
 ]
 
@@ -208,6 +168,8 @@ export function SiteFooter() {
                     <a
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={social.label}
                       title={social.label}
                       className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white/60 transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09] hover:text-white"
