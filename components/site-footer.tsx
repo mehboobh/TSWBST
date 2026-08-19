@@ -122,7 +122,8 @@ export function SiteFooter() {
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-7 lg:px-10 xl:px-12">
         {/* Main footer */}
-        <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-6 lg:py-20">
+        <div className="grid items-start gap-12 py-14 sm:py-16 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-6 lg:py-20">
+
           {/* Brand */}
           <div className="max-w-[390px]">
             <Link
@@ -141,8 +142,8 @@ export function SiteFooter() {
             </Link>
 
             <p className="mt-3 max-w-[320px] text-[14px] leading-6 text-white/58">
-            Compliance management for trucking companies
-            across the United States and Canada.
+              Compliance management for trucking companies
+              across the United States and Canada.
             </p>
 
             <p className="mt-3 text-[14px] font-medium leading-6 text-white/85">
