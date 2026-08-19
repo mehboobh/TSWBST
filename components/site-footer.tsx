@@ -8,7 +8,6 @@ import {
   Linkedin,
   Mail,
   ShieldCheck,
-  Twitter,
 } from 'lucide-react'
 
 const navigateLinks = [
@@ -26,6 +25,27 @@ const legalLinks = [
   { label: 'Legal Disclaimer', href: '/disclaimer' },
 ]
 
+function XTwitterIcon({
+  className,
+}: {
+  className?: string
+}) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M18.244 2.25H21.552L14.325 10.507L22.827 21.75H16.17L10.954 14.933L4.99 21.75H1.68L9.41 12.915L1.254 2.25H8.08L12.794 8.481L18.244 2.25ZM17.083 19.77H18.917L7.084 4.126H5.116L17.083 19.77Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
 const socialLinks = [
   {
     label: 'Facebook',
@@ -40,7 +60,7 @@ const socialLinks = [
   {
     label: 'Twitter',
     href: '#',
-    icon: Twitter,
+    icon: XTwitterIcon,
   },
   {
     label: 'Instagram',
@@ -76,7 +96,6 @@ export function SiteFooter() {
 
   return (
     <footer className="relative overflow-hidden bg-[#0c1a36] text-white">
-      {/* Subtle grid / atmosphere */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.045]"
@@ -88,7 +107,6 @@ export function SiteFooter() {
       />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-7 lg:px-10 xl:px-12">
-        {/* Main footer */}
         <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-10 lg:py-20">
           {/* Brand */}
           <div className="max-w-[390px]">
@@ -139,10 +157,7 @@ export function SiteFooter() {
                       title={social.label}
                       className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white/60 transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09] hover:text-white"
                     >
-                      <Icon
-                        className="h-4 w-4"
-                        strokeWidth={1.8}
-                      />
+                      <Icon className="h-4 w-4" />
                     </a>
                   )
                 })}
@@ -233,10 +248,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom divider */}
         <div className="border-t border-white/10" />
 
-        {/* Bottom bar */}
         <div className="flex flex-col gap-4 py-6 text-[11px] leading-5 text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {currentYear} TruckEase Solutions Inc. All rights reserved.
