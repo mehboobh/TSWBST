@@ -644,16 +644,6 @@ export default function PlatformPage() {
           className="pointer-events-none absolute -left-40 bottom-[-240px] h-[520px] w-[520px] rounded-full bg-[#f57019]/[0.045] blur-3xl"
         />
 
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-        />
-
         <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10 lg:py-24">
           <div className="max-w-4xl">
             <div className="mb-6 flex items-center gap-3">
