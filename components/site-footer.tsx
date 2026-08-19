@@ -191,7 +191,7 @@ export function SiteFooter() {
 
             <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-[11px] font-medium tracking-[0.04em] text-white/60">
               <ShieldCheck className="h-3.5 w-3.5 text-[#5c8a68]" />
-              Serving the United States and Canada
+              Secure, access-controlled records
             </div>
 
             {/* Social media */}
