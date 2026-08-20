@@ -108,6 +108,14 @@ export function Hero() {
       </div>
 
       {/* ------------------------------------------------------------------ */}
+      {/* Hero row — image is scoped to THIS box, not the whole section,      */}
+      {/* so it ends exactly where the row's content ends (right after the   */}
+      {/* CTAs), instead of stretching down behind the feature strip below.  */}
+      {/* ------------------------------------------------------------------ */}
+
+      <div className="relative">
+
+      {/* ------------------------------------------------------------------ */}
       {/* HERO IMAGE                                                          */}
       {/* ------------------------------------------------------------------ */}
 
@@ -167,7 +175,8 @@ export function Hero() {
           />
 
           {/* -------------------------------------------------------------- */}
-          {/* Slight bottom fade                                              */}
+          {/* Bottom fade — resolves to fully opaque white right at the      */}
+          {/* bottom of the row, so nothing lingers behind the feature strip */}
           {/* -------------------------------------------------------------- */}
 
           <div
@@ -175,9 +184,10 @@ export function Hero() {
               absolute
               inset-x-0
               bottom-0
-              h-32
+              h-40
               bg-gradient-to-t
-              from-white/70
+              from-white
+              via-white/80
               to-transparent
             "
           />
@@ -387,6 +397,8 @@ export function Hero() {
             className="hidden lg:block"
           />
         </div>
+      </div>
+
       </div>
 
       {/* ------------------------------------------------------------------ */}
