@@ -109,8 +109,6 @@ export function Hero() {
 
       {/* ------------------------------------------------------------------ */}
       {/* HERO IMAGE                                                          */}
-      {/* The truck remains fully visible while the far-right side of the     */}
-      {/* photograph fades cleanly into the white page background.            */}
       {/* ------------------------------------------------------------------ */}
 
       <div
@@ -122,9 +120,9 @@ export function Hero() {
           right-0
           z-0
           hidden
-          w-[60%]
+          w-[62%]
           lg:block
-          xl:w-[62%]
+          xl:w-[64%]
         "
       >
         <div className="absolute inset-0">
@@ -133,30 +131,70 @@ export function Hero() {
             alt=""
             fill
             priority
-            sizes="62vw"
+            sizes="64vw"
             className="
               object-cover
-              object-[68%_center]
+              object-[62%_center]
             "
           />
 
           {/* -------------------------------------------------------------- */}
-          {/* Right-side fade                                                 */}
-          {/* Keep the truck and the central photograph fully visible.       */}
-          {/* The image fades only toward the far-right edge of the hero.     */}
+          {/* White fade into the text area                                  */}
           {/* -------------------------------------------------------------- */}
 
           <div
-            aria-hidden="true"
+            className="
+              absolute
+              inset-0
+              bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(255,255,255,0.98)_7%,rgba(255,255,255,0.88)_15%,rgba(255,255,255,0.62)_25%,rgba(255,255,255,0.28)_36%,rgba(255,255,255,0)_49%)]
+            "
+          />
+
+          {/* -------------------------------------------------------------- */}
+          {/* Slight top fade                                                 */}
+          {/* -------------------------------------------------------------- */}
+
+          <div
+            className="
+              absolute
+              inset-x-0
+              top-0
+              h-24
+              bg-gradient-to-b
+              from-white/55
+              to-transparent
+            "
+          />
+
+          {/* -------------------------------------------------------------- */}
+          {/* Slight bottom fade                                              */}
+          {/* -------------------------------------------------------------- */}
+
+          <div
+            className="
+              absolute
+              inset-x-0
+              bottom-0
+              h-32
+              bg-gradient-to-t
+              from-white/70
+              to-transparent
+            "
+          />
+
+          {/* -------------------------------------------------------------- */}
+          {/* Soft right-side vignette                                       */}
+          {/* -------------------------------------------------------------- */}
+
+          <div
             className="
               absolute
               inset-y-0
               right-0
-              w-[34%]
-              bg-gradient-to-r
-              from-transparent
-              via-white/20
-              to-white
+              w-[18%]
+              bg-gradient-to-l
+              from-white/10
+              to-transparent
             "
           />
         </div>
