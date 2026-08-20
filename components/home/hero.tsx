@@ -109,9 +109,8 @@ export function Hero() {
 
       {/* ------------------------------------------------------------------ */}
       {/* HERO IMAGE                                                          */}
-      {/* The truck is treated as a contained hero visual rather than a      */}
-      {/* full-width background. Its left edge is deliberately faded into    */}
-      {/* white so the photograph finishes visually just after the CTA area. */}
+      {/* The truck remains fully visible while the far-right side of the     */}
+      {/* photograph fades cleanly into the white page background.            */}
       {/* ------------------------------------------------------------------ */}
 
       <div
@@ -142,63 +141,22 @@ export function Hero() {
           />
 
           {/* -------------------------------------------------------------- */}
-          {/* White fade into the text area                                  */}
+          {/* Right-side fade                                                 */}
+          {/* Keep the truck and the central photograph fully visible.       */}
+          {/* The image fades only toward the far-right edge of the hero.     */}
           {/* -------------------------------------------------------------- */}
 
           <div
-            className="
-              absolute
-              inset-0
-              bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(255,255,255,1)_18%,rgba(255,255,255,0.96)_25%,rgba(255,255,255,0.82)_31%,rgba(255,255,255,0.5)_39%,rgba(255,255,255,0.14)_48%,rgba(255,255,255,0)_56%)]
-            "
-          />
-
-          {/* -------------------------------------------------------------- */}
-          {/* Slight top fade                                                 */}
-          {/* -------------------------------------------------------------- */}
-
-          <div
-            className="
-              absolute
-              inset-x-0
-              top-0
-              h-24
-              bg-gradient-to-b
-              from-white/55
-              to-transparent
-            "
-          />
-
-          {/* -------------------------------------------------------------- */}
-          {/* Slight bottom fade                                              */}
-          {/* -------------------------------------------------------------- */}
-
-          <div
-            className="
-              absolute
-              inset-x-0
-              bottom-0
-              h-40
-              bg-gradient-to-t
-              from-white/95
-              via-white/35
-              to-transparent
-            "
-          />
-
-          {/* -------------------------------------------------------------- */}
-          {/* Soft right-side vignette                                       */}
-          {/* -------------------------------------------------------------- */}
-
-          <div
+            aria-hidden="true"
             className="
               absolute
               inset-y-0
               right-0
-              w-[18%]
-              bg-gradient-to-l
-              from-white/10
-              to-transparent
+              w-[34%]
+              bg-gradient-to-r
+              from-transparent
+              via-white/20
+              to-white
             "
           />
         </div>
