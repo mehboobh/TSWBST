@@ -109,6 +109,9 @@ export function Hero() {
 
       {/* ------------------------------------------------------------------ */}
       {/* HERO IMAGE                                                          */}
+      {/* The truck is treated as a contained hero visual rather than a      */}
+      {/* full-width background. Its left edge is deliberately faded into    */}
+      {/* white so the photograph finishes visually just after the CTA area. */}
       {/* ------------------------------------------------------------------ */}
 
       <div
@@ -120,9 +123,9 @@ export function Hero() {
           right-0
           z-0
           hidden
-          w-[62%]
+          w-[60%]
           lg:block
-          xl:w-[64%]
+          xl:w-[62%]
         "
       >
         <div className="absolute inset-0">
@@ -131,10 +134,10 @@ export function Hero() {
             alt=""
             fill
             priority
-            sizes="64vw"
+            sizes="62vw"
             className="
               object-cover
-              object-[62%_center]
+              object-[68%_center]
             "
           />
 
@@ -146,7 +149,7 @@ export function Hero() {
             className="
               absolute
               inset-0
-              bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(255,255,255,0.98)_7%,rgba(255,255,255,0.88)_15%,rgba(255,255,255,0.62)_25%,rgba(255,255,255,0.28)_36%,rgba(255,255,255,0)_49%)]
+              bg-[linear-gradient(90deg,rgba(255,255,255,1)_0%,rgba(255,255,255,1)_18%,rgba(255,255,255,0.96)_25%,rgba(255,255,255,0.82)_31%,rgba(255,255,255,0.5)_39%,rgba(255,255,255,0.14)_48%,rgba(255,255,255,0)_56%)]
             "
           />
 
@@ -175,9 +178,10 @@ export function Hero() {
               absolute
               inset-x-0
               bottom-0
-              h-32
+              h-40
               bg-gradient-to-t
-              from-white/70
+              from-white/95
+              via-white/35
               to-transparent
             "
           />
